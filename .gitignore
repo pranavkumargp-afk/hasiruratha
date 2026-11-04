@@ -1,0 +1,23 @@
+*.pyc
+__pycache__/
+node_modules/
+.DS_Store
+*.egg-info/
+
+# Secrets and environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+credentials.json
+
+# Local development
+.DS_Store
+
+# Old development backups
+*.bak
+*.backup
+*.before-*
+*.login-backup

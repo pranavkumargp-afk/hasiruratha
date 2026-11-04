@@ -1,0 +1,208 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-27 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "site_id",
+  "site_name",
+  "site_type",
+  "status",
+  "priority",
+  "zone_id",
+  "group_id",
+  "column_break_1",
+  "road",
+  "area",
+  "tree_count",
+  "stretch_length",
+  "added_by",
+  "date_added",
+  "section_gps",
+  "gps_lat",
+  "gps_lng",
+  "column_break_2",
+  "gps_lat2",
+  "gps_lng2",
+  "section_more",
+  "notes",
+  "photo_url"
+ ],
+ "fields": [
+  {
+   "fieldname": "site_id",
+   "fieldtype": "Data",
+   "label": "Site ID",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "site_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "site_type",
+   "fieldtype": "Data",
+   "label": "Type (spot / stretch)",
+   "default": "spot"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Identified\nPlanned\nCompleted\nMonitoring\nUrgent\nPre-existing",
+   "default": "Identified",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "priority",
+   "fieldtype": "Data",
+   "label": "Priority",
+   "default": "Medium"
+  },
+  {
+   "fieldname": "zone_id",
+   "fieldtype": "Link",
+   "label": "Zone",
+   "options": "HR Zone",
+   "in_standard_filter": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "group_id",
+   "fieldtype": "Data",
+   "label": "Group ID",
+   "default": "GRP-001"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break",
+   "label": "Column Break 1"
+  },
+  {
+   "fieldname": "road",
+   "fieldtype": "Data",
+   "label": "Road",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "area",
+   "fieldtype": "Data",
+   "label": "Area"
+  },
+  {
+   "fieldname": "tree_count",
+   "fieldtype": "Int",
+   "label": "Tree Count",
+   "default": "1"
+  },
+  {
+   "fieldname": "stretch_length",
+   "fieldtype": "Data",
+   "label": "Stretch Length"
+  },
+  {
+   "fieldname": "added_by",
+   "fieldtype": "Data",
+   "label": "Added By"
+  },
+  {
+   "fieldname": "date_added",
+   "fieldtype": "Date",
+   "label": "Date Added"
+  },
+  {
+   "fieldname": "section_gps",
+   "fieldtype": "Section Break",
+   "label": "GPS"
+  },
+  {
+   "fieldname": "gps_lat",
+   "fieldtype": "Float",
+   "label": "Latitude",
+   "precision": "9"
+  },
+  {
+   "fieldname": "gps_lng",
+   "fieldtype": "Float",
+   "label": "Longitude",
+   "precision": "9"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break",
+   "label": "Column Break 2"
+  },
+  {
+   "fieldname": "gps_lat2",
+   "fieldtype": "Float",
+   "label": "Latitude (end)",
+   "precision": "9"
+  },
+  {
+   "fieldname": "gps_lng2",
+   "fieldtype": "Float",
+   "label": "Longitude (end)",
+   "precision": "9"
+  },
+  {
+   "fieldname": "section_more",
+   "fieldtype": "Section Break",
+   "label": "Section More"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "photo_url",
+   "fieldtype": "Small Text",
+   "label": "Photo URL"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-10-27 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Hasiruratha",
+ "name": "HR Site",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "report": 1,
+   "import": 1,
+   "share": 1
+  },
+  {
+   "role": "HR Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "report": 1,
+   "import": 1,
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "autoname": "field:site_id",
+ "naming_rule": "By fieldname",
+ "title_field": "site_name",
+ "search_fields": "site_name,road,area"
+}

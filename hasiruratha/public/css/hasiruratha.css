@@ -1,0 +1,360 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --hr-forest: #104b35;
+  --hr-deep: #0a3527;
+  --hr-green: #258451;
+  --hr-lime: #d9ed9b;
+  --hr-mint: #eaf5ed;
+  --hr-bg: #f4f7f4;
+  --hr-border: #e1e9e2;
+  --hr-text: #26382d;
+  --hr-muted: #78867c;
+  --hr-shadow: 0 4px 18px rgba(16,75,53,.055);
+}
+
+/* ================= DESKTOP APPLICATION ================= */
+
+@media (min-width: 900px) {
+  html, body {
+    width: 100% !important;
+    max-width: none !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: var(--hr-bg);
+  }
+
+  body {
+    display: block !important;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* One coordinated application grid */
+  #s-app {
+    display: grid !important;
+    grid-template-columns: 258px minmax(0, 1fr);
+    grid-template-rows: 76px auto minmax(0, 1fr);
+    grid-template-areas:
+      "sidebar header"
+      "sidebar stats"
+      "sidebar workspace";
+    width: 100% !important;
+    max-width: none !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: var(--hr-bg);
+  }
+
+  /* Sidebar */
+  #s-app > .tab-bar {
+    grid-area: sidebar;
+    position: relative !important;
+    inset: auto !important;
+    width: auto !important;
+    height: 100% !important;
+    min-height: 0;
+    margin: 0 !important;
+    padding: 24px 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 9px;
+    overflow-y: auto;
+    background: linear-gradient(165deg, var(--hr-forest), var(--hr-deep)) !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: 4px 0 22px rgba(0,0,0,.07);
+    z-index: 100;
+  }
+
+  #s-app .sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 76px;
+    padding: 4px 8px 20px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,.16);
+    color: #fff;
+  }
+
+  #s-app .sidebar-brand-mark {
+    width: 43px;
+    height: 43px;
+    flex: 0 0 43px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    background: var(--hr-lime);
+    color: var(--hr-forest);
+    font-size: 24px;
+  }
+
+  #s-app .sidebar-brand strong {
+    display: block;
+    font: 700 14px 'Poppins', sans-serif;
+    letter-spacing: .5px;
+  }
+
+  #s-app .sidebar-brand small {
+    display: block;
+    margin-top: 3px;
+    color: #c1d9c9;
+    font: 400 10px 'Poppins', sans-serif;
+  }
+
+  /* Do not override inline display:none on permission-controlled tabs */
+  #s-app > .tab-bar .tab {
+    flex: 0 0 auto !important;
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 13px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 13px;
+    border-radius: 10px;
+    color: #d4e5d9;
+    text-align: left;
+    font: 500 13px 'Poppins', sans-serif;
+    transition: background .18s ease, color .18s ease;
+  }
+
+  #s-app > .tab-bar .tab i {
+    font-size: 19px;
+    color: inherit;
+  }
+
+  #s-app > .tab-bar .tab span {
+    color: inherit;
+    font-size: 12px;
+  }
+
+  #s-app > .tab-bar .tab.on {
+    color: var(--hr-deep);
+    background: var(--hr-lime);
+    font-weight: 600;
+  }
+
+  #s-app > .tab-bar .tab.on i,
+  #s-app > .tab-bar .tab.on span {
+    color: var(--hr-deep);
+  }
+
+  #s-app > .tab-bar .tab:hover:not(.on) {
+    background: rgba(255,255,255,.10);
+    color: white;
+  }
+
+  #s-app > .tab-bar .tab-dot {
+    display: none !important;
+  }
+
+  #s-app > .tab-bar > div[style*="flex-direction:column"] {
+    flex: 1 1 auto !important;
+    width: 100%;
+    min-height: 12px;
+    margin: 8px 0;
+  }
+
+  #s-app > .tab-bar .fab {
+    width: 100%;
+    height: 48px;
+    min-height: 48px;
+    margin: 0;
+    border: 0;
+    border-radius: 11px;
+    background: var(--hr-green);
+    color: white;
+    box-shadow: 0 5px 14px rgba(0,0,0,.12);
+  }
+
+  #s-app > .tab-bar .fab::after {
+    content: "Add new site";
+    margin-left: 9px;
+    color: white;
+    font: 600 13px 'Poppins', sans-serif;
+  }
+
+  /* Header */
+  #s-app > .topbar {
+    grid-area: header;
+    width: 100% !important;
+    min-width: 0;
+    min-height: 76px;
+    margin: 0 !important;
+    padding: 12px 30px;
+    background: #fff !important;
+    border: 0;
+    border-bottom: 1px solid var(--hr-border);
+    box-shadow: 0 2px 12px rgba(16,75,53,.035);
+  }
+
+  #s-app > .topbar h1 {
+    color: var(--hr-forest);
+    font: 600 19px 'Poppins', sans-serif;
+  }
+
+  #s-app > .topbar h1 small {
+    color: var(--hr-muted);
+    font-size: 10px;
+  }
+
+  #s-app > .topbar .tb-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    background: var(--hr-mint);
+    color: var(--hr-forest);
+  }
+
+  /* Statistics */
+  #s-app > .status-strip {
+    grid-area: stats;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 17px 30px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    background: var(--hr-bg);
+    border: 0;
+  }
+
+  #s-app .sstat {
+    min-width: 0;
+    min-height: 76px;
+    padding: 13px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background: white;
+    border: 1px solid var(--hr-border);
+    border-radius: 13px;
+    box-shadow: var(--hr-shadow);
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+
+  #s-app .sstat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(16,75,53,.09);
+  }
+
+  #s-app .sstat-n {
+    color: var(--hr-forest);
+    font: 700 25px 'Poppins', sans-serif;
+  }
+
+  #s-app .sstat-l {
+    color: var(--hr-muted);
+    font-size: 11px;
+  }
+
+  /* Content panes share one workspace */
+  #s-app > .pane {
+    grid-area: workspace;
+    width: 100% !important;
+    min-width: 0;
+    min-height: 0;
+    margin: 0 !important;
+    padding: 0;
+    overflow: hidden;
+    background: var(--hr-bg);
+  }
+
+  #s-app > .pane .scroll {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 25px 30px 40px;
+    box-sizing: border-box;
+  }
+
+  #s-app #pane-map {
+    position: relative;
+    min-height: 0;
+  }
+
+  #s-app #map {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+  }
+
+  #s-app #pane-quickadd .scroll,
+  #s-app #pane-add .scroll {
+    max-width: 1100px;
+  }
+
+  /* Forms and cards */
+  #s-app .fsec {
+    padding: 22px;
+    margin-bottom: 18px;
+    background: white;
+    border: 1px solid var(--hr-border);
+    border-radius: 15px;
+    box-shadow: var(--hr-shadow);
+  }
+
+  #s-app .fsec-head {
+    margin-bottom: 16px;
+    color: var(--hr-forest);
+    font: 600 15px 'Poppins', sans-serif;
+  }
+
+  #s-app input:not([type="file"]),
+  #s-app select,
+  #s-app textarea {
+    border-radius: 9px;
+  }
+
+  #s-app .btn-main {
+    border-radius: 10px;
+  }
+
+  #s-app .add-chooser {
+    position: fixed;
+    z-index: 2000;
+  }
+
+  #s-app .add-chooser-sheet {
+    width: min(520px, calc(100vw - 40px));
+    margin: auto;
+    border-radius: 18px;
+  }
+}
+
+/* ================= TABLET ================= */
+
+@media (min-width: 760px) and (max-width: 899px) {
+  body {
+    max-width: none !important;
+  }
+
+  #s-app {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 899px) {
+  #s-app .sidebar-brand {
+    display: none !important;
+  }
+
+  #s-app > .tab-bar {
+    background: var(--hr-forest);
+  }
+}
