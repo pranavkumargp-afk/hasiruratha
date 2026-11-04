@@ -1,0 +1,189 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-27 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "condition_id",
+  "tree_id",
+  "site_id",
+  "visit_id",
+  "reported_by",
+  "date",
+  "resolved",
+  "resolved_date",
+  "section_flags",
+  "watering_needed",
+  "guard_damaged",
+  "guard_removal_needed",
+  "guard_needed",
+  "support_pole_needed",
+  "pesticide_needed",
+  "debris",
+  "leaning",
+  "dead",
+  "healthy",
+  "new_growth",
+  "section_notes",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "condition_id",
+   "fieldtype": "Data",
+   "label": "Condition ID",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "tree_id",
+   "fieldtype": "Link",
+   "label": "Tree",
+   "options": "HR Tree",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "site_id",
+   "fieldtype": "Link",
+   "label": "Site",
+   "options": "HR Site"
+  },
+  {
+   "fieldname": "visit_id",
+   "fieldtype": "Data",
+   "label": "Visit Id"
+  },
+  {
+   "fieldname": "reported_by",
+   "fieldtype": "Data",
+   "label": "Reported By",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "resolved",
+   "fieldtype": "Check",
+   "label": "Resolved",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "resolved_date",
+   "fieldtype": "Date",
+   "label": "Resolved Date"
+  },
+  {
+   "fieldname": "section_flags",
+   "fieldtype": "Section Break",
+   "label": "Findings"
+  },
+  {
+   "fieldname": "watering_needed",
+   "fieldtype": "Check",
+   "label": "Watering Needed"
+  },
+  {
+   "fieldname": "guard_damaged",
+   "fieldtype": "Check",
+   "label": "Guard Damaged"
+  },
+  {
+   "fieldname": "guard_removal_needed",
+   "fieldtype": "Check",
+   "label": "Guard Removal Needed"
+  },
+  {
+   "fieldname": "guard_needed",
+   "fieldtype": "Check",
+   "label": "Guard Needed"
+  },
+  {
+   "fieldname": "support_pole_needed",
+   "fieldtype": "Check",
+   "label": "Support Pole Needed"
+  },
+  {
+   "fieldname": "pesticide_needed",
+   "fieldtype": "Check",
+   "label": "Pesticide Needed"
+  },
+  {
+   "fieldname": "debris",
+   "fieldtype": "Check",
+   "label": "Debris"
+  },
+  {
+   "fieldname": "leaning",
+   "fieldtype": "Check",
+   "label": "Leaning"
+  },
+  {
+   "fieldname": "dead",
+   "fieldtype": "Check",
+   "label": "Dead"
+  },
+  {
+   "fieldname": "healthy",
+   "fieldtype": "Check",
+   "label": "Healthy"
+  },
+  {
+   "fieldname": "new_growth",
+   "fieldtype": "Check",
+   "label": "New Growth"
+  },
+  {
+   "fieldname": "section_notes",
+   "fieldtype": "Section Break",
+   "label": "Section Notes"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-10-27 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Hasiruratha",
+ "name": "HR Condition",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "report": 1,
+   "import": 1,
+   "share": 1
+  },
+  {
+   "role": "HR Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "report": 1,
+   "import": 1,
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "autoname": "field:condition_id",
+ "naming_rule": "By fieldname"
+}

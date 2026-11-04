@@ -1,0 +1,150 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-27 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "visit_id",
+  "site_id",
+  "status",
+  "planned_date",
+  "planned_time",
+  "service_type",
+  "volunteers_needed",
+  "column_break_1",
+  "group_id",
+  "planned_by",
+  "actual_date",
+  "team",
+  "willing_to_join",
+  "notes",
+  "photo_url"
+ ],
+ "fields": [
+  {
+   "fieldname": "visit_id",
+   "fieldtype": "Data",
+   "label": "Visit ID",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "site_id",
+   "fieldtype": "Link",
+   "label": "Site",
+   "options": "HR Site",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status",
+   "default": "Planned",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "planned_date",
+   "fieldtype": "Date",
+   "label": "Planned Date",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "planned_time",
+   "fieldtype": "Data",
+   "label": "Planned Time"
+  },
+  {
+   "fieldname": "service_type",
+   "fieldtype": "Data",
+   "label": "Service Type",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "volunteers_needed",
+   "fieldtype": "Int",
+   "label": "Volunteers Needed",
+   "default": "2"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break",
+   "label": "Column Break 1"
+  },
+  {
+   "fieldname": "group_id",
+   "fieldtype": "Data",
+   "label": "Group ID",
+   "default": "GRP-001"
+  },
+  {
+   "fieldname": "planned_by",
+   "fieldtype": "Data",
+   "label": "Planned By"
+  },
+  {
+   "fieldname": "actual_date",
+   "fieldtype": "Date",
+   "label": "Actual Date"
+  },
+  {
+   "fieldname": "team",
+   "fieldtype": "Small Text",
+   "label": "Team"
+  },
+  {
+   "fieldname": "willing_to_join",
+   "fieldtype": "Small Text",
+   "label": "Willing To Join"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "photo_url",
+   "fieldtype": "Small Text",
+   "label": "Photo URL"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-10-27 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Hasiruratha",
+ "name": "HR Visit",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "report": 1,
+   "import": 1,
+   "share": 1
+  },
+  {
+   "role": "HR Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "report": 1,
+   "import": 1,
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "autoname": "field:visit_id",
+ "naming_rule": "By fieldname"
+}

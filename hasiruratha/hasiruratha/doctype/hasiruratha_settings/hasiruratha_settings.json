@@ -1,0 +1,84 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-27 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_maps",
+  "google_maps_browser_key",
+  "google_maps_server_key",
+  "section_login",
+  "allow_phone_login",
+  "allow_self_registration",
+  "default_group_id"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_maps",
+   "fieldtype": "Section Break",
+   "label": "Google Maps"
+  },
+  {
+   "fieldname": "google_maps_browser_key",
+   "fieldtype": "Data",
+   "label": "Maps JavaScript key (browser)",
+   "description": "Key used by the map in the browser. Restrict it by HTTP referrer (your site URL) in Google Cloud."
+  },
+  {
+   "fieldname": "google_maps_server_key",
+   "fieldtype": "Password",
+   "label": "Geocoding key (server)",
+   "description": "Key used by the server for road-name lookup (Geocoding API). Do NOT use the browser key here; restrict this one to the Geocoding API only."
+  },
+  {
+   "fieldname": "section_login",
+   "fieldtype": "Section Break",
+   "label": "Volunteer login"
+  },
+  {
+   "fieldname": "allow_phone_login",
+   "fieldtype": "Check",
+   "label": "Allow volunteers to sign in with mobile number only",
+   "default": "1"
+  },
+  {
+   "fieldname": "allow_self_registration",
+   "fieldtype": "Check",
+   "label": "Allow new volunteers to register themselves",
+   "default": "1"
+  },
+  {
+   "fieldname": "default_group_id",
+   "fieldtype": "Data",
+   "label": "Default Group ID",
+   "default": "GRP-001"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-10-27 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Hasiruratha",
+ "name": "Hasiruratha Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "HR Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "issingle": 1
+}

@@ -1,0 +1,124 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "hash",
+ "creation": "2026-11-05 02:55:10.337260",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "application_type",
+  "volunteer",
+  "tree",
+  "application_date",
+  "reason",
+  "status",
+  "reviewed_by",
+  "review_date",
+  "review_notes"
+ ],
+ "fields": [
+  {
+   "default": "Volunteer Application",
+   "fieldname": "application_type",
+   "fieldtype": "Select",
+   "label": "Application Type",
+   "options": "Volunteer Application\nAdmin Assignment",
+   "reqd": 1
+  },
+  {
+   "fieldname": "volunteer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Volunteer",
+   "options": "HR Volunteer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tree",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Tree",
+   "options": "HR Tree",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "application_date",
+   "fieldtype": "Date",
+   "label": "Application Date"
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Reason for Application"
+  },
+  {
+   "default": "Pending",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Pending\nApproved\nRejected\nAssigned\nCancelled\nCompleted",
+   "reqd": 1
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Reviewed By",
+   "options": "User"
+  },
+  {
+   "fieldname": "review_date",
+   "fieldtype": "Date",
+   "label": "Review Date"
+  },
+  {
+   "fieldname": "review_notes",
+   "fieldtype": "Small Text",
+   "label": "Review Notes"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-11-05 02:55:10.337260",
+ "modified_by": "Administrator",
+ "module": "Hasiruratha",
+ "name": "HR Application",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Admin",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "volunteer",
+ "track_changes": 1
+}

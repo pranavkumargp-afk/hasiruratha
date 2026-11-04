@@ -1,0 +1,199 @@
+<!-- no-cache: 1 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hasiru Ratha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{--ink:#10281d;--moss:#0b4a34;--leaf:#16a34a;--bg:#f2f6f0;--card:#fff;--mute:#5d7066;--line:#dfe8dc;
+--healthy:#16a34a;--identified:#d97706;--planned:#ea580c;--urgent:#dc2626;--monitoring:#7c3aed}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font:15px/1.45 Figtree,system-ui,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:84px}
+h1,h2,h3,.big{font-family:'Bricolage Grotesque',sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+header{background:var(--moss);color:#fff;padding:calc(14px + env(safe-area-inset-top)) 0 64px}
+header .wrap{display:flex;align-items:center;gap:12px}
+.logo{width:42px;height:42px;border-radius:50%;background:#e6f4ea;color:var(--moss);display:grid;place-items:center;font:800 18px 'Bricolage Grotesque'}
+header h1{font-size:20px;line-height:1.1}
+header small{opacity:.75}
+.sp{flex:1}
+.ib{background:rgba(255,255,255,.14);border:0;color:#fff;width:38px;height:38px;border-radius:12px;cursor:pointer;font-size:16px}
+.ib:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #86efac;outline-offset:2px}
+.hero{background:var(--card);border-radius:22px;margin-top:-48px;padding:18px 20px;box-shadow:0 10px 30px rgba(11,74,52,.12)}
+.hero-top{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.big{font-size:54px;font-weight:800;line-height:.9;color:var(--moss)}
+.hero-top p{color:var(--mute);padding-bottom:4px}
+.hero-top .mini{margin-left:auto;display:flex;gap:18px}
+.mini b{display:block;font:800 22px 'Bricolage Grotesque'}
+.mini span{font-size:12px;color:var(--mute)}
+.bar{display:flex;height:12px;border-radius:99px;overflow:hidden;margin-top:16px;background:var(--line);gap:2px}
+.bar i{display:block;height:100%}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--mute)}
+.legend s{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;text-decoration:none}
+.view{display:none;margin-top:18px}.view.on{display:block}
+#map{height:46vh;min-height:320px;border-radius:20px;border:1px solid var(--line)}
+.row{display:flex;gap:8px;margin:0 0 12px;flex-wrap:wrap}
+.pill{border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;font:600 14px Figtree;cursor:pointer;color:var(--ink)}
+.pill.on{background:var(--moss);color:#fff;border-color:var(--moss)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:14px}
+.zc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.zc:hover{border-color:var(--leaf)}
+.zc h3{font-size:16px}.zc p{color:var(--mute);font-size:13px;margin-top:2px}
+.tag{display:inline-block;margin-top:8px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:#fff1e6;color:var(--planned)}
+.list{display:grid;gap:10px}
+.it{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:12px}
+.dot{width:12px;height:12px;border-radius:50%;flex:none}
+.it b{display:block}.it small{color:var(--mute)}
+.empty{background:#fff;border:1px dashed var(--line);border-radius:16px;padding:28px;text-align:center;color:var(--mute)}
+.stat-row{display:grid;grid-template-columns:130px 1fr 36px;gap:10px;align-items:center;margin:8px 0}
+.stat-row i{display:block;height:10px;border-radius:99px}
+h2{font-size:20px;margin-bottom:12px}
+nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:1000}
+nav .wrap{display:flex;justify-content:space-around;align-items:center;height:68px}
+nav button{background:none;border:0;display:grid;gap:2px;justify-items:center;font:600 11px Figtree;color:var(--mute);cursor:pointer;padding:6px 10px}
+nav button span{font-size:20px}
+nav button.on{color:var(--moss)}
+nav a.add{width:54px;height:54px;border-radius:50%;background:var(--leaf);color:#fff;display:grid;place-items:center;font:600 30px/1 sans-serif;text-decoration:none;margin-top:-26px;box-shadow:0 8px 18px rgba(22,163,74,.45)}
+@media(max-width:520px){.big{font-size:44px}.hero-top .mini{margin-left:0}.stat-row{grid-template-columns:100px 1fr 30px}}
+@media(prefers-reduced-motion:no-preference){.bar i{transition:width .8s ease}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="logo">HR</div>
+  <div><h1>Hasiru Ratha</h1><small id="who">Loading…</small></div>
+  <div class="sp"></div>
+  <button class="ib" id="refresh" aria-label="Refresh">⟳</button>
+  <a class="ib" href="/?cmd=logout" onclick="event.preventDefault();fetch('/api/method/logout').then(()=>location='/login')" aria-label="Log out" style="display:grid;place-items:center;text-decoration:none;color:#fff">⎋</a>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="hero-top">
+      <div class="big" id="total">0</div>
+      <p>trees on the map</p>
+      <div class="mini">
+        <div><b id="s-urgent" style="color:var(--urgent)">0</b><span>need care</span></div>
+        <div><b id="s-planned" style="color:var(--planned)">0</b><span>planned</span></div>
+        <div><b id="s-healthy" style="color:var(--healthy)">0</b><span>healthy</span></div>
+      </div>
+    </div>
+    <div class="bar" id="bar"></div>
+    <div class="legend" id="legend"></div>
+  </section>
+
+  <section class="view on" id="v-map">
+    <div class="row"><button class="pill" id="near">Near me</button><button class="pill on" id="all">Show all</button></div>
+    <div id="map"></div>
+    <div class="grid" id="zones"></div>
+  </section>
+  <section class="view" id="v-sites"><h2>Sites</h2><div class="list" id="sites"></div></section>
+  <section class="view" id="v-trees"><h2 id="trees-h">My trees</h2><div class="list" id="trees"></div></section>
+  <section class="view" id="v-team"><h2>Team</h2><div class="list" id="team"></div></section>
+  <section class="view" id="v-stats"><h2>Stats</h2><div id="stats"></div></section>
+</main>
+
+<nav><div class="wrap">
+  <button data-v="map" class="on"><span>🗺</span>Map</button>
+  <button data-v="sites"><span>🌳</span>Sites</button>
+  <a class="add" href="/plant-a-tree" aria-label="Plant a tree">+</a>
+  <button data-v="trees"><span>🌱</span>My trees</button>
+  <button data-v="team" id="n-team"><span>👥</span>Team</button>
+  <button data-v="stats"><span>📊</span>Stats</button>
+</div></nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const C={healthy:'#16a34a',identified:'#d97706',planned:'#ea580c',urgent:'#dc2626',monitoring:'#7c3aed'};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const st=t=>String(t.status||'identified').toLowerCase();
+const col=t=>C[st(t)]||'#64748b';
+let D,map,layer,zoneFilter=null;
+
+async function load(){
+  const r=await fetch('/api/method/ngos.ngos.api.get_dashboard');
+  if(r.status===401||r.status===403){location='/login?redirect-to=/dashboard';return}
+  D=(await r.json()).message;
+  if(!D){$('#who').textContent='Could not load data';return}
+  $('#who').textContent=D.user+' · '+(D.is_admin?'Admin':'Volunteer');
+  $('#n-team').style.display=D.is_admin?'':'none';
+  render();
+}
+
+function counts(){const c={};D.trees.forEach(t=>c[st(t)]=(c[st(t)]||0)+1);return c}
+
+function render(){
+  const c=counts(),n=D.trees.length;
+  $('#total').textContent=n;
+  ['urgent','planned','healthy'].forEach(k=>$('#s-'+k).textContent=c[k]||0);
+  $('#bar').innerHTML=Object.keys(C).map(k=>`<i style="width:${n?(c[k]||0)/n*100:0}%;background:${C[k]}"></i>`).join('');
+  $('#legend').innerHTML=Object.keys(C).map(k=>`<span><s style="background:${C[k]}"></s>${k[0].toUpperCase()+k.slice(1)} ${c[k]||0}</span>`).join('');
+  drawZones();drawMap();drawLists();drawStats();
+}
+
+function zoneName(z){return z.zone_name||z.name}
+function drawZones(){
+  const html=D.zones.map(z=>{
+    const t=D.trees.filter(x=>x.zone===z.name),s=D.sites.filter(x=>x.zone===z.name),p=t.filter(x=>st(x)==='planned').length;
+    return `<button class="zc" data-z="${esc(z.name)}"><h3>${esc(zoneName(z))}</h3><p>${t.length} trees · ${s.length} sites</p>${p?`<span class="tag">${p} planned</span>`:''}</button>`}).join('');
+  $('#zones').innerHTML=html||'<div class="empty">No zones yet. An admin can add one under HR Zone.</div>';
+  document.querySelectorAll('.zc').forEach(b=>b.onclick=()=>{zoneFilter=b.dataset.z;drawMap();$('#all').classList.remove('on')});
+}
+
+function drawMap(){
+  if(!map){
+    map=L.map('map').setView([12.9716,77.5946],11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
+    layer=L.layerGroup().addTo(map);
+  }
+  layer.clearLayers();
+  const pts=[];
+  D.trees.filter(t=>t.latitude&&t.longitude&&(!zoneFilter||t.zone===zoneFilter)).forEach(t=>{
+    const m=L.circleMarker([t.latitude,t.longitude],{radius:8,color:'#fff',weight:2,fillColor:col(t),fillOpacity:1}).addTo(layer);
+    m.bindPopup(`<b>${esc(t.tree_name||t.name)}</b><br>${esc(st(t))}<br>${esc(t.zone||'')}`);
+    pts.push([t.latitude,t.longitude]);
+  });
+  if(pts.length)map.fitBounds(pts,{padding:[30,30],maxZoom:16});
+}
+
+function item(color,title,sub){return `<div class="it"><span class="dot" style="background:${color}"></span><div><b>${esc(title)}</b><small>${esc(sub)}</small></div></div>`}
+function list(rows,fn,msg){return rows.length?rows.map(fn).join(''):`<div class="empty">${msg}</div>`}
+
+function drawLists(){
+  $('#sites').innerHTML=list(D.sites,s=>item('#0b4a34',s.site_name||s.name,(s.zone||'No zone')+' · '+D.trees.filter(t=>t.site===s.name).length+' trees'),'No sites yet.');
+  const mine=D.is_admin?D.trees:D.trees.filter(t=>t.owner===D.me);
+  $('#trees-h').textContent=D.is_admin?'All trees':'My trees';
+  $('#trees').innerHTML=list(mine,t=>item(col(t),t.tree_name||t.name,st(t)+(t.zone?' · '+t.zone:'')),'You have no trees yet. Tap + to plant one.');
+  $('#team').innerHTML=list(D.volunteers,v=>item(v.status==='Approved'?'#16a34a':'#d97706',v.volunteer_name||v.name,v.status||'Pending approval'),'No volunteers yet.');
+}
+
+function drawStats(){
+  const c=counts(),max=Math.max(1,...Object.values(c));
+  const byZone=D.zones.map(z=>[zoneName(z),D.trees.filter(t=>t.zone===z.name).length]);
+  const mx=Math.max(1,...byZone.map(z=>z[1]));
+  const bar=(l,v,m,color)=>`<div class="stat-row"><span>${esc(l)}</span><div><i style="width:${v/m*100}%;background:${color}"></i></div><b>${v}</b></div>`;
+  $('#stats').innerHTML=`<h3>By health</h3>`+Object.keys(C).map(k=>bar(k,c[k]||0,max,C[k])).join('')
+    +`<h3 style="margin-top:20px">By zone</h3>`+(byZone.map(z=>bar(z[0],z[1],mx,'#0b4a34')).join('')||'<div class="empty">No zones yet.</div>');
+}
+
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id==='v-'+b.dataset.v));
+  if(b.dataset.v==='map')setTimeout(()=>map&&map.invalidateSize(),50);
+});
+$('#all').onclick=()=>{zoneFilter=null;$('#all').classList.add('on');$('#near').classList.remove('on');drawMap()};
+$('#near').onclick=()=>navigator.geolocation&&navigator.geolocation.getCurrentPosition(p=>{
+  $('#near').classList.add('on');$('#all').classList.remove('on');
+  map.setView([p.coords.latitude,p.coords.longitude],16);
+},()=>alert('Allow location access to see trees near you.'));
+$('#refresh').onclick=load;
+load();
+</script>
+</body>
+</html>

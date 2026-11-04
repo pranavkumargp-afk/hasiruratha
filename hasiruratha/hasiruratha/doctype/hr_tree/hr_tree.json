@@ -1,0 +1,188 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "field:tree_id",
+ "creation": "2026-10-27 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "tree_id",
+  "site_id",
+  "species",
+  "position",
+  "condition",
+  "status",
+  "column_break_1",
+  "group_id",
+  "tree_guard",
+  "support_pole",
+  "owner_volunteer_id",
+  "planted_by",
+  "date_planted",
+  "last_reported",
+  "section_gps",
+  "gps_lat",
+  "gps_lng",
+  "section_more",
+  "notes",
+  "photo_url"
+ ],
+ "fields": [
+  {
+   "fieldname": "tree_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tree ID",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "site_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Site",
+   "options": "HR Site",
+   "reqd": 1
+  },
+  {
+   "fieldname": "species",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Species"
+  },
+  {
+   "fieldname": "position",
+   "fieldtype": "Int",
+   "label": "Position"
+  },
+  {
+   "default": "Unknown",
+   "fieldname": "condition",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Condition"
+  },
+  {
+   "default": "Identified",
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Status"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break",
+   "label": "Column Break 1"
+  },
+  {
+   "default": "GRP-001",
+   "fieldname": "group_id",
+   "fieldtype": "Data",
+   "label": "Group ID"
+  },
+  {
+   "default": "No",
+   "fieldname": "tree_guard",
+   "fieldtype": "Data",
+   "label": "Tree Guard"
+  },
+  {
+   "default": "No",
+   "fieldname": "support_pole",
+   "fieldtype": "Data",
+   "label": "Support Pole"
+  },
+  {
+   "fieldname": "owner_volunteer_id",
+   "fieldtype": "Link",
+   "label": "Owner",
+   "options": "HR Volunteer"
+  },
+  {
+   "fieldname": "planted_by",
+   "fieldtype": "Data",
+   "label": "Planted By"
+  },
+  {
+   "fieldname": "date_planted",
+   "fieldtype": "Date",
+   "label": "Date Planted"
+  },
+  {
+   "fieldname": "last_reported",
+   "fieldtype": "Date",
+   "label": "Last Reported"
+  },
+  {
+   "fieldname": "section_gps",
+   "fieldtype": "Section Break",
+   "label": "GPS"
+  },
+  {
+   "fieldname": "gps_lat",
+   "fieldtype": "Float",
+   "label": "Latitude",
+   "precision": "9"
+  },
+  {
+   "fieldname": "gps_lng",
+   "fieldtype": "Float",
+   "label": "Longitude",
+   "precision": "9"
+  },
+  {
+   "fieldname": "section_more",
+   "fieldtype": "Section Break",
+   "label": "Section More"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "photo_url",
+   "fieldtype": "Small Text",
+   "label": "Photo URL"
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-04 17:35:53.811700",
+ "modified_by": "Administrator",
+ "module": "Hasiruratha",
+ "name": "HR Tree",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "import": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "import": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Admin",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "search_fields": "species,site_id",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
