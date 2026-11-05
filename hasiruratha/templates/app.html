@@ -732,6 +732,46 @@ html, body { height:100%; overflow:auto !important; }
 .hr-status-tabs button{border:1px solid #dce8df;background:#fff;color:#61766a;border-radius:20px;padding:8px 12px;font-size:10px;font-weight:800;cursor:pointer}
 .hr-status-tabs button.active{background:#0e6845;color:#fff;border-color:#0e6845}
 
+.status-strip,#tb-nearme-btn{display:none!important}
+#hx-home,#hx-scroll{padding:12px}
+.hx-hero{position:relative;overflow:hidden;border-radius:22px;padding:20px 18px 22px;margin-bottom:12px;color:#fff;background:radial-gradient(circle at 88% 15%,rgba(217,242,122,.4),transparent 42%),linear-gradient(135deg,#083d2a,#0f6e56 58%,#1a9e7a);box-shadow:0 8px 22px rgba(8,61,42,.25)}
+.hx-hero small{font-size:12px;opacity:.85}.hx-hero h1{font-size:27px;font-weight:600;margin:2px 0 4px}.hx-hero p{font-size:12px;opacity:.78;max-width:62%}
+.hx-leaf{position:absolute;right:12px;bottom:-4px;font-size:78px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.3))}
+.hx-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.hx-stats div{background:#fff;border:1px solid var(--border);border-radius:14px;padding:10px 4px;text-align:center;font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;cursor:pointer}
+.hx-stats b{display:block;font-size:20px;color:var(--g1);letter-spacing:0;line-height:1.2}.hx-stats .u b{color:var(--red)}
+.hx-h{font-size:13px;font-weight:600;margin:16px 2px 8px;color:var(--g1)}
+.hx-stg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.hx-stc{background:#fff;border:1px solid var(--border);border-top:3px solid var(--c);border-radius:14px;padding:10px 4px;text-align:center;cursor:pointer;transition:.15s}
+.hx-stc i{font-style:normal;font-size:18px}.hx-stc b{display:block;font-size:19px;color:var(--c);line-height:1.2}.hx-stc span{font-size:11px;font-weight:600;display:block}.hx-stc small{font-size:10px;color:var(--text3)}
+.hx-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:12px 13px;margin-bottom:9px;box-shadow:0 1px 4px rgba(8,61,42,.06);cursor:pointer;transition:.15s;animation:hxin .3s both}
+.hx-card:active,.hx-stc:active{transform:scale(.98)}
+@keyframes hxin{from{opacity:0;transform:translateY(8px)}}
+.hx-r{display:flex;align-items:center;gap:6px}.hx-r b{flex:1;font-size:13px;font-weight:600;min-width:0}.hx-w{flex-wrap:wrap;margin-top:6px}
+.hx-s{font-size:11px;color:var(--text2);margin-top:2px}
+.hx-b{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;background:color-mix(in srgb,var(--c) 14%,#fff);color:var(--c)}
+.hx-t{--c:#475569}.hx-n{font-size:11px;color:var(--g2);font-weight:600}.hx-co{font-size:10px;color:var(--text3)}
+.hx-z{display:flex;align-items:center;gap:11px}.hx-z>i{font-style:normal;font-size:22px;width:44px;height:44px;border-radius:14px;background:var(--g4);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hx-g{flex:1;min-width:0}.hx-z b{font-size:14px}.hx-ch{font-size:22px;color:var(--text3)}
+.hx-dots{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}.hx-dots em{font-style:normal;font-size:9px;font-weight:600;padding:1px 7px;border-radius:10px;color:var(--c);background:color-mix(in srgb,var(--c) 12%,#fff)}
+.hx-tc{display:flex;gap:11px}.hx-th{position:relative;width:64px;height:64px;border-radius:14px;background:var(--g4);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;overflow:hidden}.hx-th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hx-sr{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:0 12px;margin-bottom:10px}.hx-sr input{flex:1;border:0;outline:0;padding:11px 0;font:14px 'DM Sans',sans-serif;background:none;min-width:0}.hx-sr:focus-within{border-color:var(--g2)}
+.hx-chips{display:flex;gap:6px;overflow-x:auto;margin-bottom:10px;scrollbar-width:none}.hx-chip{white-space:nowrap;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;border:1.5px solid var(--border);background:#fff;color:var(--text2);cursor:pointer}.hx-chip.on{background:var(--c,var(--g2));border-color:var(--c,var(--g2));color:#fff}
+.hx-tabs{display:flex;background:var(--g4);border-radius:14px;padding:3px;margin-bottom:10px}.hx-tabs span{flex:1;text-align:center;padding:8px;border-radius:11px;font-size:12px;font-weight:600;color:var(--g2);cursor:pointer}.hx-tabs .on{background:#fff;color:var(--g1);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.hx-back{display:inline-block;font-size:12px;font-weight:600;color:var(--g2);padding:4px 2px 10px;cursor:pointer}
+.hx-top{border-radius:18px;padding:14px 16px;margin-bottom:10px;color:#fff;background:linear-gradient(135deg,#083d2a,#1a9e7a)}.hx-top h2{font-size:20px;font-weight:600}.hx-top p{font-size:12px;opacity:.8}
+.hx-sd{background:#fff;border:1px solid var(--border);border-radius:18px;padding:14px;margin-bottom:6px}.hx-sd h2{font-size:17px;font-weight:600}
+.hx-cover{width:100%;max-height:200px;object-fit:cover;border-radius:14px;margin-bottom:10px;display:block}
+.hx-dl{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:12px;margin:10px 0}.hx-dl dt{color:var(--text3)}.hx-dl dd{color:var(--text);word-break:break-word}
+.hx-acts{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.hx-acts a,.hx-acts button{font:600 12px 'DM Sans',sans-serif;padding:8px 13px;border-radius:12px;border:1.5px solid var(--g3);background:var(--g4);color:var(--g1);text-decoration:none;cursor:pointer}
+#hx-map{height:280px;border-radius:16px;overflow:hidden;background:var(--g4);border:1px solid var(--border);margin-bottom:6px}
+.hx-em{text-align:center;padding:26px 16px;color:var(--text3);font-size:12px}.hx-em b{display:block;font-size:13px;color:var(--text2);margin-top:4px}
+.hx-sheet{position:fixed;inset:0;z-index:400;display:none}.hx-sheet.on{display:block}.hx-bd{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.hx-pn{position:absolute;left:0;right:0;bottom:0;max-width:480px;margin:auto;max-height:86%;overflow-y:auto;background:#fff;border-radius:22px 22px 0 0;padding:18px 16px 24px;animation:hxin .25s both}
+.hx-pn h2{font-size:18px;font-weight:600;margin-bottom:2px}.hx-x{position:absolute;right:12px;top:12px;width:30px;height:30px;border-radius:50%;border:0;background:var(--bg);font-size:14px;cursor:pointer;z-index:2}
+.hx-np{height:90px;border-radius:14px;background:var(--g4);display:flex;align-items:center;justify-content:center;font-size:44px;margin-bottom:10px}
+.hx-wrap{max-width:920px;margin:0 auto}
+.hx-add{position:relative;z-index:2;margin-top:12px;border:0;border-radius:12px;padding:9px 16px;background:#d9f27a;color:#083d2a;font:600 13px 'DM Sans',sans-serif;cursor:pointer}
 </style>
 <link rel="stylesheet" href="/assets/hasiruratha/css/hasiruratha.css">
 </head>
@@ -813,7 +853,7 @@ html, body { height:100%; overflow:auto !important; }
   </div>
 
   <!-- MAP PANE -->
-  <div class="pane on" id="pane-map" style="position:relative">
+  <div class="pane on" id="pane-map"><div id="hx-home" class="scroll"></div><div style="display:none">
     <div id="map"></div>
   <div class="map-mode-bar" id="map-mode-bar">
     <button class="map-mode-btn on" id="mmode-near" onclick="setMapMode('near')">&#128205; Near me</button>
@@ -831,7 +871,8 @@ html, body { height:100%; overflow:auto !important; }
       <div class="leg-item"><div class="leg-dot" style="background:#dc2626"></div><span class="leg-txt">Urgent</span></div>
       <div class="leg-item"><div class="leg-dot" style="background:#7c3aed"></div><span class="leg-txt">Monitoring</span></div>
     </div>
-  </div>
+  </div></div>
+  <div class="pane" id="pane-hx"><div class="scroll" id="hx-scroll"><div id="hx-view"></div></div></div>
 
   <!-- SITES PANE -->
   <div class="pane" id="pane-sites">
@@ -1155,8 +1196,9 @@ html, body { height:100%; overflow:auto !important; }
       <div><strong>HASIRU RATHA</strong><small>Urban Green Mission</small></div>
     </div>
 
-    <div class="tab" id="tab-map" onclick="showPane('pane-map',this)"><i class="ti ti-map-2"></i><span>Map</span><div class="tab-dot"></div></div>
-    <div class="tab" id="tab-sites" onclick="showPane('pane-sites',this)" style="display:none"><i class="ti ti-trees"></i><span>Sites</span><div class="tab-dot"></div></div>
+    <div class="tab" id="tab-map" onclick="hxTop('home')"><i class="ti ti-home-2"></i><span>Home</span><div class="tab-dot"></div></div>
+    <div class="tab" id="tab-sites" onclick="hxTop('sites')"><i class="ti ti-trees"></i><span>Sites</span><div class="tab-dot"></div></div>
+    <div class="tab" id="tab-status" onclick="hxTop('status')"><i class="ti ti-chart-donut-3"></i><span>Status</span><div class="tab-dot"></div></div>
     <div style="display:flex;flex-direction:column;align-items:center;flex:1">
       <div class="fab" onclick="openAddChooser()"><i class="ti ti-plus"></i></div>
     </div>
@@ -1648,7 +1690,7 @@ async function doLogin() {
     document.getElementById('reg-phone').value = phone;
     return;
   }
-  window.location.href = '/dashboard';
+  window.location.href = '/hasiruratha';
 }
 
 async function doRegister() {
@@ -1663,7 +1705,7 @@ async function doRegister() {
   btn.disabled = false; btn.innerHTML = '<i class="ti ti-user-check" style="font-size:14px"></i> Register & Enter';
   if (!res.success) { showErr('reg-err', res.error || 'Registration failed. Try again.'); return; }
   showToast('✅ Welcome to Hasiru Ratha, ' + name + '!');
-  setTimeout(() => window.location.href = '/dashboard', 700);
+  setTimeout(() => window.location.href = '/hasiruratha', 700);
 }
 
 function enterApp(user, isAdmin) {
@@ -1688,7 +1730,7 @@ function enterApp(user, isAdmin) {
   // Portal navigation labels adapt to the authenticated role; handlers stay unchanged.
   const labels = isAdmin
     ? {'tab-map':'Map','tab-sites':'Sites','tab-mytrees':'Tree Registry & Status','tab-team':'Tree Volunteering','tab-admin':'Homepage'}
-    : {'tab-map':'Explore','tab-sites':'Sites','tab-mytrees':'My Trees','tab-team':'Community','tab-admin':'My Dashboard'};
+    : {'tab-map':'Home','tab-sites':'Sites','tab-mytrees':'My Trees','tab-team':'Community','tab-admin':'My Dashboard'};
   Object.entries(labels).forEach(([id, label]) => {
     const node = document.querySelector('#' + id + ' span');
     if (node) node.textContent = label;
@@ -4075,10 +4117,10 @@ function hrAdminShell(content, active='home') {
   const nav = [
     ['home','Home','ti-home'],
     ['sites','Sites','ti-map-pin'],
+    ['status','Status','ti-chart-donut-3'],
     ['trees','Tree Registry & Status','ti-tree'],
     ['volunteers','Tree Volunteering','ti-users'],
-    ['reports','Tree Reports','ti-clipboard-list'],
-    ['map','Map','ti-map-2']
+    ['reports','Tree Reports','ti-clipboard-list']
   ];
   pane.innerHTML = `
     <div class="hr-admin-shell">
@@ -4480,6 +4522,101 @@ function hrAdminEnter() {
 }
 </script>
 <script>
+/* HX: Home / Sites / Status dashboard (v2) */
+const HX={v:'home',root:'sites',zone:'*',st:null,tab:'sites',site:null,stack:[],sites:[],trees:[],sm:{},tc:{},cur:{},ready:false,tries:0};
+const HXS=['Healthy','Identified','Planned','Urgent','Monitoring'];
+const HXC={Healthy:'#1a9e7a',Identified:'#d97706',Planned:'#ea580c',Monitoring:'#7c3aed',Urgent:'#dc2626'};
+const hN=s=>({Completed:'Healthy',Hold:'Monitoring','Pre-existing':'Healthy'}[s]||s);
+const hAdm=()=>!!currentUser&&currentUser.role==='admin';
+const HXI={Healthy:'🌳',Identified:'🔍',Planned:'📅',Monitoring:'👀',Urgent:'🚨'};
+const $h=id=>document.getElementById(id);
+const hE=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const hL=s=>String(s||'').toLowerCase();
+const hZN=id=>{const z=zoneSummary.find(x=>x.zone_id===id);return z?z.zone_name:(ZONE_NAMES[id]||id||'')};
+const hZones=()=>zoneSummary.slice().sort((a,b)=>String(a.zone_name).localeCompare(String(b.zone_name)));
+function hPh(u){u=String(u||'');const m=u.match(/drive\.google\.com.*?(?:\/d\/|[?&]id=)([\w-]+)/);return m?'https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800':(/^(https?:)?\/\//.test(u)||u[0]==='/')?u:''}
+const hLL=o=>{if(!o)return null;const a=parseFloat(o.gps_lat??o.latitude??o.lat),b=parseFloat(o.gps_lng??o.longitude??o.lng);return isFinite(a)&&isFinite(b)&&(a||b)?[a,b]:null};
+const hTP=(t,s)=>hLL(t)?t:s;
+const hSiteIn=(s,st)=>!st||(st==='Urgent'?s.priority==='High':hN(s.status)===st);
+const hTS=t=>{const x=hN(t.status);return HXS.includes(x)?x:hN((HX.sm[t.site_id]||{}).status)};
+const hTreeIn=(t,st)=>{if(!st)return true;const s=HX.sm[t.site_id];return st==='Urgent'?(t.condition==='Needs attention'||!!(s&&s.priority==='High')):hTS(t)===st};
+const hSites=(z,st)=>HX.sites.filter(s=>(z==='*'||s.zone_id===z)&&hSiteIn(s,st));
+const hTrees=(z,st)=>HX.trees.filter(t=>{const s=HX.sm[t.site_id];return(z==='*'||(s&&s.zone_id===z))&&hTreeIn(t,st)});
+const hBadge=s=>s?`<span class="hx-b" style="--c:${HXC[s]||'#6b7280'}">${hE(s)}</span>`:'';
+const hType=t=>`<span class="hx-b hx-t">${t==='stretch'?'🛣️ Stretch':'📍 Spot'}</span>`;
+const hCoord=o=>{const c=hLL(o);return `<span class="hx-co">📌 ${c?c[0].toFixed(6)+', '+c[1].toFixed(6):'no GPS yet'}</span>`};
+const hDir=o=>{const c=hLL(o);return c?`<a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=${c[0]},${c[1]}">🧭 Directions</a>`:''};
+const hDl=a=>'<dl class="hx-dl">'+a.filter(x=>x[1]!==''&&x[1]!=null).map(x=>`<dt>${x[0]}</dt><dd>${hE(x[1])}</dd>`).join('')+'</dl>';
+const hEmpty=(m)=>`<div class="hx-em">🌱<b>Nothing here yet</b>${m||'No matching items.'}</div>`;
+
+function hSiteCard(s){return `<div class="hx-card" onclick="hxGo('sdet','${hE(s.site_id)}')"><div class="hx-r"><b>${hE(s.name||'Unnamed site')}</b>${s.priority==='High'?hBadge('Urgent'):''}${hBadge(hN(s.status)||'Identified')}</div><div class="hx-s">${hE([hZN(s.zone_id),s.road,s.area].filter(Boolean).join(' · '))}</div><div class="hx-r hx-w">${hType(s.site_type)}<span class="hx-n">🌳 ${HX.tc[s.site_id]||s.tree_count||0} trees</span>${hCoord(s)}</div></div>`}
+function hTreeCard(t){const s=HX.sm[t.site_id]||{},p=hPh(t.photo_url);return `<div class="hx-card hx-tc" onclick="hxTree('${hE(t.tree_id)}')"><div class="hx-th"><span>🌳</span>${p?`<img loading="lazy" src="${hE(p)}" alt="" onerror="this.remove()">`:''}</div><div class="hx-g"><div class="hx-r"><b>${hE(t.tree_id)}</b>${hBadge(hTS(t))}${hType(s.site_type)}</div><div class="hx-s">${hE([t.species,s.name,hZN(s.zone_id)].filter(Boolean).join(' · '))}</div><div class="hx-r hx-w">${hCoord(hTP(t,s))}</div></div></div>`}
+function hZoneCard(z,st){const ss=hSites(z.zone_id,st),tt=hTrees(z.zone_id,st);const dots=HXS.map(x=>{const n=hSites(z.zone_id,x).length;return n?`<em style="--c:${HXC[x]}">${n} ${x}</em>`:''}).join('');return `<div class="hx-card hx-z" onclick="hxGo('zone','${hE(z.zone_id)}',${st?`'${st}'`:'null'})"><i>🌳</i><div class="hx-g"><b>${hE(z.zone_name)}</b><div class="hx-s">${tt.length} trees · ${ss.length} sites</div><div class="hx-dots">${dots}</div></div><span class="hx-ch">›</span></div>`}
+const hStCard=s=>`<div class="hx-stc" style="--c:${HXC[s]}" onclick="hxGo('status','${s}')"><i>${HXI[s]}</i><b>${hSites('*',s).length}</b><span>${s}</span><small>${hTrees('*',s).length} trees</small></div>`;
+
+function hList(pre,items,fn,key,ph){HX.cur[pre]={items,fn,key};return `<label class="hx-sr">🔍<input id="${pre}-q" oninput="hxFill('${pre}',this.value)" placeholder="${ph}" autocomplete="off"></label><div id="${pre}-ls">${hFill(pre,'')}</div>`}
+function hFill(pre,q){q=hL(q);const c=HX.cur[pre],r=c.items.filter(x=>!q||hL(c.key(x)).includes(q));return r.length?r.map(x=>c.fn(x)).join(''):hEmpty()}
+function hxFill(pre,q){$h(pre+'-ls').innerHTML=hFill(pre,q)}
+function hChips(items,inFn,cur){const n=s=>items.filter(x=>inFn(x,s)).length;return `<div class="hx-chips"><span class="hx-chip ${cur?'':'on'}" onclick="hxSet('st',null)">All ${items.length}</span>${HXS.filter(s=>n(s)).map(s=>`<span class="hx-chip ${cur===s?'on':''}" style="--c:${HXC[s]}" onclick="hxSet('st','${s}')">${s} ${n(s)}</span>`).join('')}</div>`}
+const hTabs=(a,b,c)=>`<div class="hx-tabs"><span class="${c===a[0]?'on':''}" onclick="hxSet('tab','${a[0]}')">${a[1]}</span><span class="${c===b[0]?'on':''}" onclick="hxSet('tab','${b[0]}')">${b[1]}</span></div>`;
+const hBack=()=>'<div class="hx-back" onclick="hxBack()">‹ Back</div>';
+const hSKey=s=>[s.name,s.site_id,s.road,s.area,s.status,s.site_type].join(' ');
+const hTKey=t=>{const s=HX.sm[t.site_id]||{};return [t.tree_id,t.species,s.name,s.road,s.area].join(' ')};
+
+function vHome(){const u=currentUser||{},h=new Date().getHours(),g=h<12?'Good morning':h<17?'Good afternoon':'Good evening',nm=(u.name||'').split(' ')[0];
+return `<div class="hx-hero"><small>${g}${nm?', '+hE(nm):''} 🌱</small><h1>Hasiru Ratha</h1><p>Every tree we plant makes Bengaluru greener.</p>${hAdm()?'<button class="hx-add" onclick="openAddChooser()">＋ Add new site</button>':''}<div class="hx-leaf">🌳</div></div>
+<div class="hx-stats"><div onclick="hxGo('zone','*')"><b>${HX.trees.length}</b>Trees</div><div onclick="hxTop('sites')"><b>${HX.sites.length}</b>Sites</div><div onclick="hxTop('sites')"><b>${zoneSummary.length}</b>Zones</div><div class="u" onclick="hxGo('status','Urgent')"><b>${hSites('*','Urgent').length}</b>Urgent</div></div>
+<h3 class="hx-h">Browse by status</h3><div class="hx-stg">${HXS.map(hStCard).join('')}</div>
+<h3 class="hx-h">Zones</h3>`+hList('h',hZones(),z=>hZoneCard(z),z=>z.zone_name,'Search zone…')}
+function vSites(){const all=HX.tab==='all';return `<div class="hx-top"><h2>Sites</h2><p>${HX.sites.length} sites across ${zoneSummary.length} zones</p></div>`+hTabs(['zones','Zones'],['all','All sites'],all?'all':'zones')+(all?hChips(HX.sites,hSiteIn,HX.st)+hList('a',HX.sites.filter(s=>hSiteIn(s,HX.st)),hSiteCard,hSKey,'Search site, road or area…'):hList('a',hZones(),z=>hZoneCard(z),z=>z.zone_name,'Search zone…'))}
+function vStatus(){const st=HX.st;if(!st)return `<div class="hx-top"><h2>Status</h2><p>Tap a status to see its zones</p></div><div class="hx-stg">${HXS.map(hStCard).join('')}</div>`;
+const zs=hZones().filter(z=>hSites(z.zone_id,st).length||hTrees(z.zone_id,st).length);return hBack()+`<div class="hx-top" style="background:${HXC[st]}"><h2>${HXI[st]} ${st}</h2><p>${hSites('*',st).length} sites · ${hTrees('*',st).length} trees</p></div>`+hList('s',zs,z=>hZoneCard(z,st),z=>z.zone_name,'Search zone…')}
+function vZone(){const z=HX.zone,st=HX.st,tr=HX.tab==='trees',items=tr?hTrees(z,null):hSites(z,null),f=tr?hTreeIn:hSiteIn;
+return hBack()+`<div class="hx-top"><h2>${z==='*'?'All zones':hE(hZN(z))}</h2><p>${hTrees(z,null).length} trees · ${hSites(z,null).length} sites</p></div>`+hTabs(['sites','Sites '+hSites(z,null).length],['trees','Trees '+hTrees(z,null).length],tr?'trees':'sites')+hChips(items,f,st)+hList('z',items.filter(x=>f(x,st)),tr?hTreeCard:hSiteCard,tr?hTKey:hSKey,tr?'Search tree ID or species…':'Search site, road or area…')}
+function vSite(){const s=HX.sm[HX.site];if(!s)return hBack()+hEmpty('Site not found.');const id=hE(s.site_id),T=HX.trees.filter(t=>t.site_id===s.site_id),p=hPh(s.photo_url),c2=hLL({gps_lat:s.gps_lat2,gps_lng:s.gps_lng2}),c=hLL(s);
+return hBack()+`<div class="hx-sd">${p?`<img class="hx-cover" src="${hE(p)}" alt="" onerror="this.remove()">`:''}<h2>${hE(s.name||'Unnamed site')}</h2><div class="hx-r hx-w">${hBadge(hN(s.status)||'Identified')}${s.priority==='High'?hBadge('Urgent'):''}${hType(s.site_type)}</div>`+hDl([['Zone',hZN(s.zone_id)],['Road',s.road],['Area',s.area],['Trees',T.length||s.tree_count],['Latitude',c?c[0].toFixed(6):''],['Longitude',c?c[1].toFixed(6):''],['End latitude',c2?c2[0].toFixed(6):''],['End longitude',c2?c2[1].toFixed(6):''],['Added by',s.added_by],['Notes',s.notes]])+`<div class="hx-acts">${hDir(s)}<button onclick="hxPhoto('${id}')">📷 Photo</button>${currentUser&&currentUser.role==='admin'?`<button onclick="openEditModal('${id}')">✏️ Edit</button>`:''}</div></div><h3 class="hx-h">🗺️ Site map · ${T.length} trees</h3><div id="hx-map"></div><h3 class="hx-h">🌳 Trees in this site</h3>`+(T.length?T.map(hTreeCard).join(''):hEmpty('No trees recorded for this site yet.'))}
+
+function hxShow(){const v=HX.v,adm=hAdm();let html;
+if(!HX.ready)html='<div class="loading"><div class="spinner"></div>Loading your green data…</div>';else html={home:vHome,sites:vSites,status:vStatus,zone:vZone,sdet:vSite}[v]();
+if(adm){document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));$h('pane-admin').classList.add('on');hrAdminShell('<div class="hx-wrap">'+html+'</div>',v==='status'?'status':v==='home'?'home':'sites');$h('admin-content').scrollTop=0}
+else if(v==='home'){showPane('pane-map',$h('tab-map'));$h('hx-home').innerHTML=html;$h('hx-home').scrollTop=0}
+else{$h('hx-view').innerHTML=html;showPane('pane-hx',$h(HX.root==='status'?'tab-status':'tab-sites'));$h('hx-scroll').scrollTop=0}
+if(HX.ready&&v==='sdet'){HX.tries=0;hxMap()}}
+function hxGo(v,a,b){HX.stack.push({v:HX.v,zone:HX.zone,st:HX.st,tab:HX.tab,site:HX.site,root:HX.root});if(v==='status')HX.root='status';else if(v==='sites'||HX.v==='home')HX.root='sites';HX.v=v;if(v==='zone'){HX.zone=a;HX.st=b||null;HX.tab='sites'}else if(v==='status'){HX.st=a||null}else if(v==='sdet')HX.site=a;hxShow()}
+function hxTop(v){HX.stack=[];HX.v=v;HX.st=null;HX.tab=v==='sites'?'zones':HX.tab;if(v!=='home')HX.root=v;hxShow()}
+function hxBack(){const p=HX.stack.pop();if(!p)return hxTop('home');Object.assign(HX,p);hxShow()}
+function hxSet(k,v){HX[k]=v;if(k==='tab'&&HX.v==='zone')HX.st=null;hxShow()}
+function hxPhoto(id,tree){const t=tree?HX.trees.find(x=>String(x.tree_id)===String(id)):null,s=HX.sm[t?t.site_id:id]||{};openPhotoModal(tree?'tree':'site',id,s.zone_id||'',tree?id:(s.name||''))}
+function hxClose(){$h('hx-sheet').classList.remove('on')}
+function hxTree(id){const t=HX.trees.find(x=>String(x.tree_id)===String(id));if(!t)return;const s=HX.sm[t.site_id]||{},p=hPh(t.photo_url),o=hTP(t,s),c=hLL(o),own=!!hLL(t);
+$h('hx-sheet').innerHTML=`<div class="hx-bd" onclick="hxClose()"></div><div class="hx-pn"><button class="hx-x" onclick="hxClose()">✕</button>${p?`<img class="hx-cover" src="${hE(p)}" alt="" onerror="this.remove()">`:'<div class="hx-np">🌳</div>'}<h2>${hE(t.tree_id)}</h2><div class="hx-r hx-w">${hBadge(hTS(t))}${hType(s.site_type)}${t.condition?`<span class="hx-b hx-t">${hE(t.condition)}</span>`:''}</div>`+hDl([['Species',t.species],['Site',s.name],['Zone',hZN(s.zone_id)],['Area',s.area],['Road',s.road],['Latitude',c?c[0].toFixed(6):''],['Longitude',c?c[1].toFixed(6):''],['GPS source',c&&!own?'Site location':''],['Planted by',t.planted_by],['Notes',t.notes]])+`<div class="hx-acts">${hDir(o)}${s.site_id?`<button onclick="hxClose();hxGo('sdet','${hE(s.site_id)}')">View site</button>`:''}<button onclick="hxClose();hxPhoto('${hE(t.tree_id)}',1)">📷 Photo</button></div></div>`;$h('hx-sheet').classList.add('on')}
+function hPos(t,i,n,c,c2){const o=hLL(t);if(o)return{lat:o[0],lng:o[1]};if(c2){const f=n>1?i/(n-1):.5;return{lat:c[0]+(c2[0]-c[0])*f,lng:c[1]+(c2[1]-c[1])*f}}const a=6.283*i/Math.max(n,1),r=n>1?.00003:0;return{lat:c[0]+r*Math.cos(a),lng:c[1]+r*Math.sin(a)}}
+function hxMap(){const el=$h('hx-map'),s=HX.sm[HX.site];if(!el||!s)return;if(!mapsReady||!window.google){if(HX.tries++<40)setTimeout(hxMap,300);else el.innerHTML=hEmpty('Map could not load.');return}
+const c=hLL(s);if(!c){el.innerHTML=hEmpty('Add GPS to this site to see it on the map.');return}
+const T=HX.trees.filter(t=>t.site_id===s.site_id),col=HXC[hN(s.status)]||'#1a9e7a',c2=s.site_type==='stretch'?hLL({gps_lat:s.gps_lat2,gps_lng:s.gps_lng2}):null,P={lat:c[0],lng:c[1]},b=new google.maps.LatLngBounds();b.extend(P);
+const m=new google.maps.Map(el,{center:P,zoom:18,mapTypeControl:false,streetViewControl:false,styles:[{featureType:'poi',elementType:'labels',stylers:[{visibility:'off'}]}]});
+if(c2){b.extend({lat:c2[0],lng:c2[1]});new google.maps.Polyline({path:[P,{lat:c2[0],lng:c2[1]}],strokeColor:col,strokeOpacity:.75,strokeWeight:6,map:m})}else new google.maps.Marker({position:P,map:m,title:s.name,icon:{path:google.maps.SymbolPath.CIRCLE,scale:16,fillColor:col,fillOpacity:.22,strokeColor:col,strokeWeight:2}});
+T.forEach((t,i)=>{const p=hPos(t,i,T.length,c,c2);b.extend(p);const k=new google.maps.Marker({position:p,map:m,title:String(t.tree_id),label:{text:String(i+1),color:'#fff',fontSize:'10px',fontWeight:'700'},icon:{path:google.maps.SymbolPath.CIRCLE,scale:11,fillColor:'#1a9e7a',fillOpacity:1,strokeColor:'#fff',strokeWeight:2}});k.addListener('click',()=>hxTree(t.tree_id))});
+if(T.length||c2){m.fitBounds(b,50);google.maps.event.addListenerOnce(m,'idle',()=>{if(m.getZoom()>19)m.setZoom(19)})}}
+
+async function hxLoad(){if(HX.loading)return;HX.loading=true;try{if(!zoneSummary.length){const z=await api('getZoneSummary',{group_id:GROUP_ID});if(z.success)zoneSummary=z.data}
+const [tr,...sr]=await Promise.all([api('getTrees',{group_id:GROUP_ID}),...zoneSummary.map(z=>api('getSitesByZone',{zone_id:z.zone_id,group_id:GROUP_ID}))]);
+HX.trees=tr.success?tr.data:[];HX.sites=[];sr.forEach((r,i)=>{if(r.success)r.data.forEach(s=>{s.zone_id=s.zone_id||zoneSummary[i].zone_id;if(s.status!=='Merged')HX.sites.push(s)})});
+HX.sm={};HX.tc={};HX.sites.forEach(s=>HX.sm[s.site_id]=s);HX.trees.forEach(t=>HX.tc[t.site_id]=(HX.tc[t.site_id]||0)+1);HX.ready=true}catch(e){showToast('⚠️ Could not load data — tap refresh')}HX.loading=false;if(!hAdm()||HX.adminOn)hxShow()}
+forceRefresh=async function(){clearCache();loadedZones={};showToast('🔄 Refreshing…');await loadInitialData();await hxLoad()};
+filterMap=function(f){f==='all'?hxGo('zone','*'):hxGo('status',{urgent:'Urgent',planned:'Planned',healthy:'Completed'}[f])};
+const _hrRoute=renderHrAdminRoute;
+renderHrAdminRoute=async function(){const r=hrAdminRoute,p=r.page;if(!hAdm())return;
+if(['home','sites','status','zone','site'].includes(p)){HX.adminOn=true;HX.stack=[];
+if(p==='zone'){HX.v='zone';HX.zone=r.siteId||'*';HX.st=null;HX.tab='sites';HX.root='sites'}
+else if(p==='site'){HX.v='sdet';HX.site=r.siteId;HX.root='sites'}
+else{HX.v=p;HX.st=null;HX.tab=p==='sites'?'zones':HX.tab;HX.root=p==='status'?'status':'sites'}
+hxShow();if(!HX.ready)hxLoad();return}
+return _hrRoute()};
+(function w(){if(typeof currentUser!=='undefined'&&currentUser){if(!hAdm())hxShow();hxLoad()}else setTimeout(w,300)})();
+
+</script>
+<script>
 // Restore the session after the Admin workspace functions are defined.
 setLogos();
 const sess = loadSession();
@@ -4657,5 +4794,6 @@ async function hrUpdateReportStatus(id){
 }
 </script>
 
+<div id="hx-sheet" class="hx-sheet"></div>
 </body>
 </html>

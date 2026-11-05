@@ -1,4 +1,5 @@
 import frappe
+from frappe.rate_limiter import rate_limit
 from frappe import _
 from hasiruratha.api import _is_admin, _is_member
 
@@ -117,6 +118,7 @@ def check_admin_session():
 
 
 @frappe.whitelist(allow_guest=True, methods=["POST"])
+@rate_limit(limit=10, seconds=300)
 def admin_login(phone=None, password=None):
     """Authenticate a Hasiru Ratha admin and create a Frappe session."""
     from frappe import _
