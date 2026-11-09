@@ -25,7 +25,10 @@
   "gps_lng",
   "section_more",
   "notes",
-  "photo_url"
+  "photo_url",
+  "time_required",
+  "volunteers_required",
+  "volunteers_needed"
  ],
  "fields": [
   {
@@ -59,17 +62,19 @@
   {
    "default": "Unknown",
    "fieldname": "condition",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Condition"
+   "label": "Condition",
+   "options": "Unknown\nHealthy\nNeeds attention\nMonitored\nDead"
   },
   {
    "default": "Identified",
    "fieldname": "status",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
    "in_standard_filter": 1,
-   "label": "Status"
+   "label": "Status",
+   "options": "Identified\nPlanned\nCompleted\nHealthy\nMonitoring\nUrgent\nHold\nMerged"
   },
   {
    "fieldname": "column_break_1",
@@ -85,14 +90,16 @@
   {
    "default": "No",
    "fieldname": "tree_guard",
-   "fieldtype": "Data",
-   "label": "Tree Guard"
+   "fieldtype": "Select",
+   "label": "Tree Guard",
+   "options": "No\nYes\nNeeded\nMixed"
   },
   {
    "default": "No",
    "fieldname": "support_pole",
-   "fieldtype": "Data",
-   "label": "Support Pole"
+   "fieldtype": "Select",
+   "label": "Support Pole",
+   "options": "No\nYes"
   },
   {
    "fieldname": "owner_volunteer_id",
@@ -146,10 +153,31 @@
    "fieldname": "photo_url",
    "fieldtype": "Small Text",
    "label": "Photo URL"
+  },
+  {
+   "fieldname": "time_required",
+   "fieldtype": "Int",
+   "label": "Time Required (minutes)",
+   "default": "0",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "volunteers_required",
+   "fieldtype": "Check",
+   "label": "Volunteers Required",
+   "default": "0"
+  },
+  {
+   "fieldname": "volunteers_needed",
+   "fieldtype": "Int",
+   "label": "Number of Volunteers",
+   "default": "0",
+   "depends_on": "volunteers_required",
+   "non_negative": 1
   }
  ],
  "links": [],
- "modified": "2026-11-04 17:35:53.811700",
+ "modified": "2026-11-08 00:30:00.000000",
  "modified_by": "Administrator",
  "module": "Hasiruratha",
  "name": "HR Tree",

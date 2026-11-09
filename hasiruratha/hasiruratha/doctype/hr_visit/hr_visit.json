@@ -7,10 +7,12 @@
  "field_order": [
   "visit_id",
   "site_id",
+  "tree_id",
   "status",
   "planned_date",
   "planned_time",
   "service_type",
+  "condition",
   "volunteers_needed",
   "column_break_1",
   "group_id",
@@ -38,6 +40,12 @@
    "in_list_view": 1
   },
   {
+   "fieldname": "tree_id",
+   "fieldtype": "Link",
+   "label": "Tree ID",
+   "options": "HR Tree"
+  },
+  {
    "fieldname": "status",
    "fieldtype": "Data",
    "label": "Status",
@@ -58,9 +66,16 @@
   },
   {
    "fieldname": "service_type",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
    "label": "Service Type",
-   "in_list_view": 1
+   "in_list_view": 1,
+   "options": "Watering / follow-up\nNew plantation\nMaintenance visit\nTree Guard Needed\nTree Guard Removal\nSupport pole needed\nPesticide needed\nDebris cleanup"
+  },
+  {
+   "fieldname": "condition",
+   "fieldtype": "Select",
+   "label": "Tree Condition",
+   "options": "Healthy\nNeeds attention\nUnknown\nMonitored\nDead"
   },
   {
    "fieldname": "volunteers_needed",
