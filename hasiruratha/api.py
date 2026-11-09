@@ -325,7 +325,7 @@ def add_site(b):
 		"group_id": b.get("group_id") or GROUP,
 		"site_type": b.get("site_type") or "spot",
 		"area": b.get("area") or b.get("road") or "",
-		"tree_count": cint(b.get("tree_count")) or 1,
+		"tree_count": (cint(b.get("tree_count")) if (b.get("site_type") or "spot").lower() == "stretch" else (cint(b.get("tree_count")) or 1)),
 		"status": b.get("status") or "Identified",
 		"priority": b.get("priority") or "Medium",
 		"date_added": getdate(b.get("date_added")) if b.get("date_added") else getdate(today()),
@@ -406,6 +406,11 @@ def _tree_doc(b, tree_id, position, defaults=None):
 	for k in ("species", "owner_volunteer_id", "planted_by", "photo_url", "notes", "gps_lat", "gps_lng"):
 		if k not in vals and d.get(k) not in (None, ""):
 			vals[k] = d[k]
+	# Admins / Frappe users are not HR Volunteers. Never save an owner that does not exist
+	# (this caused: Could not find Owner: Administrator).
+	owner = vals.get("owner_volunteer_id")
+	if owner and not frappe.db.exists("HR Volunteer", owner):
+		vals.pop("owner_volunteer_id", None)
 	return frappe.get_doc(vals)
 
 

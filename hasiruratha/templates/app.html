@@ -563,11 +563,35 @@ body{max-width:none;background:var(--portal-bg)}
 #s-app:has(.hr-admin-shell) #pane-admin{display:block!important;position:static!important;height:auto!important;overflow:visible!important}
 #s-app:has(.hr-admin-shell) #admin-content{padding:0!important;overflow:visible!important}
 /* Admin actions temporarily reveal the existing plantation forms */
+#s-app.hr-admin-form-open> :not(#pane-quickadd):not(#pane-add){display:none!important}
 #s-app.hr-admin-form-open #pane-admin{display:none!important}
+#s-app.hr-admin-form-open .topbar,
+#s-app.hr-admin-form-open .status-strip,
+#s-app.hr-admin-form-open>.tab-bar,
+#s-app.hr-admin-form-open #pane-map,
+#s-app.hr-admin-form-open #pane-hx,
+#s-app.hr-admin-form-open #pane-sites,
+#s-app.hr-admin-form-open #pane-mytrees,
+#s-app.hr-admin-form-open #pane-team{display:none!important}
+#s-app.hr-admin-form-open{display:block!important;position:fixed!important;inset:0!important;z-index:99999!important;width:100vw!important;height:100vh!important;height:100dvh!important;min-height:0!important;overflow:hidden!important;background:#f3f7f4!important}
+
 #s-app.hr-admin-form-open #pane-quickadd.on,
-#s-app.hr-admin-form-open #pane-add.on{display:flex!important;position:relative!important;grid-column:1/-1!important;grid-row:1/-1!important;width:100%!important;height:calc(100vh - 24px)!important;min-height:600px!important;overflow:auto!important;background:#f3f7f4!important;z-index:30!important}
+#s-app.hr-admin-form-open #pane-add.on{display:flex!important;position:absolute!important;inset:0!important;grid-column:auto!important;grid-row:auto!important;width:100%!important;height:100%!important;min-height:0!important;max-height:100%!important;overflow-y:auto!important;overflow-x:hidden!important;background:#f3f7f4!important;z-index:100000!important}
 #s-app.hr-admin-form-open #pane-quickadd .scroll,
-#s-app.hr-admin-form-open #pane-add .scroll{overflow:auto!important;max-height:calc(100vh - 76px)!important}
+#s-app.hr-admin-form-open #pane-add .scroll{overflow:visible!important;max-height:none!important}
+/* Standalone Plantation form layer: completely separate from the dashboard scroll */
+#hr-plantation-form-layer{display:none;position:fixed;inset:0;z-index:2147483000;background:#f3f7f4;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;height:100vh;height:100dvh}
+#hr-plantation-form-layer.on{display:block}
+#hr-plantation-form-layer>.pane{display:flex!important;position:relative!important;inset:auto!important;width:100%!important;height:auto!important;min-height:100vh;max-height:none!important;overflow:visible!important;background:#f3f7f4!important;flex-direction:column!important}
+#hr-plantation-form-layer>.pane>.scroll{flex:1 0 auto!important;overflow:visible!important;max-height:none!important}
+#hr-plantation-form-layer .hr-admin-form-back{position:sticky;top:0}
+body.hr-plantation-form-active{overflow:hidden!important}
+.qa-kind-toggle{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 16px}
+.qa-kind-btn{border:1px solid #dce9e0;background:#fff;color:#476253;border-radius:12px;padding:13px 10px;font-weight:750;cursor:pointer}
+.qa-kind-btn.on{background:#0b6545;color:#fff;border-color:#0b6545;box-shadow:0 5px 14px #0b654522}
+.qa-stretch-gps{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.qa-stretch-gps .field{min-width:0}
+.qa-help{font-size:11px;color:#819187;margin-top:5px;line-height:1.45}
 .hr-admin-form-back{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:10px;padding:14px clamp(18px,4vw,52px);background:#fff;border-bottom:1px solid #e3ece5;color:#155d40;font-weight:700;cursor:pointer}
 .hr-admin-form-back button{border:0;background:#eaf4ed;color:#155d40;border-radius:9px;padding:9px 13px;font-weight:700;cursor:pointer}
 .hr-admin-shell{min-height:calc(100vh - 20px);background:#f3f7f4;color:#183629;margin:-1px}
@@ -602,6 +626,7 @@ body{max-width:none;background:var(--portal-bg)}
 .hr-site-map{width:100%;height:390px;background:#e8f0ea;border:1px solid #dce8df;border-radius:16px;overflow:hidden;position:relative}.hr-map-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:10px;color:#718579;margin-top:9px}.hr-map-note,.hr-map-unavailable{position:absolute;left:12px;right:12px;bottom:12px;background:#fff;padding:10px 13px;border-radius:9px;font-size:11px;color:#60776a;box-shadow:0 2px 12px #0001}
 .hr-area-group{background:#fff;border:1px solid #e1ebe4;border-radius:15px;padding:15px;margin:13px 0}.hr-area-group>header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.hr-area-group>header>div{display:flex;align-items:center;gap:8px;color:#165b3c}.hr-area-group>header h3{font-size:14px;margin:0}.hr-area-group>header>span{font-size:10px;color:#829188}
 .hr-tree-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:11px}.hr-tree-card{display:flex;gap:12px;padding:11px;border:1px solid #e6eee8;border-radius:12px;min-width:0}.hr-tree-photo{width:105px;height:125px;flex:0 0 105px;border-radius:9px;overflow:hidden;background:#edf4ef}.hr-tree-photo img{width:100%;height:100%;object-fit:cover}.hr-tree-photo>div{height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#91a59a;font-size:10px;gap:5px}.hr-tree-photo i{font-size:22px}.hr-tree-info{min-width:0;flex:1}.hr-tree-id{font-family:monospace;font-size:11px;font-weight:800;color:#168052;overflow-wrap:anywhere}.hr-tree-info h3{font-size:13px;margin:5px 0;color:#1b3c2d}.hr-tree-status{display:inline-block;padding:4px 8px;background:#edf5ef;border-radius:20px;font-size:9px;color:#176443;font-weight:800}.hr-tree-meta{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}.hr-tree-meta span{font-size:10px;color:#60766a;overflow-wrap:anywhere}.hr-tree-meta b{display:block;color:#91a097;font-size:8px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px}
+.hr-tree-status-row{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0}.hr-tree-condition{background:#fff4df;color:#875b12}.hr-tree-actions{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.hr-tree-actions button{border:1px solid #cfe1d4;border-radius:8px;background:#fff;color:#176b48;padding:8px 10px;font-size:10px;font-weight:800;cursor:pointer}.hr-tree-actions button:first-child{background:#176b48;color:#fff}.hr-tree-status-control{display:flex;align-items:center;gap:10px;margin:8px 0 10px;font-size:10px;font-weight:800;color:#6b8074}.hr-tree-status-control select{border:1px solid #d5e3d9;border-radius:8px;padding:7px 9px;background:#fff;color:#176443;font:inherit}.hr-tree-notes{grid-column:1/-1}
 .hr-open-site-link{margin:0 0 14px;border:0;background:transparent;color:#16704a;font-size:10px;font-weight:800;cursor:pointer}
 .hr-volunteer-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}.hr-volunteer-grid article{background:#fff;border:1px solid #e1ebe4;border-radius:14px;padding:16px}.hr-vol-avatar{width:40px;height:40px;border-radius:12px;background:#e8f5ec;color:#176443;display:grid;place-items:center;font-size:20px}.hr-volunteer-grid h3{font-size:14px;margin:10px 0 4px}.hr-volunteer-grid p{font-size:10px;color:#829188}.hr-volunteer-grid article>div:not(.hr-vol-avatar){display:flex;justify-content:space-between;border-top:1px solid #edf2ee;padding-top:8px;margin-top:8px;font-size:10px}.hr-volunteer-grid article>div b{color:#176443}
 .hr-admin-empty{grid-column:1/-1;padding:35px;background:#fff;border:1px dashed #d6e4da;border-radius:15px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;text-align:center;color:#7d9084;font-size:11px}.hr-admin-empty i{font-size:27px;color:#7bad8b}.hr-admin-empty strong{font-size:13px;color:#365d47}.hr-admin-loading{padding:60px;text-align:center;color:#678071}
@@ -677,6 +702,19 @@ html, body { height:100%; overflow:auto !important; }
 .hr-status-count span{display:block;font-size:9px;color:#7d8e83;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
 .hr-status-count strong{display:block;font-size:22px;margin-top:4px;color:#174b35}
 .hr-zone-record-map{height:360px;width:100%;border:1px solid #dce8df;border-radius:15px;background:#e8f0ea;overflow:hidden;margin:12px 0}
+.hr-zone-record-map{height:min(68vh,620px);min-height:420px}
+.hr-all-map{height:min(76vh,760px);min-height:520px}
+.hr-map-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:10px 0}
+.hr-map-toolbar label{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:800;color:#557263}
+.hr-map-toolbar select{border:1px solid #d6e5db;background:#fff;border-radius:9px;padding:9px 12px;color:#174b35;font:inherit}
+.hr-map-hint{font-size:10px;color:#7b8e82}
+.hr-map-legend{display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-size:10px;color:#718579;margin:9px 0 16px}
+.hr-map-legend span{display:inline-flex;align-items:center;gap:6px}
+.hr-legend-site,.hr-legend-tree,.hr-legend-stretch{display:inline-block;width:10px;height:10px;border-radius:50%;background:#075e43}
+.hr-legend-tree{background:#15966a}
+.hr-legend-stretch{width:20px;height:4px;border-radius:3px;background:#d97706}
+@media(max-width:760px){.hr-zone-record-map{min-height:390px;height:58vh}.hr-all-map{min-height:460px;height:68vh}}
+
 .hr-zone-status-filter{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}
 .hr-zone-status-filter button{border:1px solid #dbe7df;background:#fff;color:#557263;border-radius:20px;padding:7px 11px;font-size:10px;font-weight:800;cursor:pointer}
 .hr-zone-status-filter button.active{background:#0d6243;color:#fff;border-color:#0d6243}
@@ -772,6 +810,9 @@ html, body { height:100%; overflow:auto !important; }
 .hx-np{height:90px;border-radius:14px;background:var(--g4);display:flex;align-items:center;justify-content:center;font-size:44px;margin-bottom:10px}
 .hx-wrap{max-width:920px;margin:0 auto}
 .hx-add{position:relative;z-index:2;margin-top:12px;border:0;border-radius:12px;padding:9px 16px;background:#d9f27a;color:#083d2a;font:600 13px 'DM Sans',sans-serif;cursor:pointer}
+
+
+
 </style>
 <link rel="stylesheet" href="/assets/hasiruratha/css/hasiruratha.css">
 </head>
@@ -823,7 +864,7 @@ html, body { height:100%; overflow:auto !important; }
     <div class="field"><label>Email (optional)</label><input type="email" id="reg-email" placeholder="your@email.com"></div>
     <div class="field">
       <label>Your area / neighbourhood</label>
-      <input type="text" id="reg-area" placeholder="e.g. JP Nagar 7th Phase, BTM Layout" list="road-list" autocomplete="off">
+      <input type="text" id="reg-area" placeholder="e.g. JP Nagar 7th Phase, BTM Layout" autocomplete="off">
       <div class="hint">Helps us assign you to the right zone</div>
     </div>
     <div id="reg-err" class="err"></div>
@@ -936,41 +977,55 @@ html, body { height:100%; overflow:auto !important; }
     <div class="scroll pad">
       <input type="file" id="qa-file-input" accept="image/*" style="display:none" onchange="onQaPhotoChosen(event)">
 
-      <!-- Step A: Photo -->
+      <!-- Step 1: Zone and record type -->
+      <div class="fsec qa-location-card">
+        <div class="fsec-head"><i class="ti ti-map-pin"></i> Step 1 — Choose existing zone</div>
+        <div class="field"><label>Zone <span style="color:var(--red)">*</span></label>
+          <select id="qa-zone"><option value="">Loading existing zones...</option></select>
+        </div>
+      </div>
+
+      <!-- Step 2: Choose Spot or Stretch -->
       <div class="fsec">
-        <div class="fsec-head"><i class="ti ti-camera"></i> Step 1 — Take a photo of the spot</div>
+        <div class="fsec-head"><i class="ti ti-route"></i> Step 2 — What are you adding?</div>
+        <div class="qa-kind-toggle">
+          <button type="button" id="qa-kind-spot" class="qa-kind-btn on" onclick="setQaRecordType('spot')"><i class="ti ti-map-pin"></i> Spot</button>
+          <button type="button" id="qa-kind-stretch" class="qa-kind-btn" onclick="setQaRecordType('stretch')"><i class="ti ti-route"></i> Stretch</button>
+        </div>
+      </div>
+
+      <!-- Spot photo -->
+      <div class="fsec" id="qa-photo-section">
+        <div class="fsec-head"><i class="ti ti-camera"></i> Step 3 — Take a photo of the spot</div>
         <div id="qa-photo-box" class="qa-photo-box" onclick="document.getElementById('qa-file-input').click()">
-          <i class="ti ti-camera"></i>
-          <p>Tap to take or choose photo</p>
-          <small>Photo will be saved to Drive automatically</small>
+          <i class="ti ti-camera"></i><p>Tap to take or choose photo</p><small>Photo will be saved to Drive automatically</small>
         </div>
-        <div id="qa-preview-wrap" style="display:none">
-          <div class="qa-photo-preview">
-            <img id="qa-preview-img" src="">
-            <button class="qa-photo-retake" onclick="document.getElementById('qa-file-input').click()"><i class="ti ti-refresh" style="font-size:11px"></i> Retake</button>
-          </div>
-        </div>
+        <div id="qa-preview-wrap" style="display:none"><div class="qa-photo-preview"><img id="qa-preview-img" src=""><button class="qa-photo-retake" onclick="document.getElementById('qa-file-input').click()"><i class="ti ti-refresh" style="font-size:11px"></i> Retake</button></div></div>
       </div>
 
-      <!-- Step B: GPS + Road -->
+      <!-- GPS + manually entered locality -->
       <div class="fsec" id="qa-gps-section">
-        <div class="fsec-head"><i class="ti ti-map-pin"></i> Step 2 — Location</div>
-        <div class="qa-gps-strip" id="qa-gps-strip">
-          <i class="ti ti-current-location"></i>
-          <div class="qa-gps-txt">
-            <span id="qa-gps-txt">Waiting for GPS...</span><br>
-            <small id="qa-road-txt"></small>
+        <div class="fsec-head"><i class="ti ti-map-pin"></i> Step 4 — Capture GPS location</div>
+        <div class="qa-gps-strip" id="qa-gps-strip"><i class="ti ti-current-location"></i><div class="qa-gps-txt"><span id="qa-gps-txt">Waiting for GPS...</span><br><small id="qa-road-txt">GPS is used for coordinates only. Enter the address below.</small></div><button class="gps-btn" style="padding:5px 8px;font-size:10px" onclick="captureQaGPS()"><i class="ti ti-refresh" style="font-size:11px"></i></button></div>
+        <div class="field" style="margin-bottom:0"><label>Area / road name <span style="color:var(--red)">*</span></label><input type="text" id="qa-road" placeholder="e.g. Pragathi Nagar, JP Nagar 7th Phase" autocomplete="off"><small class="qa-help">Type the locality or road yourself. No address suggestions will be inserted.</small></div>
+        <div class="field" style="margin-top:10px;margin-bottom:0"><label>Nearby landmark <span style="color:var(--text3);font-weight:400">(optional)</span></label><input type="text" id="qa-landmark" placeholder="e.g. Near Jayanagar metro station"></div>
+        <div id="qa-spot-gps-details"><div class="qa-gps-strip" style="margin-top:10px;margin-bottom:0"><i class="ti ti-crosshair"></i><div class="qa-gps-txt"><span id="qa-gps-coords">Coordinates will appear after GPS capture</span><br><small id="qa-gps-accuracy">Accuracy: —</small></div></div></div>
+        <div id="qa-stretch-gps-details" style="display:none;margin-top:12px">
+          <div class="qa-stretch-gps">
+            <div class="field"><label>Start point</label><input id="qa-start-coords" readonly placeholder="Not captured"><button type="button" class="gps-btn" style="width:100%;justify-content:center;margin-top:6px" onclick="captureQaStretchPoint('start')"><i class="ti ti-current-location"></i> Capture start</button></div>
+            <div class="field"><label>End point</label><input id="qa-end-coords" readonly placeholder="Not captured"><button type="button" class="gps-btn" style="width:100%;justify-content:center;margin-top:6px" onclick="captureQaStretchPoint('end')"><i class="ti ti-current-location"></i> Capture end</button></div>
           </div>
-          <button class="gps-btn" style="padding:5px 8px;font-size:10px" onclick="captureQaGPS()"><i class="ti ti-refresh" style="font-size:11px"></i></button>
-        </div>
-        <div class="field" style="margin-bottom:0">
-          <label>Road / area name <span style="color:var(--text3);font-weight:400">(auto-filled or edit)</span></label>
-          <input type="text" id="qa-road" placeholder="e.g. Kanakapura Road" list="road-list" autocomplete="off">
+          <div class="field"><label>Stretch length (metres, optional)</label><input type="number" id="qa-stretch-length" min="1" step="1" placeholder="Enter approximate length"></div>
+          <small class="qa-help">Capture the start and end points while standing at each end of the stretch.</small>
         </div>
       </div>
 
-      <!-- Step C: Notes -->
+      <!-- Step 4: Tree details -->
       <div class="fsec">
+        <div class="fsec-head"><i class="ti ti-plant"></i> Step 4 — Tree details</div>
+        <div class="field"><label>Time required (minutes)</label><input type="number" id="qa-time-required" min="0" step="5" placeholder="e.g. 30" value="0"></div>
+        <div class="field"><label>Volunteers required?</label><select id="qa-volunteers-required" onchange="document.getElementById('qa-volunteers-count-wrap').style.display=this.value==='Yes'?'block':'none'"><option value="No">No</option><option value="Yes">Yes</option></select></div>
+        <div class="field" id="qa-volunteers-count-wrap" style="display:none"><label>How many volunteers?</label><input type="number" id="qa-volunteers-needed" min="1" step="1" value="2"></div>
         <div class="field" style="margin-bottom:0">
           <label>Notes <span style="color:var(--text3);font-weight:400">(optional)</span></label>
           <textarea id="qa-notes" placeholder="Any observations about this spot..." style="min-height:80px"></textarea>
@@ -978,8 +1033,8 @@ html, body { height:100%; overflow:auto !important; }
       </div>
 
       <div id="qa-err" class="err" style="margin-bottom:8px">Please take a photo first.</div>
-      <button class="btn-main" id="qa-save-btn" onclick="submitQuickAdd()" style="display:none"><i class="ti ti-device-floppy"></i> Save - add details later from My Activity</button>
-      <p id="qa-save-hint" style="font-size:11px;color:var(--text3);text-align:center;margin-top:7px;display:none">Species, conditions and notes can be added from My Activity</p>
+      <button class="btn-main" id="qa-save-btn" onclick="submitQuickAdd()" style="display:none"><i class="ti ti-device-floppy"></i> Save plantation to Tree Registry</button>
+      <p id="qa-save-hint" style="font-size:11px;color:var(--text3);text-align:center;margin-top:7px;display:none">Tree ID and recorded-by details will be generated automatically.</p>
       <div style="height:16px"></div>
     </div>
   </div>
@@ -1003,15 +1058,7 @@ html, body { height:100%; overflow:auto !important; }
         <div class="fsec-head"><i class="ti ti-map-pin"></i> Location</div>
         <div class="field"><label>Site name *</label><input type="text" id="a-name" placeholder="e.g. JP Nagar 7th Phase park corner"></div>
         <div class="field"><label>Road / area *</label>
-          <input type="text" id="a-road" list="road-list" placeholder="Type or search..." autocomplete="off">
-          <datalist id="road-list">
-            <option>Bannerghatta Road</option><option>Kanakapura Road</option>
-            <option>Hosur Road</option><option>JP Nagar</option>
-            <option>Jayanagar</option><option>BTM Layout</option>
-            <option>Koramangala</option><option>Sarjapur Road</option>
-            <option>Outer Ring Road (South)</option><option>Uttarahalli Road</option>
-            <option>Kathriguppe Road</option><option>Gottigere</option><option>Hulimavu</option>
-          </datalist>
+          <input type="text" id="a-road" placeholder="Type or search..." autocomplete="off">
         </div>
         <div id="gps-spot-field" class="field">
           <label>GPS location</label>
@@ -1060,27 +1107,6 @@ html, body { height:100%; overflow:auto !important; }
               <button class="step-btn" onclick="stepTree(1)">+</button>
             </div>
           </div>
-        </div>
-        <div class="field">
-          <label>Species</label>
-          <div id="species-list">
-            <div class="species-row">
-              <input type="text" placeholder="e.g. Neem" class="sp-name" list="species-data">
-              <div class="stepper" style="padding:3px 5px;gap:3px">
-                <button class="step-btn" onclick="stepSpecies(this,-1)">−</button>
-                <span class="step-val sp-count">1</span>
-                <button class="step-btn" onclick="stepSpecies(this,1)">+</button>
-              </div>
-              <div class="spc-del" onclick="removeSpecies(this)"><i class="ti ti-x" style="font-size:10px"></i></div>
-            </div>
-          </div>
-          <datalist id="species-data">
-            <option>Neem</option><option>Banyan</option><option>Peepal</option>
-            <option>Gulmohar</option><option>Tamarind</option><option>Mango</option>
-            <option>Coconut</option><option>Bamboo</option><option>Rain Tree</option>
-            <option>Jackfruit</option><option>Teak</option>
-          </datalist>
-          <button class="add-spc-btn" onclick="addSpeciesRow()"><i class="ti ti-plus"></i> Add species</button>
         </div>
         <div class="field"><label>Tree guard</label>
           <div class="guard-row" id="guard-opts">
@@ -1422,6 +1448,9 @@ let nmUserMarker  = null;
 let qaPhotoB64  = null;   // compressed base64 of taken photo
 let qaLat       = null;   // GPS latitude
 let qaLng       = null;   // GPS longitude
+let qaAccuracy  = null;   // GPS accuracy in metres
+let qaZones     = [];
+let qaStretches = [];
 let qaTreeCount = 1;      // number of trees
 
 // ═══════════════════════════════════════════════════════════════════
@@ -2309,10 +2338,6 @@ async function submitSite() {
   const lng  = parseFloat(document.getElementById(addType==='spot'?'a-lng':'a-lng1').value)||'';
   const lat2 = addType==='stretch'?parseFloat(document.getElementById('a-lat2').value)||'':'';
   const lng2 = addType==='stretch'?parseFloat(document.getElementById('a-lng2').value)||'':'';
-  const spRows = document.querySelectorAll('#species-list .species-row');
-  const spArr  = [];
-  spRows.forEach(r => { const n=r.querySelector('.sp-name').value.trim(); const c=parseInt(r.querySelector('.sp-count').textContent)||1; if(n) spArr.push({name:n,count:c}); });
-  const spStr  = spArr.map(s=>s.count>1?s.name+' x'+s.count:s.name).join(', ');
   const guard  = document.querySelector('#guard-opts .guard-opt.on')?.textContent||'No';
   const pole   = document.querySelector('#pole-opts .guard-opt.on')?.textContent||'No';
   const tempId = 'TEMP-'+Date.now();
@@ -2325,7 +2350,7 @@ async function submitSite() {
     gps_lat:lat, gps_lng:lng, gps_lat2:lat2, gps_lng2:lng2,
     stretch_length:addType==='stretch'?document.getElementById('a-length').value:'',
     tree_count:treeCount, status:'Identified', added_by:currentUser?.name||'',
-    notes:document.getElementById('a-notes').value.trim()+(spStr?' | Species: '+spStr:''),
+    notes:document.getElementById('a-notes').value.trim(),
     photo_url:'', priority:'Medium', zone_id:activeZone||'' };
   if (activeZone&&loadedZones[activeZone]) { loadedZones[activeZone].sites.push(newSite); renderSitesList(); if(gMap) renderMarkersForZone(activeZone); }
   showToast('Saving...');
@@ -2334,8 +2359,7 @@ async function submitSite() {
   if (sRes.success) {
     newSite.site_id = sRes.site_id;
     const treesArr = [];
-    if (spArr.length) { let pos=1; spArr.forEach(sp => { for(let i=0;i<sp.count;i++) treesArr.push({species:sp.name,position:pos++,tree_guard:guard,support_pole:pole}); }); }
-    else { for(let i=0;i<treeCount;i++) treesArr.push({species:'Unknown',position:i+1,tree_guard:guard,support_pole:pole}); }
+    for(let i=0;i<treeCount;i++) treesArr.push({species:'Unknown',position:i+1,tree_guard:guard,support_pole:pole});
     await api('addTreesBulk', { group_id:GROUP_ID, site_id:sRes.site_id, road, planted_by:currentUser?.name||'', trees:treesArr });
     try { localStorage.removeItem(cacheKey('zone_'+activeZone)); } catch(e) {}
     // Create condition record for maintenance sites
@@ -2397,7 +2421,7 @@ function renderEditSiteView() {
   if (!site) return;
   document.getElementById('edit-modal-body').innerHTML = `
     <div class="field"><label>Site name *</label><input type="text" id="ef-name" value="${esc(site.name)}"></div>
-    <div class="field"><label>Road / area *</label><input type="text" id="ef-road" value="${esc(site.road)}" list="road-list"></div>
+    <div class="field"><label>Road / area *</label><input type="text" id="ef-road" value="${esc(site.road)}"></div>
     <div class="field"><label>Zone</label>
       <select id="ef-zone">
         <option value="">Select zone</option>
@@ -2523,9 +2547,8 @@ function openTreeEditView(treeId) {
   const tree = treeId ? editSiteTrees.find(t => t.tree_id === treeId) : null;
   document.getElementById('edit-modal-body').innerHTML = `
     ${treeId?`<div style="font-size:10px;font-weight:600;color:var(--g2);font-family:monospace;margin-bottom:12px;padding:5px 8px;background:var(--g5);border-radius:6px;display:inline-block">${treeId}</div>`:'<div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:12px">New tree</div>'}
-    <div class="field"><label>Species *</label>
-      <input type="text" id="te-species" value="${esc(tree?.species||'')}" placeholder="e.g. Neem" list="species-data">
-    </div>
+    <div class="field"><label>Volunteers required?</label><select id="te-volunteers-required" onchange="document.getElementById('te-volunteers-count-wrap').style.display=this.value==='Yes'?'block':'none'"><option value="No" ${!Number(tree?.volunteers_required)?'selected':''}>No</option><option value="Yes" ${Number(tree?.volunteers_required)?'selected':''}>Yes</option></select></div>
+    <div class="field" id="te-volunteers-count-wrap" style="display:${Number(tree?.volunteers_required)?'block':'none'}"><label>How many volunteers?</label><input type="number" id="te-volunteers-needed" min="1" value="${esc(tree?.volunteers_needed||2)}"></div>
     <div class="field"><label>Condition</label>
       <select id="te-condition">
         ${['Healthy','Needs attention','Unknown','Monitored','Dead'].map(c=>`<option ${tree?.condition===c?'selected':''}>${c}</option>`).join('')}
@@ -2568,15 +2591,15 @@ function backToTrees() {
 }
 
 async function saveTreeEdit() {
-  const species   = document.getElementById('te-species').value.trim();
-  if (!species) { showToast('Please enter species name'); return; }
+  const volunteers_required=document.getElementById('te-volunteers-required')?.value==='Yes'?1:0;
+  const volunteers_needed=volunteers_required?Math.max(1,Number(document.getElementById('te-volunteers-needed')?.value||2)):0;
   const condition = document.getElementById('te-condition').value;
   const guard     = document.querySelector('#te-guard-opts .guard-opt.on')?.textContent || 'Unknown';
   const pole      = document.querySelector('#te-pole-opts .guard-opt.on')?.textContent  || 'Unknown';
 
   if (editTreeId) {
     // Update existing tree
-    const payload = { tree_id:editTreeId, species, condition, tree_guard:guard, support_pole:pole };
+    const payload = { tree_id:editTreeId, volunteers_required, volunteers_needed, condition, tree_guard:guard, support_pole:pole };
     const res     = await api('updateTree', payload);
     if (res.success) {
       const t = editSiteTrees.find(t=>t.tree_id===editTreeId);
@@ -2591,14 +2614,14 @@ async function saveTreeEdit() {
     const site = getAllSites().find(s=>s.site_id===editSiteId);
     const res  = await api('addTree', {
       site_id:editSiteId, group_id:GROUP_ID,
-      species, condition, tree_guard:guard, support_pole:pole,
+      volunteers_required, volunteers_needed, condition, tree_guard:guard, support_pole:pole,
       position:editSiteTrees.length+1,
       road:site?.road||'', area:site?.area||'',
       gps_lat:site?.gps_lat||'', gps_lng:site?.gps_lng||'',
       status:site?.status||'Identified',
     });
     if (res.success) {
-      const newTree = { tree_id:res.tree_id, site_id:editSiteId, group_id:GROUP_ID, species, condition, tree_guard:guard, support_pole:pole, position:editSiteTrees.length+1, status:site?.status||'Identified' };
+      const newTree = { tree_id:res.tree_id, site_id:editSiteId, group_id:GROUP_ID, volunteers_required, volunteers_needed, condition, tree_guard:guard, support_pole:pole, position:editSiteTrees.length+1, status:site?.status||'Identified' };
       editSiteTrees.push(newTree);
       if (activeZone&&loadedZones[activeZone]) loadedZones[activeZone].trees.push(newTree);
       showToast('✅ Tree added: '+res.tree_id);
@@ -2898,22 +2921,36 @@ async function deleteVisitItem(visitId) {
 
 function hrAdminOpenLegacyForm(paneId) {
   if (currentUser?.role !== 'admin') return;
-  const app = document.getElementById('s-app');
-  if (!app) return;
-  app.classList.add('hr-admin-form-open');
-  const pane = document.getElementById(paneId);
-  if (!pane) return;
-  let bar = pane.querySelector('.hr-admin-form-back');
-  if (!bar) {
-    bar = document.createElement('div');
-    bar.className = 'hr-admin-form-back';
-    bar.innerHTML = '<button type="button" onclick="hrAdminReturnHome()"><i class="ti ti-arrow-left"></i> Back to Homepage</button><span>Plantation management</span>';
-    pane.insertBefore(bar, pane.firstChild);
+  const app=document.getElementById('s-app');
+  const pane=document.getElementById(paneId);
+  if(!app||!pane)return;
+  let layer=document.getElementById('hr-plantation-form-layer');
+  if(!layer){layer=document.createElement('div');layer.id='hr-plantation-form-layer';document.body.appendChild(layer);}
+  if(!pane.dataset.formHomeParent){
+    const marker=document.createComment('plantation-form-home');
+    pane.parentNode.insertBefore(marker,pane);
+    pane._hrHomeMarker=marker;
+    pane.dataset.formHomeParent='s-app';
   }
+  layer.appendChild(pane);
+  layer.classList.add('on');
+  document.body.classList.add('hr-plantation-form-active');
+  pane.style.display='flex';
+  let bar=pane.querySelector('.hr-admin-form-back');
+  if(!bar){bar=document.createElement('div');bar.className='hr-admin-form-back';bar.innerHTML='<button type="button" onclick="hrAdminReturnHome()"><i class="ti ti-arrow-left"></i> Back to Homepage</button><span>Plantation management</span>';pane.insertBefore(bar,pane.firstChild);}
+  layer.scrollTop=0;
 }
-function hrAdminReturnHome() {
+function hrAdminReturnHome(){
+  const layer=document.getElementById('hr-plantation-form-layer');
+  const paneIds=['pane-quickadd','pane-add'];
+  paneIds.forEach(id=>{
+    const pane=document.getElementById(id);
+    if(pane&&pane._hrHomeMarker&&pane._hrHomeMarker.parentNode){pane._hrHomeMarker.parentNode.insertBefore(pane,pane._hrHomeMarker);pane._hrHomeMarker.remove();pane._hrHomeMarker=null;delete pane.dataset.formHomeParent;}
+    if(pane){pane.classList.remove('on');pane.style.display='';}
+  });
+  layer?.classList.remove('on');
+  document.body.classList.remove('hr-plantation-form-active');
   document.getElementById('s-app')?.classList.remove('hr-admin-form-open');
-  document.querySelectorAll('#pane-quickadd,#pane-add').forEach(p=>p.classList.remove('on'));
   hrPushRoute('home');
 }
 
@@ -2926,20 +2963,8 @@ function closeAddChooser() {
 
 // ─── GPS capture + reverse geocode ────────────────────────────────
 async function reverseGeocode(lat, lng) {
-  const roadEl    = document.getElementById('qa-road-txt');
-  const roadInput = document.getElementById('qa-road');
-  try {
-    const r = await api('reverseGeocode', { lat, lng });
-    const suggested = r.success ? (r.road || r.area || '') : '';
-    if (suggested) {
-      roadEl.innerHTML = '📍 Suggested: <strong>' + suggested.replace(/</g, '&lt;') + '</strong>';
-      if (!roadInput.value) roadInput.value = suggested;
-    } else {
-      roadEl.textContent = r.success ? 'Could not identify road — enter manually' : 'Enter road name manually';
-    }
-  } catch (e) {
-    roadEl.textContent = 'Geocode failed — enter road manually';
-  }
+  const roadEl = document.getElementById('qa-road-txt');
+  if (roadEl) roadEl.textContent = 'GPS captured — enter road / area manually';
 }
 
 // ─── Photo handler ─────────────────────────────────────────────────
@@ -2980,10 +3005,38 @@ async function loadSitesLite(){
 // ================================================================
 //  QUICK ADD — minimal (photo + purpose only)
 // ================================================================
+let qaRecordType = 'spot';
+let qaStartLat=null, qaStartLng=null, qaEndLat=null, qaEndLng=null;
+
+function setQaRecordType(type){
+  qaRecordType=type==='stretch'?'stretch':'spot';
+  document.getElementById('qa-kind-spot')?.classList.toggle('on',qaRecordType==='spot');
+  document.getElementById('qa-kind-stretch')?.classList.toggle('on',qaRecordType==='stretch');
+  const photo=document.getElementById('qa-photo-section'); if(photo)photo.style.display=qaRecordType==='spot'?'':'none';
+  const existing=document.getElementById('qa-existing-stretch-wrap'); if(existing)existing.style.display=qaRecordType==='spot'?'':'none';
+  const spot=document.getElementById('qa-spot-gps-details'); if(spot)spot.style.display=qaRecordType==='spot'?'':'none';
+  const stretch=document.getElementById('qa-stretch-gps-details'); if(stretch)stretch.style.display=qaRecordType==='stretch'?'':'none';
+  const save=document.getElementById('qa-save-btn'); if(save)save.style.display=(qaRecordType==='stretch'||qaPhotoB64)?'':'none';
+  const title=document.querySelector('#pane-quickadd .fsec-head');
+}
+function captureQaStretchPoint(which){
+  if(!navigator.geolocation){showToast('GPS is not available in this browser');return;}
+  showToast('Capturing '+which+' point…');
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const lat=pos.coords.latitude,lng=pos.coords.longitude;
+    if(which==='start'){qaStartLat=lat;qaStartLng=lng;}else{qaEndLat=lat;qaEndLng=lng;}
+    const field=document.getElementById(which==='start'?'qa-start-coords':'qa-end-coords');
+    if(field)field.value=lat.toFixed(6)+', '+lng.toFixed(6)+' (±'+Math.round(pos.coords.accuracy)+'m)';
+    showToast(which.charAt(0).toUpperCase()+which.slice(1)+' point captured');
+  },err=>showToast('Could not capture '+which+' GPS point. Check location permission.'),{enableHighAccuracy:true,timeout:15000,maximumAge:0});
+}
+
 function startQuickAdd(purpose){
   closeAddChooser();
   qaPurpose  = purpose||'new_plantation';
-  qaPhotoB64 = null; qaLat=null; qaLng=null;
+  qaPhotoB64 = null; qaLat=null; qaLng=null; qaAccuracy=null; qaStartLat=null;qaStartLng=null;qaEndLat=null;qaEndLng=null;
+  setQaRecordType('spot');
+  loadQaZones();
   const el_name = document.getElementById('qa-vol-name');
   const el_purp = document.getElementById('qa-purpose-label');
   if(el_name) el_name.textContent  = currentUser?.name||'--';
@@ -3003,16 +3056,49 @@ function startQuickAdd(purpose){
   if(gt) gt.textContent='Capturing GPS...';
   if(rt) rt.textContent='';
   if(roadInput) roadInput.value='';
+  const landmark=document.getElementById('qa-landmark'); if(landmark) landmark.value='';
+  const coords=document.getElementById('qa-gps-coords'); if(coords) coords.textContent='Coordinates will appear after GPS capture';
+  const accuracy=document.getElementById('qa-gps-accuracy'); if(accuracy) accuracy.textContent='Accuracy: —';
   if(notesInput) notesInput.value='';
+  const vr=document.getElementById('qa-volunteers-required'); if(vr) vr.value='No';
+  const vc=document.getElementById('qa-volunteers-needed'); if(vc) vc.value='2';
+  const vcw=document.getElementById('qa-volunteers-count-wrap'); if(vcw) vcw.style.display='none';
   if(er) er.style.display='none';
   if(sb) sb.style.display='none';
+  const timeRequired=document.getElementById('qa-time-required');if(timeRequired)timeRequired.value='0';
+  ['qa-start-coords','qa-end-coords'].forEach(id=>{const x=document.getElementById(id);if(x)x.value='';});
+  const stretchLength=document.getElementById('qa-stretch-length');if(stretchLength)stretchLength.value='';
   if(sh) sh.style.display='none';
   if(fi) fi.value='';
   document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
   document.getElementById('pane-quickadd').classList.add('on');
+  setQaRecordType('spot');
   hrAdminOpenLegacyForm('pane-quickadd');
   captureQaGPS();
+}
+
+async function loadQaZones(){
+  const sel=document.getElementById('qa-zone'); if(!sel)return;
+  sel.innerHTML='<option value="">Loading existing zones...</option>';
+  try{
+    const r=await api('getZones',{group_id:GROUP_ID});
+    qaZones=(r.success&&Array.isArray(r.data)?r.data:[]);
+    sel.innerHTML='<option value="">Select an existing zone</option>'+qaZones.map(z=>`<option value="${String(z.zone_id||'').replace(/"/g,'&quot;')}">${String(z.zone_name||z.zone_id||'').replace(/</g,'&lt;')}</option>`).join('');
+    if(activeZone&&qaZones.some(z=>z.zone_id===activeZone)) sel.value=activeZone;
+    if(sel.value) loadQaStretches();
+  }catch(e){sel.innerHTML='<option value="">Could not load zones — retry</option>';}
+}
+async function loadQaStretches(){
+  const zone=document.getElementById('qa-zone')?.value;
+  const sel=document.getElementById('qa-stretch'); if(!sel)return;
+  sel.innerHTML='<option value="">New spot in this zone</option>';
+  if(!zone)return;
+  try{
+    const r=await api('getSitesByZone',{zone_id:zone,group_id:GROUP_ID});
+    qaStretches=(r.success&&Array.isArray(r.data)?r.data:[]).filter(x=>(x.site_type||'').toLowerCase()==='stretch');
+    sel.innerHTML='<option value="">New spot in this zone</option>'+qaStretches.map(x=>`<option value="${String(x.site_id||'').replace(/"/g,'&quot;')}">${String(x.road||x.name||x.site_id||'Existing stretch').replace(/</g,'&lt;')}</option>`).join('');
+  }catch(e){/* keep new spot option available */}
 }
 
 function captureQaGPS(){
@@ -3020,66 +3106,73 @@ function captureQaGPS(){
   const rt=document.getElementById('qa-road-txt');
   if(!navigator.geolocation){if(gt)gt.textContent='GPS unavailable';return;}
   navigator.geolocation.getCurrentPosition(pos=>{
-    qaLat=pos.coords.latitude; qaLng=pos.coords.longitude;
+    qaLat=pos.coords.latitude; qaLng=pos.coords.longitude; qaAccuracy=pos.coords.accuracy;
+    const coordEl=document.getElementById('qa-gps-coords'); if(coordEl)coordEl.textContent=qaLat.toFixed(6)+', '+qaLng.toFixed(6);
+    const accEl=document.getElementById('qa-gps-accuracy'); if(accEl)accEl.textContent='GPS accuracy: ±'+Math.round(qaAccuracy)+' m';
     if(gt) gt.textContent='GPS: '+qaLat.toFixed(5)+', '+qaLng.toFixed(5);
-    if(rt) rt.textContent='Looking up road...';
-    reverseGeocode(qaLat,qaLng);
+    if(rt) rt.textContent='GPS captured — type the area / road name manually.';
   },()=>{if(gt)gt.textContent='GPS failed - location saved if available';},
   {enableHighAccuracy:true,timeout:10000,maximumAge:30000});
 }
 
 async function reverseGeocodeBackground(lat,lng,txtId,inputId){
-  try{
-    const r = await api('reverseGeocode',{lat,lng});
-    if(!r.success) return;
-    const suggested = r.road || r.area || '';
-    if(txtId&&suggested){const el=document.getElementById(txtId);if(el)el.textContent='Road: '+suggested;}
-    if(inputId){const el=document.getElementById(inputId);if(el&&!el.value)el.value=suggested;}
-    // Also update the site road silently if we have a site_id pending
-    if(window._qaSiteId&&suggested) api('updateSite',{site_id:window._qaSiteId,road:suggested,area:suggested});
-  }catch(e){}
+  const el = txtId ? document.getElementById(txtId) : null;
+  if (el) el.textContent = 'GPS captured — enter road / area manually';
 }
 
 async function submitQuickAdd(){
   const er=document.getElementById('qa-err');
   er.style.display='none';
-  if(!qaPhotoB64){er.textContent='Please take a photo first.';er.style.display='block';return;}
+  const zoneId=document.getElementById('qa-zone')?.value||'';
+  const road=document.getElementById('qa-road')?.value.trim()||'';
+  const landmark=document.getElementById('qa-landmark')?.value.trim()||'';
+  const stretchId=document.getElementById('qa-stretch')?.value||'';
+  const isStretch=qaRecordType==='stretch';
+  if(!zoneId){er.textContent='Please select an existing zone.';er.style.display='block';return;}
+  if(!road){er.textContent='Please type the area or road name.';er.style.display='block';return;}
+  if(!isStretch&&!qaPhotoB64){er.textContent='Please take a photo of the spot first.';er.style.display='block';return;}
+  if(isStretch){if(qaStartLat==null||qaStartLng==null||qaEndLat==null||qaEndLng==null){er.textContent='Capture both the start and end GPS points for the stretch.';er.style.display='block';return;}}
+  else if(qaLat==null||qaLng==null){er.textContent='Please capture GPS location before saving.';er.style.display='block';return;}
   const btn=document.getElementById('qa-save-btn');
-  btn.disabled=true;
-  btn.innerHTML='<span class="spinner-inline"></span> Saving...';
-  const zoneId=activeZone||'Z-OUT-001';
-  const photoUrl=await uploadToDrive(qaPhotoB64,'QA-'+Date.now(),qaPurpose,zoneId);
-  const dateStr=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
-  const autoName=(qaPurpose==='new_plantation'?'Plant spot':'Maint spot')+' '+dateStr;
-  const payload={
-    group_id:GROUP_ID, site_type:'spot', name:autoName,
-    road:document.getElementById('qa-road')?.value.trim()||'',
-    area:document.getElementById('qa-road')?.value.trim()||'',
-    gps_lat:qaLat!=null?qaLat.toFixed(6):'',
-    gps_lng:qaLng!=null?qaLng.toFixed(6):'',
-    tree_count:1, status:'Identified', priority:'Medium',
-    added_by:currentUser?.name||'', added_by_id:currentUser?.volunteer_id||'',
-    site_purpose:qaPurpose,
-    notes:document.getElementById('qa-notes')?.value.trim()||'',
-    photo_url:photoUrl||'', zone_id:zoneId,
-  };
-  const sRes=await api('addSite',payload);
-  if(!sRes.success){
-    showToast('Could not save - check connection');
-    btn.disabled=false; btn.innerHTML='<i class="ti ti-device-floppy"></i> Save - add details later from My Activity';
-    return;
-  }
-  window._qaSiteId=sRes.site_id;
-  await api('addTree',{site_id:sRes.site_id,group_id:GROUP_ID,species:'Unknown',position:1,
-    tree_guard:'Unknown',support_pole:'Unknown',status:'Identified',
-    road:payload.road,area:payload.area,
-    gps_lat:payload.gps_lat,gps_lng:payload.gps_lng});
-  if(qaLat&&qaLng) reverseGeocodeBackground(qaLat,qaLng,null,null);
-  if(activeZone&&loadedZones[activeZone]) loadedZones[activeZone].sites.push({...payload,site_id:sRes.site_id});
-  try{localStorage.removeItem(cacheKey('sites_lite'));}catch(e){}
-  showToast('Saved! Tap My Activity to add details');
-  btn.disabled=false; btn.innerHTML='<i class="ti ti-device-floppy"></i> Save - add details later from My Activity';
-  showPane('pane-mytrees',document.getElementById('tab-mytrees'));
+  btn.disabled=true;btn.innerHTML='<span class="spinner-inline"></span> Saving…';
+  try{
+    const photoUrl=(!isStretch&&qaPhotoB64)?await uploadToDrive(qaPhotoB64,'QA-'+Date.now(),qaPurpose,zoneId):'';
+    const notes=[landmark?'Landmark: '+landmark:'',document.getElementById('qa-notes')?.value.trim()||''].filter(Boolean).join(' | ');
+    let siteId='';
+    if(isStretch){
+      const lengthInput=Number(document.getElementById('qa-stretch-length')?.value||0);
+      const calculated=distanceMetres(qaStartLat,qaStartLng,qaEndLat,qaEndLng);
+      const sRes=await api('addSite',{group_id:GROUP_ID,site_type:'stretch',name:road+' stretch',road,area:road,
+        gps_lat:qaStartLat.toFixed(6),gps_lng:qaStartLng.toFixed(6),gps_lat2:qaEndLat.toFixed(6),gps_lng2:qaEndLng.toFixed(6),
+        stretch_length:lengthInput||Math.round(calculated),tree_count:0,status:'Identified',priority:'Medium',added_by:currentUser?.name||'',
+        added_by_id:currentUser?.volunteer_id||'',site_purpose:qaPurpose,notes,zone_id:zoneId,photo_url:''});
+      if(!sRes.success)throw new Error(sRes.error||'Could not create the stretch');
+      siteId=sRes.site_id;
+    }else{
+      if(stretchId){
+        siteId=stretchId;
+        // A spot linked to a selected stretch is represented as its own spot site.
+      }
+      const dateStr=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
+      const sRes=await api('addSite',{group_id:GROUP_ID,site_type:'spot',name:road+' — '+dateStr,road,area:road,
+        gps_lat:qaLat.toFixed(6),gps_lng:qaLng.toFixed(6),tree_count:1,status:'Identified',priority:'Medium',
+        added_by:currentUser?.name||'',added_by_id:currentUser?.volunteer_id||'',site_purpose:qaPurpose,notes,photo_url:photoUrl||'',zone_id:zoneId,
+        parent_stretch_id:stretchId||''});
+      if(!sRes.success)throw new Error(sRes.error||'Could not create the spot');
+      siteId=sRes.site_id;
+      const volunteersRequired=document.getElementById('qa-volunteers-required')?.value==='Yes';
+      const treeRes=await api('addTree',{site_id:siteId,group_id:GROUP_ID,
+        volunteers_required:volunteersRequired?1:0,volunteers_needed:volunteersRequired?Math.max(1,Number(document.getElementById('qa-volunteers-needed')?.value||1)):0,
+        time_required:Math.max(0,Number(document.getElementById('qa-time-required')?.value||0)),position:1,tree_guard:'No',support_pole:'No',status:'Identified',condition:'Unknown',road,area:road,
+        gps_lat:qaLat.toFixed(6),gps_lng:qaLng.toFixed(6),photo_url:photoUrl||'',notes,owner_volunteer_id:currentUser?.volunteer_id||'',planted_by:currentUser?.name||'',added_by:currentUser?.name||''});
+      if(!treeRes.success)throw new Error(treeRes.error||'Spot saved, but tree record could not be created');
+    }
+    try{localStorage.removeItem(cacheKey('sites_lite'));}catch(e){}
+    showToast(isStretch?'Stretch saved to the zone map: '+siteId:'Plantation saved to Tree Registry');
+    btn.disabled=false;btn.innerHTML='<i class="ti ti-device-floppy"></i> Save plantation';
+    hrAdminReturnHome();
+    hrPushRoute('sites');
+  }catch(e){er.textContent=e.message||'Could not save. Please try again.';er.style.display='block';btn.disabled=false;btn.innerHTML='<i class="ti ti-device-floppy"></i> Save plantation';}
 }
 
 // ================================================================
@@ -3163,7 +3256,7 @@ function openVolunteerEditModal(siteId){
   document.getElementById('edit-modal-body').innerHTML=`
     <p style="font-size:11px;color:var(--text3);margin-bottom:12px">You can update name, road, notes, GPS and add trees. Status and zone are managed by admin.</p>
     <div class="field"><label>Site name</label><input type="text" id="ef-name" value="${esc(site.name)}"></div>
-    <div class="field"><label>Road / area</label><input type="text" id="ef-road" value="${esc(site.road)}" list="road-list"></div>
+    <div class="field"><label>Road / area</label><input type="text" id="ef-road" value="${esc(site.road)}"></div>
     <div class="field"><label>GPS Lat</label>
       <div class="gps-row">
         <input type="text" id="ef-lat" value="${esc(site.gps_lat)}" placeholder="e.g. 12.9081" style="flex:1">
@@ -3346,14 +3439,16 @@ async function onQaPhotoChosen(event) {
     document.getElementById('qa-preview-img').src         = qaPhotoB64;
     document.getElementById('qa-preview-wrap').style.display = '';
     document.getElementById('qa-photo-box').style.display    = 'none';
-    document.getElementById('qa-save-btn').style.display     = '';
+    document.getElementById('qa-save-btn').style.display     = qaRecordType==='spot'?'':'none';
     document.getElementById('qa-save-hint').style.display    = '';
     showToast('Photo ready (' + sizeKB + 'KB)');
     // Try EXIF GPS first
     const exifGPS = await extractExifGPS(file);
     if (exifGPS && exifGPS.lat && exifGPS.lng) {
       qaLat = exifGPS.lat;
-      qaLng = exifGPS.lng;
+      qaLng = exifGPS.lng; qaAccuracy=null;
+      const c=document.getElementById('qa-gps-coords'); if(c)c.textContent=qaLat.toFixed(6)+', '+qaLng.toFixed(6)+' (from photo)';
+      const a=document.getElementById('qa-gps-accuracy'); if(a)a.textContent='GPS accuracy: not embedded in photo';
       const gt = document.getElementById('qa-gps-txt');
       const rt = document.getElementById('qa-road-txt');
       if (gt) gt.textContent = 'GPS from photo: ' + qaLat.toFixed(5) + ', ' + qaLng.toFixed(5);
@@ -3693,6 +3788,9 @@ async function fetchDashboardStats() {
 }
 
 function renderDashboard() {
+  // The admin workspace has its own router and must never render the legacy dashboard.
+  if (currentUser?.role === 'admin') return;
+
   const pane = document.getElementById('admin-content');
   if (!pane) return;
   pane.innerHTML = '<div class="loading"><div class="spinner"></div>Loading dashboard...</div>';
@@ -3702,69 +3800,8 @@ function renderDashboard() {
       return;
     }
     updateStatusStrip(data.totals);
-    if (currentUser?.role === 'admin') {
-      renderAdminDashboard(data, pane);
-    } else {
-      renderVolunteerDashboard(pane);
-    }
+    renderVolunteerDashboard(pane);
   });
-}
-
-function renderAdminDashboard(data, pane) {
-  const t = data.totals || {};
-  const zs = data.zones || [];
-  const n = v => Number(v || 0).toLocaleString('en-IN');
-  const missingAlert = Number(t.missing_gps || 0) > 0 ? `
-    <div class="gps-missing-alert"><i class="ti ti-alert-triangle"></i>
-      <div><p>${n(t.missing_gps)} sites have no GPS coordinates</p>
-      <small>Review these sites before relying on map coverage.</small></div></div>` : '';
-  const zoneCards = zs.filter(z => Number(z.site_count || 0) > 0).map(z => `
-    <div class="zone-card">
-      <div class="zone-card-name"><i class="ti ti-map-pin"></i>${z.zone_name || 'Unnamed zone'}</div>
-      <div class="zone-stat"><span>Trees</span><strong>${n(z.tree_count)}</strong></div>
-      <div class="zone-stat"><span>Sites</span><strong>${n(z.site_count)}</strong></div>
-      <div class="zone-stat"><span>Completed</span><strong>${n(z.completed_count)}</strong></div>
-      ${Number(z.urgent_count || 0) ? `<div class="zone-stat"><span>Urgent</span><strong style="color:var(--red)">${n(z.urgent_count)}</strong></div>` : ''}
-      ${Number(z.no_gps_count || 0) ? `<div class="zone-no-gps">⚠ ${n(z.no_gps_count)} missing GPS</div>` : ''}
-    </div>`).join('');
-  pane.innerHTML = `
-    <section class="portal-welcome">
-      <div class="eyebrow">Hasiru Ratha · Management</div>
-      <h2>Homepage</h2>
-      <p>Monitor plantation activity, review field operations and manage your green mission.</p>
-    </section>
-    ${missingAlert}
-    <div class="portal-section-head"><h3>Plantation overview</h3><small>LIVE DATA</small></div>
-    <div class="dash-section">
-      <div class="dash-section-title"><i class="ti ti-tree"></i> Trees & status reporting</div>
-      <div class="dash-kpi-row">
-        <div class="dash-kpi"><div class="dash-kpi-val">${n(t.total_trees)}</div><div class="dash-kpi-lbl">Total trees</div></div>
-        <div class="dash-kpi"><div class="dash-kpi-val" style="color:var(--red)">${n(t.urgent_requests)}</div><div class="dash-kpi-lbl">Urgent requests</div></div>
-        <div class="dash-kpi"><div class="dash-kpi-val" style="color:var(--g2)">${n(t.completed_requests)}</div><div class="dash-kpi-lbl">Completed</div></div>
-        <div class="dash-kpi"><div class="dash-kpi-val">${n(t.volunteer_count)}</div><div class="dash-kpi-lbl">Volunteers</div></div>
-      </div>
-    </div>
-    <div class="dash-section">
-      <div class="dash-section-title"><i class="ti ti-map-pin"></i> Sites & coverage</div>
-      <div class="dash-kpi-row">
-        <div class="dash-kpi"><div class="dash-kpi-val">${n(t.total_sites)}</div><div class="dash-kpi-lbl">Sites</div></div>
-        <div class="dash-kpi"><div class="dash-kpi-val">${n(t.total_stretches)}</div><div class="dash-kpi-lbl">Stretches</div></div>
-        <div class="dash-kpi"><div class="dash-kpi-val">${n(t.total_spots)}</div><div class="dash-kpi-lbl">Spots</div></div>
-        <div class="dash-kpi"><div class="dash-kpi-val" ${Number(t.missing_gps || 0)>0?'style="color:var(--red)"':''}>${n(t.missing_gps)}</div><div class="dash-kpi-lbl">Missing GPS</div></div>
-      </div>
-    </div>
-    <div class="dash-section">
-      <div class="dash-section-title"><i class="ti ti-shield-check"></i> Tree guard operations</div>
-      <div class="dash-kpi-row">
-        <div class="dash-kpi"><div class="dash-kpi-val" style="color:var(--amber)">${n(t.guard_removal_pending)}</div><div class="dash-kpi-lbl">Removal pending</div></div>
-        <div class="dash-kpi"><div class="dash-kpi-val" style="color:var(--g2)">${n(t.guard_removal_done)}</div><div class="dash-kpi-lbl">Removed</div></div>
-      </div>
-    </div>
-    <div class="portal-section-head"><h3>Sites, zones & field coverage</h3><small>BY ZONE</small></div>
-    <section class="admin-home-sites-section"><div class="admin-home-sites-heading"><div><h3>All plantation sites</h3><p>Open any site to explore its areas, trees, photos and IDs.</p></div><button class="admin-view-all-btn" onclick="showPane('pane-sites',document.getElementById('tab-sites'))">View all sites →</button></div><div id="homepage-sites">Loading sites...</div></section>
-    <div class="zone-cards-grid">${zoneCards || '<p style="font-size:12px;color:var(--text3)">No zone data available.</p>'}</div>
-    <div style="height:22px"></div>`;
-  renderHomepageSiteDirectory();
 }
 
 function renderVolunteerDashboard(pane) {
@@ -4036,6 +4073,15 @@ function showToast(msg) {
 
 </script>
 <!-- Maps loaded AFTER app JS so onMapsReady exists -->
+<script>
+/* Google Maps failure handler: shows a friendly message instead of Google's raw error dialog. */
+(function(){
+  var MSG='<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;height:100%;min-height:160px;padding:20px;text-align:center;background:#f3f7f4;color:#35574a;font:13px DM Sans,sans-serif"><b style="font-size:15px">\ud83d\uddfa\ufe0f Map is not available right now</b><span>Google Maps did not accept the API key (billing, enabled APIs or key restrictions).<br>Locations, GPS and Directions buttons still work.</span></div>';
+  function fix(){document.querySelectorAll('.gm-err-container').forEach(function(e){var g=e.closest('.gm-style'),host=(g&&g.parentElement)||e.parentElement;if(host&&!host.dataset.hrFail){host.dataset.hrFail='1';host.innerHTML=MSG}})}
+  window.gm_authFailure=function(){window.HR_MAPS_BROKEN=true;console.error('[Hasiru Ratha] Google Maps key problem: enable billing, enable "Maps JavaScript API", and allow this site in the key referrer list.');fix();new MutationObserver(fix).observe(document.body,{childList:true,subtree:true})};
+})();
+</script>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=__GMAPS_KEY__&callback=onMapsReady" async defer></script>
 <script>
 // ================================================================
@@ -4049,6 +4095,7 @@ let hrAdminHistoryIndex = -1;
 let hrAdminDataReady = false;
 let hrAdminSites = [];
 let hrAdminTrees = [];
+let hrAdminVisits = [];
 let hrAdminMap = null;
 let hrAdminMapMarkers = [];
 
@@ -4101,8 +4148,12 @@ async function loadHrAdminData(force=false) {
   }
   const tRes = await api('getTrees', {group_id:GROUP_ID});
   hrAdminTrees = tRes.success ? (tRes.data || []) : [];
-  const vRes = await api('getVolunteers', {group_id:GROUP_ID});
+  const [vRes, visitRes] = await Promise.all([
+    api('getVolunteers', {group_id:GROUP_ID}),
+    api('getVisits', {group_id:GROUP_ID})
+  ]);
   if (vRes.success) volunteers = vRes.data || [];
+  hrAdminVisits = visitRes.success ? (visitRes.data || []) : [];
   // Keep legacy panes/data functions compatible with the loaded records.
   Object.keys(loadedZones).forEach(zoneId => {
     const siteIds = new Set((loadedZones[zoneId].sites || []).map(s => s.site_id));
@@ -4117,10 +4168,11 @@ function hrAdminShell(content, active='home') {
   const nav = [
     ['home','Home','ti-home'],
     ['sites','Sites','ti-map-pin'],
-    ['status','Status','ti-chart-donut-3'],
     ['trees','Tree Registry & Status','ti-tree'],
+    ['mytrees','My Trees','ti-user-heart'],
     ['volunteers','Tree Volunteering','ti-users'],
-    ['reports','Tree Reports','ti-clipboard-list']
+    ['reports','Tree Reports','ti-clipboard-list'],
+    ['map','All Zones Map','ti-map-2']
   ];
   pane.innerHTML = `
     <div class="hr-admin-shell">
@@ -4285,27 +4337,84 @@ async function hrConfirmAdminTreeAssign() {
 
 function hrTreeDetailCard(tree) {
   const id = hrField(tree,['tree_id','name','tree_code'],'Tree ID unavailable');
-  const status = hrField(tree,['condition','status_of_the_tree','tree_status','health_status','status'],'Status not recorded');
+  const lifecycle = hrField(tree,['status','tree_status','status_of_the_tree'],'Status not recorded');
+  const condition = hrField(tree,['condition','health_status'],'Unknown');
   const photo = hrField(tree,['photo_url','spot_photo','tree_photo','image'],'');
   const lat = hrField(tree,['gps_lat','latitude','lat'],'');
   const lng = hrField(tree,['gps_lng','longitude','lng'],'');
+  const accuracy = hrField(tree,['gps_accuracy','accuracy','location_accuracy'],'Not recorded');
   const ownerId = hrField(tree,['owner_volunteer_id'],'');
   const linkedVolunteer = (typeof volunteers !== 'undefined' ? volunteers : []).find(v => String(hrField(v,['volunteer_id','name'],'')).toLowerCase() === String(ownerId).toLowerCase());
-  const volunteerName = hrField(tree,['owner_volunteer','volunteer_name'], hrField(linkedVolunteer,['volunteer_name','name','full_name'], ownerId ? ownerId : 'Needs Volunteer'));
-  const who = hrField(tree,['planted_by','created_by','owner'],'Not recorded');
+  const volunteerName = hrField(tree,['owner_volunteer','owner_volunteer_name','volunteer_name'], hrField(linkedVolunteer,['volunteer_name','name','full_name'], ownerId ? ownerId : 'Needs Volunteer'));
+  const who = hrField(tree,['added_by','recorded_by','created_by','owner'],'Not recorded');
   const when = hrField(tree,['date_planted','planted_on','planting_date','creation','modified'],'Not recorded');
-  const species = hrField(tree,['species','tree_species','tree_type'],'Not recorded');
+  const volunteersRequired = Number(hrField(tree,['volunteers_required'],0)) === 1;
+  const volunteersNeeded = hrField(tree,['volunteers_needed'],0);
   const kind = hrField(tree,['record_type','record_type_name','doctype','type','spot_type','location_type'],'Tree / Spot');
-  return `<article class="hr-tree-card">
+  const site = hrAdminSites.find(x => String(x.site_id) === String(tree.site_id)) || {};
+  const siteName = hrField(tree,['site_name'],hrField(site,['name'],'Not recorded'));
+  const area = hrField(tree,['area','area_name'],hrField(site,['area','road','address'],'Not recorded'));
+  const stretch = hrField(tree,['stretch_name','stretch','stretch_number'],'Not recorded');
+  const city = hrField(tree,['city','district'],hrField(site,['city','district'],'Not recorded'));
+  const location = hrField(tree,['exact_location','location_note','landmark','address'],'Not recorded');
+  const notes = hrField(tree,['notes','remarks','description'],'Not recorded');
+  const statusOptions = ['Identified','Planned','Completed','Monitoring','Urgent','Hold','Merged'];
+  return `<article class="hr-tree-card" data-tree-id="${hrText(id)}">
     <div class="hr-tree-photo">${photo?`<a href="${hrText(photo)}" target="_blank" rel="noopener"><img src="${hrText(photo)}" alt="${hrText(id)}" loading="lazy"></a>`:'<div><i class="ti ti-camera-off"></i><span>Photo not recorded</span></div>'}</div>
-    <div class="hr-tree-info"><div class="hr-tree-id">${hrText(id)}</div><h3>${hrText(species)}</h3><span class="hr-tree-status">${hrText(status)}</span>
+    <div class="hr-tree-info"><div class="hr-tree-id">${hrText(id)}</div><h3>${hrText(kind)}</h3>
+      <div class="hr-tree-status-row"><span class="hr-tree-status">${hrText(lifecycle)}</span><span class="hr-tree-status hr-tree-condition">${hrText(condition)}</span></div>
       <div class="hr-tree-volunteer-line"><i class="ti ti-user"></i> ${hrText(volunteerName || 'Needs Volunteer')}</div>
-      <button type="button" class="hr-admin-assign-btn" onclick="event.stopPropagation();hrOpenAdminTreeAssign('${hrText(id)}')" style="margin-top:12px;padding:9px 14px;border:0;border-radius:8px;background:#267b55;color:white;font-weight:600;cursor:pointer">
-        <i class="ti ti-user-plus"></i> ${ownerId ? 'Change Volunteer' : 'Assign Volunteer'}
-      </button>
-      <div class="hr-tree-meta"><span><b>Record type</b>${hrText(kind)}</span><span><b>Area / Stretch</b>${hrText(hrField(tree,['stretch_name','stretch','area','road','area_name'],'Not recorded'))}</span><span><b>GPS</b>${lat && lng ? `${hrText(lat)}, ${hrText(lng)}` : 'Not recorded'}</span><span><b>Recorded by</b>${hrText(who)}</span><span><b>Date</b>${hrText(when)}</span><span><b>Guard</b>${hrText(hrField(tree,['tree_guard'],'Not recorded'))}</span><span><b>Volunteer</b>${hrText(volunteerName)}</span></div>
+      <div class="hr-tree-actions">
+        <button type="button" onclick="openPhotoModal('tree','${hrText(id)}','${hrText(tree.zone_id||site.zone_id||'')}','${hrText(id)}')"><i class="ti ti-camera"></i> Photo</button>
+        <button type="button" onclick="hrEditRegistryTree('${hrText(id)}','${hrText(tree.site_id||'')}')"><i class="ti ti-edit"></i> Edit</button>
+        ${tree.site_id ? `<button type="button" onclick="openPlanModal('${hrText(tree.site_id)}','${hrText(siteName)}')"><i class="ti ti-calendar-plus"></i> Plan</button>` : ''}
+        <button type="button" onclick="hrOpenAdminTreeAssign('${hrText(id)}')"><i class="ti ti-user-plus"></i> ${ownerId?'Change Volunteer':'Assign Volunteer'}</button>
+      </div>
+      <label class="hr-tree-status-control">Tree status
+        <select onchange="hrUpdateRegistryStatus('${hrText(id)}',this.value)">${statusOptions.map(x=>`<option value="${x}" ${String(lifecycle).toLowerCase()===x.toLowerCase()?'selected':''}>${x}</option>`).join('')}</select>
+      </label>
+      <div class="hr-tree-meta">
+        <span><b>Site</b>${hrText(siteName)}</span><span><b>Area</b>${hrText(area)}</span>
+        <span><b>Stretch</b>${hrText(stretch)}</span><span><b>City / District</b>${hrText(city)}</span>
+        <span><b>Exact location / landmark</b>${hrText(location)}</span><span><b>GPS</b>${lat && lng ? `${hrText(lat)}, ${hrText(lng)}` : 'Not recorded'}</span>
+        <span><b>GPS accuracy</b>${hrText(accuracy)}${String(accuracy)!=='Not recorded'?' m':''}</span><span><b>Volunteer / owner</b>${hrText(volunteerName)}</span>
+        <span><b>Recorded by</b>${hrText(who)}</span><span><b>Date</b>${hrText(when)}</span>
+        <span><b>Tree guard</b>${hrText(hrField(tree,['tree_guard'],'Not recorded'))}</span><span><b>Support pole</b>${hrText(hrField(tree,['support_pole'],'Not recorded'))}</span>
+        <span><b>Volunteers required</b>${volunteersRequired?'Yes · '+hrText(volunteersNeeded||'Not specified'):'No'}</span>
+        <span class="hr-tree-notes"><b>Notes</b>${hrText(notes)}</span>
+      </div>
     </div>
   </article>`;
+}
+
+async function hrEditRegistryTree(treeId, siteId) {
+  if (!siteId) { showToast('This tree is not linked to a site yet'); return; }
+  let site = getAllSites().find(s=>String(s.site_id)===String(siteId)) || hrAdminSites.find(s=>String(s.site_id)===String(siteId));
+  if (!site) { showToast('Site details could not be loaded'); return; }
+  editSiteId = siteId; editSiteName = site.name || siteId; editSiteTrees = [];
+  const r = await api('getTreesBySite',{site_id:siteId});
+  editSiteTrees = r?.success ? (r.data||[]) : getAllTrees().filter(t=>String(t.site_id)===String(siteId));
+  if (!editSiteTrees.some(t=>String(t.tree_id)===String(treeId))) {
+    const found = hrAdminTrees.find(t=>String(t.tree_id)===String(treeId));
+    if (found) editSiteTrees.push(found);
+  }
+  document.getElementById('edit-modal-title').textContent = editSiteName;
+  document.getElementById('edit-tab-bar').style.display='none';
+  document.getElementById('tree-breadcrumb').style.display='';
+  document.getElementById('bc-site-name').textContent=editSiteName;
+  document.getElementById('bc-tree-id').textContent=treeId;
+  editTreeId=treeId; editModalView='tree-edit';
+  openTreeEditView(treeId);
+  document.getElementById('edit-modal').classList.add('on');
+}
+
+async function hrUpdateRegistryStatus(treeId, status) {
+  const result = await api('updateTree',{tree_id:treeId,status});
+  if (!result?.success) { showToast(result?.error || 'Could not update tree status'); await loadHrAdminData(true); await renderHrAdminRoute(); return; }
+  const tree=hrAdminTrees.find(t=>String(t.tree_id)===String(treeId));
+  if (tree) tree.status=status;
+  showToast('Tree status updated');
+  await loadHrAdminData(true); await renderHrAdminRoute();
 }
 
 
@@ -4337,7 +4446,21 @@ function hrAdminZoneDetail(zoneId) {
     <div><span>WITHOUT GPS</span><strong>${trees.length-withGps.length}</strong></div>
   </section>
   <section class="hr-status-counts">${statusKeys.map(k=>`<div class="hr-status-count"><span>${k}</span><strong>${trees.filter(t=>statusOf(t).toLowerCase()===k.toLowerCase()).length}</strong></div>`).join('')}</section>
-  <section class="hr-admin-section"><div class="hr-admin-section-heading"><div><span class="hr-admin-eyebrow">GEOGRAPHIC VIEW</span><h2>${hrText(zoneName)} locations</h2><p>Markers use saved GPS coordinates only.</p></div></div><div id="hr-zone-record-map" class="hr-zone-record-map"></div></section>
+  <section class="hr-admin-section">
+    <div class="hr-admin-section-heading"><div><span class="hr-admin-eyebrow">INTERACTIVE ZONE MAP</span><h2>${hrText(zoneName)} — sites, stretches & trees</h2><p>Zoom in to inspect individual tree GPS points; zoom out to explore the surrounding area.</p></div>
+      <button class="hr-outline-btn" onclick="hrPushRoute('map')"><i class="ti ti-world"></i> View all zones</button>
+    </div>
+    <div class="hr-map-toolbar">
+      <label>Show on map
+        <select onchange="hrSetMapFilter(this.value,'zone','${hrText(zoneId)}')">
+          <option value="All">All statuses</option><option>Healthy</option><option>Identified</option><option>Planned</option><option>Urgent</option><option>Monitoring</option><option>Hold</option><option>Merged</option>
+        </select>
+      </label>
+      <span class="hr-map-hint">Site pins · Tree GPS points · Stretch lines</span>
+    </div>
+    <div id="hr-zone-record-map" class="hr-zone-record-map"></div>
+    <div class="hr-map-legend"><span><i class="hr-legend-site"></i> Site / zone location</span><span><i class="hr-legend-tree"></i> Tree / spot GPS</span><span><i class="hr-legend-stretch"></i> Stretch length</span></div>
+  </section>
   <section class="hr-admin-section"><div class="hr-admin-section-heading"><div><span class="hr-admin-eyebrow">LOCATIONS</span><h2>Sites in ${hrText(zoneName)}</h2></div></div>
     <div class="hr-admin-site-grid">${sites.map(hrAdminSiteCard).join('') || '<div class="hr-admin-empty">No sites are currently linked to this zone.</div>'}</div>
   </section>
@@ -4353,28 +4476,109 @@ function hrFilterZoneRecords(status,button) {
     el.style.display=(status==='all'||String(el.dataset.zoneStatus).toLowerCase()===status.toLowerCase())?'':'none';
   });
 }
+let hrMapFilter = 'All';
+let hrCurrentMap = null;
+let hrCurrentMapOverlays = [];
+
+function hrMapStatusColor(value) {
+  const s = String(value || '').toLowerCase();
+  if (/urgent|dead|damaged|attention/.test(s)) return '#dc2626';
+  if (/planned/.test(s)) return '#ea580c';
+  if (/monitor/.test(s)) return '#7c3aed';
+  if (/healthy|good|completed|planted/.test(s)) return '#15966a';
+  if (/hold/.test(s)) return '#64748b';
+  if (/merged/.test(s)) return '#8b5cf6';
+  return '#d97706';
+}
+function hrMapCoordinates(obj, latKeys, lngKeys) {
+  const lat = Number(hrField(obj, latKeys, NaN));
+  const lng = Number(hrField(obj, lngKeys, NaN));
+  return Number.isFinite(lat) && Number.isFinite(lng) && Math.abs(lat) <= 90 && Math.abs(lng) <= 180
+    ? {lat, lng} : null;
+}
+function hrClearCurrentMap() {
+  hrCurrentMapOverlays.forEach(o => { if (o && typeof o.setMap === 'function') o.setMap(null); });
+  hrCurrentMapOverlays = [];
+}
+function hrSetMapFilter(value, scope='all', zoneId='') {
+  hrMapFilter = value || 'All';
+  if (scope === 'zone') hrRenderZoneRecordMap(zoneId);
+  else hrRenderAllMap();
+}
+function hrMapInfoWindow(map, marker, html) {
+  const info = new google.maps.InfoWindow({content:html});
+  marker.addListener('click', () => info.open({anchor:marker, map}));
+  return info;
+}
 function hrRenderZoneRecordMap(zoneId) {
-  const el=document.getElementById('hr-zone-record-map');
-  if(!el)return;
-  if(!window.google?.maps){el.innerHTML='<div class="hr-map-unavailable">Map library is not ready. Refresh to load saved GPS locations.</div>';return;}
-  const zone=(zoneSummary||[]).find(z=>String(hrField(z,['zone_id','name'],''))===String(zoneId));
-  const data=loadedZones[zoneId]||{sites:[]};
-  const siteIds=new Set((data.sites||[]).map(x=>String(x.site_id)));
-  const rows=hrAdminTrees.filter(t=>siteIds.has(String(t.site_id)));
-  const map=new google.maps.Map(el,{center:{lat:12.9716,lng:77.5946},zoom:12,mapTypeControl:true,streetViewControl:false});
-  const bounds=new google.maps.LatLngBounds();let count=0;
-  rows.forEach(t=>{
-    const lat=Number(hrField(t,['latitude','gps_lat','lat'],NaN));
-    const lng=Number(hrField(t,['longitude','gps_lng','lng'],NaN));
-    if(!Number.isFinite(lat)||!Number.isFinite(lng))return;
-    const marker=new google.maps.Marker({map,position:{lat,lng},title:String(hrField(t,['tree_id','name'],'Tree / Spot'))});
-    const content=`<div style="min-width:190px"><b>${hrText(hrField(t,['tree_id','name'],'Tree / Spot'))}</b><br>${hrText(hrField(t,['record_type','type','spot_type'],'Tree / Spot'))}<br>Status: ${hrText(hrField(t,['condition','status_of_the_tree','tree_status','health_status','status'],'Not recorded'))}<br>GPS: ${lat}, ${lng}</div>`;
-    const info=new google.maps.InfoWindow({content});
-    marker.addListener('click',()=>info.open({anchor:marker,map}));
-    bounds.extend({lat,lng});count++;
+  const el = document.getElementById('hr-zone-record-map');
+  if (!el) return;
+  if (!window.google?.maps) {
+    el.innerHTML = '<div class="hr-map-unavailable">Map library is not ready. Refresh to load saved GPS locations.</div>';
+    return;
+  }
+  const data = loadedZones[zoneId] || {sites:[]};
+  const sites = data.sites || [];
+  const siteIds = new Set(sites.map(s => String(s.site_id)));
+  const trees = hrAdminTrees.filter(t => siteIds.has(String(t.site_id)));
+  const sitePoints = sites.map(site => ({site, point:hrMapCoordinates(site,['gps_lat','latitude'],['gps_lng','longitude'])})).filter(x => x.point);
+  const treePoints = trees.map(tree => ({tree, point:hrMapCoordinates(tree,['gps_lat','latitude','lat'],['gps_lng','longitude','lng'])})).filter(x => x.point)
+    .filter(x => hrMapFilter === 'All' || String(hrField(x.tree,['condition','status','tree_status'],'')).toLowerCase() === hrMapFilter.toLowerCase());
+  const first = sitePoints[0]?.point || treePoints[0]?.point || {lat:12.9716,lng:77.5946};
+  const map = new google.maps.Map(el, {
+    center:first, zoom:13, minZoom:3, maxZoom:21,
+    mapTypeControl:true, streetViewControl:false, fullscreenControl:true,
+    zoomControl:true, gestureHandling:'greedy'
   });
-  if(count)map.fitBounds(bounds);
-  if(!count)el.innerHTML='<div class="hr-map-note">No saved GPS coordinates are available for tree / spot records in this zone yet.</div>';
+  hrCurrentMap = map;
+  hrClearCurrentMap();
+  const bounds = new google.maps.LatLngBounds();
+  let count = 0;
+
+  sites.forEach(site => {
+    const start = hrMapCoordinates(site,['gps_lat','latitude'],['gps_lng','longitude']);
+    const end = hrMapCoordinates(site,['gps_lat2','latitude2','end_latitude'],['gps_lng2','longitude2','end_longitude']);
+    const name = hrField(site,['name','site_name','road','site_id'],'Site');
+    const status = hrField(site,['status'],'Identified');
+    const color = hrMapStatusColor(status);
+
+    if (String(site.site_type || '').toLowerCase() === 'stretch' && start && end) {
+      const line = new google.maps.Polyline({
+        path:[start,end], map, strokeColor:color, strokeOpacity:.9, strokeWeight:5,
+        clickable:true, geodesic:true
+      });
+      const lineInfo = new google.maps.InfoWindow({content:`<div style="min-width:180px"><b>${hrText(name)}</b><br>Stretch · ${hrText(status)}<br>${hrText(site.stretch_length || '')} ${site.stretch_length ? 'm' : ''}</div>`});
+      line.addListener('click', e => { lineInfo.setPosition(e.latLng); lineInfo.open(map); });
+      hrCurrentMapOverlays.push(line);
+      bounds.extend(start); bounds.extend(end); count++;
+    }
+    if (start) {
+      const marker = new google.maps.Marker({
+        position:start, map, title:String(name),
+        icon:{path:google.maps.SymbolPath.BACKWARD_CLOSED_ARROW, scale:6, fillColor:'#075e43', fillOpacity:1, strokeColor:'#fff', strokeWeight:1.5}
+      });
+      const infoHtml = `<div style="min-width:190px"><b>${hrText(name)}</b><br>${hrText(site.site_type || 'Site')} · ${hrText(status)}<br>Area: ${hrText(site.area || site.road || 'Not recorded')}<br>Zone: ${hrText(hrField((zoneSummary||[]).find(z=>String(z.zone_id)===String(zoneId)),['zone_name','name'],''))}<br><button onclick="hrPushRoute('site','${hrText(site.site_id)}')" style="margin-top:7px;padding:6px 9px;background:#0d6243;color:white;border:0;border-radius:6px;cursor:pointer">Open site</button></div>`;
+      hrMapInfoWindow(map,marker,infoHtml);
+      hrCurrentMapOverlays.push(marker); bounds.extend(start); count++;
+    }
+  });
+
+  treePoints.forEach(({tree,point}) => {
+    const status = hrField(tree,['condition','status','tree_status'],'Identified');
+    const color = hrMapStatusColor(status);
+    const marker = new google.maps.Marker({
+      position:point, map, title:String(hrField(tree,['tree_id','name'],'Tree / spot')),
+      icon:{path:google.maps.SymbolPath.CIRCLE,scale:7,fillColor:color,fillOpacity:1,strokeColor:'#fff',strokeWeight:2},
+      zIndex:10
+    });
+    const treeId = hrField(tree,['tree_id','name'],'Tree / spot');
+    const content = `<div style="min-width:190px"><b>${hrText(treeId)}</b><br>Status: ${hrText(status)}<br>Volunteer: ${hrText(hrField(tree,['owner_volunteer_name','owner_volunteer','planted_by'],'Not assigned'))}<br>GPS: ${point.lat.toFixed(6)}, ${point.lng.toFixed(6)}<br><button onclick="hrPushRoute('site','${hrText(tree.site_id)}')" style="margin-top:7px;padding:6px 9px;background:#0d6243;color:white;border:0;border-radius:6px;cursor:pointer">Open linked site</button></div>`;
+    hrMapInfoWindow(map,marker,content);
+    hrCurrentMapOverlays.push(marker); bounds.extend(point); count++;
+  });
+
+  if (count) map.fitBounds(bounds, 48);
+  if (!count) el.insertAdjacentHTML('beforeend','<div class="hr-map-note">No saved GPS coordinates match this map filter. Add GPS to site or tree records to place them on the map.</div>');
 }
 
 async function hrAdminSiteDetail(siteId) {
@@ -4458,31 +4662,48 @@ async function renderHrAdminRoute() {
     setTimeout(()=>hrRenderSiteMap(siteId),80);
   } else if (page === 'trees') {
     const all = hrAdminTrees.filter(t => hrStatusMatches(t,hrTreeStatusFilter));
-    const statusTabs = ['All','Healthy','Identified','Planned','Urgent','Monitoring'];
-    hrAdminShell(`<div class="hr-admin-page-head"><button class="hr-back-link" onclick="hrPushRoute('home')"><i class="ti ti-arrow-left"></i> Homepage</button><span class="hr-admin-eyebrow">PLANTATION REGISTER</span><h1>Tree Registry & Status</h1><p>All recorded trees and spots, including planted trees. Filter by status or search records.</p><div class="hr-status-tabs">${statusTabs.map(s=>`<button class="${hrTreeStatusFilter===s?'active':''}" onclick="hrOpenStatus('${s}')">${s} (${hrAdminTrees.filter(t=>hrStatusMatches(t,s)).length})</button>`).join('')}</div><input class="hr-admin-search" id="hr-tree-search" placeholder="Search Tree ID, site, species, area or status..." oninput="hrFilterTrees(this.value)"></div><div class="hr-tree-list" id="hr-tree-list">${all.length?all.map(t=>{const s=hrAdminSites.find(x=>x.site_id===t.site_id);return `<div data-search="${hrText([t.tree_id,t.species,t.condition,hrStatusValue(t),s?.name,t.area,t.stretch_name].join(' ').toLowerCase())}">${hrTreeDetailCard(t)}<button class="hr-open-site-link" onclick="hrPushRoute('site','${hrText(t.site_id)}')">Open ${hrText(s?.name||'site')} <i class="ti ti-arrow-right"></i></button></div>`}).join(''):'<div class="hr-admin-empty">No records match this status. Check the status stored on the tree/spot records.</div>'}</div>`,'trees');
+    const statusTabs = ['All','Healthy','Identified','Planned','Urgent','Monitoring','Hold','Merged','Mine'];
+    hrAdminShell(`<div class="hr-admin-page-head"><button class="hr-back-link" onclick="hrPushRoute('home')"><i class="ti ti-arrow-left"></i> Homepage</button><span class="hr-admin-eyebrow">PLANTATION REGISTER</span><h1>Tree Registry & Status</h1><p>All recorded trees and spots, including planted trees. Filter by status or search records.</p><div class="hr-status-tabs">${statusTabs.map(s=>`<button class="${hrTreeStatusFilter===s?'active':''}" onclick="hrOpenStatus('${s}')">${s} (${hrAdminTrees.filter(t=>hrStatusMatches(t,s)).length})</button>`).join('')}</div><input class="hr-admin-search" id="hr-tree-search" placeholder="Search Tree ID, site, area or status..." oninput="hrFilterTrees(this.value)"></div><div class="hr-tree-list" id="hr-tree-list">${all.length?all.map(t=>{const s=hrAdminSites.find(x=>x.site_id===t.site_id);return `<div data-search="${hrText([t.tree_id,t.condition,hrStatusValue(t),s?.name,t.area,t.stretch_name,t.city,t.location_note,t.notes,t.owner_volunteer,t.planted_by].join(' ').toLowerCase())}">${hrTreeDetailCard(t)}<button class="hr-open-site-link" onclick="hrPushRoute('site','${hrText(t.site_id)}')">Open ${hrText(s?.name||'site')} <i class="ti ti-arrow-right"></i></button></div>`}).join(''):'<div class="hr-admin-empty">No records match this status. Check the status stored on the tree/spot records.</div>'}</div>`,'trees');
+  } else if (page === 'mytrees') {
+    const userName = String(currentUser?.name || '').toLowerCase();
+    const volunteerId = String(currentUser?.volunteer_id || '');
+    const mine = hrAdminTrees.filter(t =>
+      (volunteerId && String(t.owner_volunteer_id || '') === volunteerId) ||
+      (userName && [t.owner_volunteer_name,t.owner_volunteer,t.planted_by,t.added_by].some(v => String(v || '').toLowerCase() === userName))
+    );
+    hrAdminShell(`<div class="hr-admin-page-head"><span class="hr-admin-eyebrow">PERSONAL TREE LIST</span><h1>My Trees</h1><p>Trees assigned to you or recorded under your account.</p></div><div class="hr-tree-list">${mine.length ? mine.map(hrTreeDetailCard).join('') : '<div class="hr-admin-empty">No trees are currently assigned to or recorded under your account. Assign yourself as the responsible volunteer to see trees here.</div>'}</div>`, 'mytrees');
   } else if (page === 'volunteers') {
     await hrRenderVolunteers();
   } else if (page === 'reports') {
     await hrRenderTreeReports();
   } else if (page === 'map') {
-    hrAdminShell(`<div class="hr-admin-page-head"><button class="hr-back-link" onclick="hrPushRoute('home')"><i class="ti ti-arrow-left"></i> Homepage</button><span class="hr-admin-eyebrow">GEOGRAPHIC VIEW</span><h1>Plantation Map</h1><p>View sites and tree / spot records that have GPS coordinates.</p></div><div id="hr-all-map" class="hr-site-map hr-all-map"></div>`,'map');
+    hrAdminShell(`<div class="hr-admin-page-head"><button class="hr-back-link" onclick="hrPushRoute('home')"><i class="ti ti-arrow-left"></i> All zones</button><span class="hr-admin-eyebrow">BENGALURU OVERVIEW</span><h1>All Zones Map</h1><p>Explore every registered zone, site, stretch and tree. Zoom out for the city view or zoom in to inspect individual GPS points.</p></div><div class="hr-map-toolbar"><label>Tree status <select onchange="hrSetMapFilter(this.value,'all')"><option value="All">All statuses</option><option>Healthy</option><option>Identified</option><option>Planned</option><option>Urgent</option><option>Monitoring</option><option>Hold</option><option>Merged</option></select></label><span class="hr-map-hint">Click a site to open its zone or site record. Click a tree marker to open its linked site.</span></div><div id="hr-all-map" class="hr-site-map hr-all-map"></div><div class="hr-map-legend"><span><i class="hr-legend-site"></i> Site</span><span><i class="hr-legend-tree"></i> Tree / spot</span><span><i class="hr-legend-stretch"></i> Stretch line</span><span>Tree marker colours indicate status</span></div>`,'map');
     setTimeout(()=>hrRenderAllMap(),80);
   }
 }
 
 let hrTreeStatusFilter = 'All';
 function hrStatusValue(tree) {
-  return String(hrField(tree,['condition','status_of_the_tree','status','tree_status'],'')).trim();
+  return String(hrField(tree,['status','tree_status','status_of_the_tree'],'')).trim();
 }
 function hrStatusMatches(tree, wanted) {
   const value = hrStatusValue(tree).toLowerCase();
+  const condition = String(hrField(tree,['condition','health_status'],'')).toLowerCase();
   const target = String(wanted||'').toLowerCase();
   if (target === 'all') return true;
-  if (target === 'healthy') return /healthy|good|completed|planted/.test(value);
+  if (target === 'healthy') return /healthy|good/.test(condition) || /completed|planted/.test(value);
   if (target === 'identified') return /identified/.test(value);
   if (target === 'planned') return /planned/.test(value);
-  if (target === 'urgent') return /urgent|dead|damaged|attention/.test(value);
-  if (target === 'monitoring') return /monitoring|monitor/.test(value);
+  if (target === 'urgent') return /urgent|dead|damaged|attention/.test(value) || /dead|damaged|attention/.test(condition);
+  if (target === 'monitoring') return /monitoring|monitor/.test(value) || /monitoring|monitored/.test(condition);
+  if (target === 'hold') return /hold|on hold|paused/.test(value);
+  if (target === 'merged') return /merged/.test(value);
+  if (target === 'mine') {
+    const userName = String(currentUser?.name || '').toLowerCase();
+    const volunteerId = String(currentUser?.volunteer_id || '');
+    return (!!volunteerId && String(tree.owner_volunteer_id || '') === volunteerId) ||
+      (!!userName && [tree.owner_volunteer_name,tree.owner_volunteer,tree.planted_by,tree.added_by].some(v => String(v || '').toLowerCase() === userName));
+  }
   return value === target;
 }
 function hrOpenStatus(status) {
@@ -4495,23 +4716,67 @@ function hrFilterTrees(q) {
   document.querySelectorAll('#hr-tree-list>[data-search]').forEach(el=>el.style.display=el.dataset.search.includes(term)?'':'none');
 }
 function hrRenderAllMap() {
-  const el=document.getElementById('hr-all-map'); if(!el || !window.google?.maps)return;
-  const map=new google.maps.Map(el,{center:{lat:12.9716,lng:77.5946},zoom:11,mapTypeControl:true,streetViewControl:false});
-  const bounds=new google.maps.LatLngBounds(); let count=0;
-  hrAdminSites.forEach(site=>{
-    const lat=parseFloat(hrField(site,['gps_lat','latitude'],'')),lng=parseFloat(hrField(site,['gps_lng','longitude'],''));
-    if(!Number.isFinite(lat)||!Number.isFinite(lng))return;
-    const marker=new google.maps.Marker({position:{lat,lng},map,title:hrField(site,['name'],'Site')});
-    marker.addListener('click',()=>hrPushRoute('site',site.site_id));bounds.extend(marker.getPosition());count++;
+  const el = document.getElementById('hr-all-map');
+  if (!el) return;
+  if (!window.google?.maps) {
+    el.innerHTML = '<div class="hr-map-unavailable">Map library is not ready. Refresh to load saved GPS locations.</div>';
+    return;
+  }
+  const firstSite = hrAdminSites.map(s => hrMapCoordinates(s,['gps_lat','latitude'],['gps_lng','longitude'])).find(Boolean);
+  const map = new google.maps.Map(el,{
+    center:firstSite || {lat:12.9716,lng:77.5946}, zoom:11, minZoom:3, maxZoom:21,
+    mapTypeControl:true, streetViewControl:false, fullscreenControl:true,
+    zoomControl:true, gestureHandling:'greedy'
   });
-  hrAdminTrees.forEach(tree=>{
-    const lat=parseFloat(hrField(tree,['gps_lat','latitude','lat'],'')),lng=parseFloat(hrField(tree,['gps_lng','longitude','lng'],''));
-    if(!Number.isFinite(lat)||!Number.isFinite(lng))return;
-    const marker=new google.maps.Marker({position:{lat,lng},map,icon:{path:google.maps.SymbolPath.CIRCLE,scale:5,fillColor:'#16845b',fillOpacity:1,strokeColor:'#fff',strokeWeight:1},title:hrField(tree,['tree_id','name'],'Tree / spot')});
-    bounds.extend(marker.getPosition());count++;
+  hrCurrentMap = map;
+  hrClearCurrentMap();
+  const bounds = new google.maps.LatLngBounds();
+  let count = 0;
+
+  hrAdminSites.forEach(site => {
+    const start = hrMapCoordinates(site,['gps_lat','latitude'],['gps_lng','longitude']);
+    const end = hrMapCoordinates(site,['gps_lat2','latitude2','end_latitude'],['gps_lng2','longitude2','end_longitude']);
+    const zone = (zoneSummary || []).find(z => String(z.zone_id) === String(site.zone_id));
+    const name = hrField(site,['name','site_name','road','site_id'],'Site');
+    const status = hrField(site,['status'],'Identified');
+    const color = hrMapStatusColor(status);
+
+    if (String(site.site_type || '').toLowerCase() === 'stretch' && start && end) {
+      const line = new google.maps.Polyline({path:[start,end],map,strokeColor:color,strokeOpacity:.85,strokeWeight:4,clickable:true,geodesic:true});
+      const lineInfo = new google.maps.InfoWindow({content:`<div><b>${hrText(name)}</b><br>Stretch · ${hrText(zone?.zone_name || zone?.name || 'Zone not recorded')}<br>${hrText(status)}</div>`});
+      line.addListener('click',e=>{lineInfo.setPosition(e.latLng);lineInfo.open(map);});
+      hrCurrentMapOverlays.push(line); bounds.extend(start); bounds.extend(end); count++;
+    }
+    if (start) {
+      const marker = new google.maps.Marker({
+        position:start,map,title:String(name),
+        icon:{path:google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,scale:6,fillColor:'#075e43',fillOpacity:1,strokeColor:'#fff',strokeWeight:1.5}
+      });
+      const content = `<div style="min-width:185px"><b>${hrText(name)}</b><br>${hrText(site.site_type || 'Site')} · ${hrText(status)}<br>Zone: ${hrText(zone?.zone_name || zone?.name || site.zone_id || 'Not recorded')}<br>Area: ${hrText(site.area || site.road || 'Not recorded')}<br><button onclick="hrPushRoute('zone','${hrText(site.zone_id)}')" style="margin-top:7px;padding:6px 9px;background:#0d6243;color:white;border:0;border-radius:6px;cursor:pointer">Open zone</button> <button onclick="hrPushRoute('site','${hrText(site.site_id)}')" style="padding:6px 9px;background:#e8f5ec;color:#0d6243;border:0;border-radius:6px;cursor:pointer">Open site</button></div>`;
+      hrMapInfoWindow(map,marker,content);
+      hrCurrentMapOverlays.push(marker); bounds.extend(start); count++;
+    }
   });
-  if(count)map.fitBounds(bounds);
-  if(!count)el.insertAdjacentHTML('beforeend','<div class="hr-map-note">No GPS coordinates are currently saved on site or tree records.</div>');
+
+  hrAdminTrees.forEach(tree => {
+    const point = hrMapCoordinates(tree,['gps_lat','latitude','lat'],['gps_lng','longitude','lng']);
+    if (!point) return;
+    const status = hrField(tree,['condition','status','tree_status'],'Identified');
+    if (hrMapFilter !== 'All' && String(status).toLowerCase() !== hrMapFilter.toLowerCase()) return;
+    const marker = new google.maps.Marker({
+      position:point,map,title:String(hrField(tree,['tree_id','name'],'Tree / spot')),
+      icon:{path:google.maps.SymbolPath.CIRCLE,scale:5,fillColor:hrMapStatusColor(status),fillOpacity:1,strokeColor:'#fff',strokeWeight:1.3},
+      zIndex:10
+    });
+    const site = hrAdminSites.find(s=>String(s.site_id)===String(tree.site_id));
+    const zone = (zoneSummary||[]).find(z=>String(z.zone_id)===String(site?.zone_id));
+    const content = `<div style="min-width:180px"><b>${hrText(hrField(tree,['tree_id','name'],'Tree / spot'))}</b><br>Status: ${hrText(status)}<br>Zone: ${hrText(zone?.zone_name || zone?.name || site?.zone_id || 'Not recorded')}<br>Site: ${hrText(site?.name || site?.site_name || tree.site_id || 'Not linked')}<br>GPS: ${point.lat.toFixed(6)}, ${point.lng.toFixed(6)}<br><button onclick="hrPushRoute('site','${hrText(tree.site_id)}')" style="margin-top:7px;padding:6px 9px;background:#0d6243;color:white;border:0;border-radius:6px;cursor:pointer">Open site</button></div>`;
+    hrMapInfoWindow(map,marker,content);
+    hrCurrentMapOverlays.push(marker); bounds.extend(point); count++;
+  });
+
+  if (count) map.fitBounds(bounds,48);
+  if (!count) el.insertAdjacentHTML('beforeend','<div class="hr-map-note">No saved GPS coordinates are available yet. Sites and trees appear when GPS coordinates are saved in their records.</div>');
 }
 
 function hrAdminEnter() {
@@ -4574,7 +4839,7 @@ const zs=hZones().filter(z=>hSites(z.zone_id,st).length||hTrees(z.zone_id,st).le
 function vZone(){const z=HX.zone,st=HX.st,tr=HX.tab==='trees',items=tr?hTrees(z,null):hSites(z,null),f=tr?hTreeIn:hSiteIn;
 return hBack()+`<div class="hx-top"><h2>${z==='*'?'All zones':hE(hZN(z))}</h2><p>${hTrees(z,null).length} trees · ${hSites(z,null).length} sites</p></div>`+hTabs(['sites','Sites '+hSites(z,null).length],['trees','Trees '+hTrees(z,null).length],tr?'trees':'sites')+hChips(items,f,st)+hList('z',items.filter(x=>f(x,st)),tr?hTreeCard:hSiteCard,tr?hTKey:hSKey,tr?'Search tree ID or species…':'Search site, road or area…')}
 function vSite(){const s=HX.sm[HX.site];if(!s)return hBack()+hEmpty('Site not found.');const id=hE(s.site_id),T=HX.trees.filter(t=>t.site_id===s.site_id),p=hPh(s.photo_url),c2=hLL({gps_lat:s.gps_lat2,gps_lng:s.gps_lng2}),c=hLL(s);
-return hBack()+`<div class="hx-sd">${p?`<img class="hx-cover" src="${hE(p)}" alt="" onerror="this.remove()">`:''}<h2>${hE(s.name||'Unnamed site')}</h2><div class="hx-r hx-w">${hBadge(hN(s.status)||'Identified')}${s.priority==='High'?hBadge('Urgent'):''}${hType(s.site_type)}</div>`+hDl([['Zone',hZN(s.zone_id)],['Road',s.road],['Area',s.area],['Trees',T.length||s.tree_count],['Latitude',c?c[0].toFixed(6):''],['Longitude',c?c[1].toFixed(6):''],['End latitude',c2?c2[0].toFixed(6):''],['End longitude',c2?c2[1].toFixed(6):''],['Added by',s.added_by],['Notes',s.notes]])+`<div class="hx-acts">${hDir(s)}<button onclick="hxPhoto('${id}')">📷 Photo</button>${currentUser&&currentUser.role==='admin'?`<button onclick="openEditModal('${id}')">✏️ Edit</button>`:''}</div></div><h3 class="hx-h">🗺️ Site map · ${T.length} trees</h3><div id="hx-map"></div><h3 class="hx-h">🌳 Trees in this site</h3>`+(T.length?T.map(hTreeCard).join(''):hEmpty('No trees recorded for this site yet.'))}
+return hBack()+`<div class="hx-sd">${p?`<img class="hx-cover" src="${hE(p)}" alt="" onerror="this.remove()">`:''}<h2>${hE(s.name||'Unnamed site')}</h2><div class="hx-r hx-w">${hBadge(hN(s.status)||'Identified')}${s.priority==='High'?hBadge('Urgent'):''}${hType(s.site_type)}</div>`+hDl([['Zone',hZN(s.zone_id)],['Road',s.road],['Area',s.area],['Trees',T.length||s.tree_count],['Latitude',c?c[0].toFixed(6):''],['Longitude',c?c[1].toFixed(6):''],['End latitude',c2?c2[0].toFixed(6):''],['End longitude',c2?c2[1].toFixed(6):''],['Part of stretch',s.parent_stretch_id?((HX.sm[s.parent_stretch_id]||{}).name||s.parent_stretch_id):''],['Added by',s.added_by],['Notes',s.notes]])+`<div class="hx-acts">${hDir(s)}<button onclick="hxPhoto('${id}')">📷 Photo</button>${currentUser&&currentUser.role==='admin'?`<button onclick="openEditModal('${id}')">✏️ Edit</button>`:''}</div></div><h3 class="hx-h">🗺️ Site map · ${T.length} trees</h3><div id="hx-map"></div><h3 class="hx-h">🌳 Trees in this site</h3>`+(T.length?T.map(hTreeCard).join(''):hEmpty('No trees recorded for this site yet.'))}
 
 function hxShow(){const v=HX.v,adm=hAdm();let html;
 if(!HX.ready)html='<div class="loading"><div class="spinner"></div>Loading your green data…</div>';else html={home:vHome,sites:vSites,status:vStatus,zone:vZone,sdet:vSite}[v]();
@@ -4589,7 +4854,7 @@ function hxSet(k,v){HX[k]=v;if(k==='tab'&&HX.v==='zone')HX.st=null;hxShow()}
 function hxPhoto(id,tree){const t=tree?HX.trees.find(x=>String(x.tree_id)===String(id)):null,s=HX.sm[t?t.site_id:id]||{};openPhotoModal(tree?'tree':'site',id,s.zone_id||'',tree?id:(s.name||''))}
 function hxClose(){$h('hx-sheet').classList.remove('on')}
 function hxTree(id){const t=HX.trees.find(x=>String(x.tree_id)===String(id));if(!t)return;const s=HX.sm[t.site_id]||{},p=hPh(t.photo_url),o=hTP(t,s),c=hLL(o),own=!!hLL(t);
-$h('hx-sheet').innerHTML=`<div class="hx-bd" onclick="hxClose()"></div><div class="hx-pn"><button class="hx-x" onclick="hxClose()">✕</button>${p?`<img class="hx-cover" src="${hE(p)}" alt="" onerror="this.remove()">`:'<div class="hx-np">🌳</div>'}<h2>${hE(t.tree_id)}</h2><div class="hx-r hx-w">${hBadge(hTS(t))}${hType(s.site_type)}${t.condition?`<span class="hx-b hx-t">${hE(t.condition)}</span>`:''}</div>`+hDl([['Species',t.species],['Site',s.name],['Zone',hZN(s.zone_id)],['Area',s.area],['Road',s.road],['Latitude',c?c[0].toFixed(6):''],['Longitude',c?c[1].toFixed(6):''],['GPS source',c&&!own?'Site location':''],['Planted by',t.planted_by],['Notes',t.notes]])+`<div class="hx-acts">${hDir(o)}${s.site_id?`<button onclick="hxClose();hxGo('sdet','${hE(s.site_id)}')">View site</button>`:''}<button onclick="hxClose();hxPhoto('${hE(t.tree_id)}',1)">📷 Photo</button></div></div>`;$h('hx-sheet').classList.add('on')}
+$h('hx-sheet').innerHTML=`<div class="hx-bd" onclick="hxClose()"></div><div class="hx-pn"><button class="hx-x" onclick="hxClose()">✕</button>${p?`<img class="hx-cover" src="${hE(p)}" alt="" onerror="this.remove()">`:'<div class="hx-np">🌳</div>'}<h2>${hE(t.tree_id)}</h2><div class="hx-r hx-w">${hBadge(hTS(t))}${hType(s.site_type)}${t.condition?`<span class="hx-b hx-t">${hE(t.condition)}</span>`:''}</div>`+hDl([['Species',t.species],['Site',s.name],['Zone',hZN(s.zone_id)],['Area',s.area],['Road',s.road],['Latitude',c?c[0].toFixed(6):''],['Longitude',c?c[1].toFixed(6):''],['GPS source',c&&!own?'Site location':''],['Time required',t.time_required?t.time_required+' min':''],['Volunteers needed',t.volunteers_required?t.volunteers_needed:''],['Planted by',t.planted_by],['Notes',t.notes]])+`<div class="hx-acts">${hDir(o)}${s.site_id?`<button onclick="hxClose();hxGo('sdet','${hE(s.site_id)}')">View site</button>`:''}<button onclick="hxClose();hxPhoto('${hE(t.tree_id)}',1)">📷 Photo</button></div></div>`;$h('hx-sheet').classList.add('on')}
 function hPos(t,i,n,c,c2){const o=hLL(t);if(o)return{lat:o[0],lng:o[1]};if(c2){const f=n>1?i/(n-1):.5;return{lat:c[0]+(c2[0]-c[0])*f,lng:c[1]+(c2[1]-c[1])*f}}const a=6.283*i/Math.max(n,1),r=n>1?.00003:0;return{lat:c[0]+r*Math.cos(a),lng:c[1]+r*Math.sin(a)}}
 function hxMap(){const el=$h('hx-map'),s=HX.sm[HX.site];if(!el||!s)return;if(!mapsReady||!window.google){if(HX.tries++<40)setTimeout(hxMap,300);else el.innerHTML=hEmpty('Map could not load.');return}
 const c=hLL(s);if(!c){el.innerHTML=hEmpty('Add GPS to this site to see it on the map.');return}
@@ -4603,16 +4868,41 @@ async function hxLoad(){if(HX.loading)return;HX.loading=true;try{if(!zoneSummary
 const [tr,...sr]=await Promise.all([api('getTrees',{group_id:GROUP_ID}),...zoneSummary.map(z=>api('getSitesByZone',{zone_id:z.zone_id,group_id:GROUP_ID}))]);
 HX.trees=tr.success?tr.data:[];HX.sites=[];sr.forEach((r,i)=>{if(r.success)r.data.forEach(s=>{s.zone_id=s.zone_id||zoneSummary[i].zone_id;if(s.status!=='Merged')HX.sites.push(s)})});
 HX.sm={};HX.tc={};HX.sites.forEach(s=>HX.sm[s.site_id]=s);HX.trees.forEach(t=>HX.tc[t.site_id]=(HX.tc[t.site_id]||0)+1);HX.ready=true}catch(e){showToast('⚠️ Could not load data — tap refresh')}HX.loading=false;if(!hAdm()||HX.adminOn)hxShow()}
-forceRefresh=async function(){clearCache();loadedZones={};showToast('🔄 Refreshing…');await loadInitialData();await hxLoad()};
+const _hrForceRefresh=forceRefresh;
+forceRefresh=async function(){
+ if(!hAdm())return _hrForceRefresh();
+ const route={...hrAdminRoute};
+ const hxPage=['home','sites','status','zone','site'].includes(route.page);
+ HX.adminOn=hxPage;
+ clearCache();loadedZones={};
+ showToast('🔄 Refreshing…');
+ try{
+  await hxLoad();
+  await loadHrAdminData(true);
+  hrAdminRoute=route;
+  if(hxPage){
+   HX.adminOn=true;
+   hxShow();
+  }else{
+   HX.adminOn=false;
+   await renderHrAdminRoute();
+  }
+  showToast('Refresh complete');
+ }catch(e){
+  showToast('⚠️ Refresh failed: '+(e.message||'Please try again'));
+ }
+};
 filterMap=function(f){f==='all'?hxGo('zone','*'):hxGo('status',{urgent:'Urgent',planned:'Planned',healthy:'Completed'}[f])};
 const _hrRoute=renderHrAdminRoute;
 renderHrAdminRoute=async function(){const r=hrAdminRoute,p=r.page;if(!hAdm())return;
-if(['home','sites','status','zone','site'].includes(p)){HX.adminOn=true;HX.stack=[];
+if(['home','sites','status','zone','site'].includes(p)){HX.adminOn=true;HX.stack=[];loadHrAdminData().catch(function(){});
 if(p==='zone'){HX.v='zone';HX.zone=r.siteId||'*';HX.st=null;HX.tab='sites';HX.root='sites'}
 else if(p==='site'){HX.v='sdet';HX.site=r.siteId;HX.root='sites'}
 else{HX.v=p;HX.st=null;HX.tab=p==='sites'?'zones':HX.tab;HX.root=p==='status'?'status':'sites'}
-hxShow();if(!HX.ready)hxLoad();return}
+hxShow();hxLoad();return}
 return _hrRoute()};
+const _otr=hrOpenTreeReport;
+hrOpenTreeReport=async function(){try{await loadHrAdminData(true)}catch(e){}return _otr()};
 (function w(){if(typeof currentUser!=='undefined'&&currentUser){if(!hAdm())hxShow();hxLoad()}else setTimeout(w,300)})();
 
 </script>
