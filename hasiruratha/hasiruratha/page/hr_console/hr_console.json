@@ -1,0 +1,15 @@
+{
+ "doctype": "Page",
+ "name": "hr-console",
+ "page_name": "hr-console",
+ "title": "Hasiru Ratha Console",
+ "module": "Hasiruratha",
+ "standard": "Yes",
+ "icon": "map",
+ "roles": [{"role": "HR Admin"}, {"role": "System Manager"}],
+ "creation": "2026-11-13 10:00:00.000000",
+ "modified": "2026-11-13 10:00:00.000000",
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "docstatus": 0
+}

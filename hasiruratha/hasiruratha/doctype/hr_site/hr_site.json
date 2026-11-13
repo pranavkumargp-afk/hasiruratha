@@ -10,6 +10,7 @@
   "site_type",
   "parent_stretch_id",
   "status",
+  "possible_duplicate_of",
   "priority",
   "zone_id",
   "group_id",
@@ -63,10 +64,20 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Identified\nPlanned\nCompleted\nMonitoring\nUrgent\nHold\nMerged",
+   "options": "Identified\nPlanned\nCompleted\nMonitoring\nUrgent\nHold\nNeeds Review\nMerged",
    "default": "Identified",
    "in_list_view": 1,
    "in_standard_filter": 1
+  },
+  {
+   "fieldname": "possible_duplicate_of",
+   "fieldtype": "Link",
+   "label": "Possible Duplicate Of",
+   "options": "HR Site",
+   "read_only": 1,
+   "in_standard_filter": 1,
+   "depends_on": "eval:doc.possible_duplicate_of",
+   "description": "Set automatically when another site is very close to this one"
   },
   {
    "fieldname": "priority",
@@ -177,7 +188,7 @@
  ],
  "index_web_pages_for_search": 0,
  "links": [],
- "modified": "2026-11-08 00:30:00.000000",
+ "modified": "2026-11-12 20:30:00.000000",
  "modified_by": "Administrator",
  "module": "Hasiruratha",
  "name": "HR Site",

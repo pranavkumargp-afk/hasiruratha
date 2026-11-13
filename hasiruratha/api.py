@@ -24,6 +24,10 @@ from frappe import _
 from frappe.rate_limiter import rate_limit
 from frappe.utils import cint, flt, getdate, today
 
+from hasiruratha.hasiruratha.doctype.hr_site.hr_site import (
+	NEAR_ME_RADIUS_M, approve_site as _approve_site, get_nearby, merge_site as _merge_site,
+)
+
 GROUP = "GRP-001"
 VOLUNTEER_ROLE = "HR Volunteer"
 ADMIN_ROLE = "HR Admin"
@@ -223,7 +227,7 @@ def _settings_flag(field, default=1):
 # ════════════════════════════════════════════════════════════════════════════════════
 #  the one endpoint the browser uses for data
 # ════════════════════════════════════════════════════════════════════════════════════
-ADMIN_ONLY = {"deleteSite", "deleteTree", "deleteVisit", "deleteVolunteer", "updateVolunteer", "assignTree", "getTreeReports", "createTreeReport", "assignTreeReport", "resolveTreeReport", "updateTreeReportStatus"}
+ADMIN_ONLY = {"deleteSite", "deleteTree", "deleteVisit", "deleteVolunteer", "updateVolunteer", "assignTree", "approveSite", "mergeSite", "getTreeReports", "createTreeReport", "assignTreeReport", "resolveTreeReport", "updateTreeReportStatus"}
 
 
 @frappe.whitelist(methods=["POST"])
@@ -330,8 +334,35 @@ def add_site(b):
 		"priority": b.get("priority") or "Medium",
 		"date_added": getdate(b.get("date_added")) if b.get("date_added") else getdate(today()),
 	})
-	frappe.get_doc(vals).insert(ignore_permissions=True)
-	return {"success": True, "site_id": site_id, "zone_id": zone_id}
+	doc = frappe.get_doc(vals).insert(ignore_permissions=True)
+	return {
+		"success": True, "site_id": site_id, "zone_id": zone_id,
+		# set when the server found another site very close by (admin will confirm)
+		"needs_review": doc.status == "Needs Review",
+		"possible_duplicate_of": doc.possible_duplicate_of,
+	}
+
+
+def get_nearby_sites(p):
+	"""Spots near the person, closest first - used before they create a new one."""
+	lat, lng = flt(p.get("lat")), flt(p.get("lng"))
+	if not (lat and lng):
+		return {"success": False, "error": "lat and lng required"}
+	rows = get_nearby(lat, lng, min(flt(p.get("radius")) or NEAR_ME_RADIUS_M, 1000), p.get("site_type") or None)
+	data = [{
+		"site_id": r.site_id, "name": r.site_name or r.site_id, "road": r.road, "area": r.area,
+		"zone_id": r.zone_id, "site_type": r.site_type, "status": r.status, "tree_count": r.tree_count or 0,
+		"gps_lat": r.gps_lat, "gps_lng": r.gps_lng, "photo_url": r.photo_url, "distance_m": r.distance_m,
+	} for r in rows]
+	return {"success": True, "data": data}
+
+
+def approve_site(p):
+	return _approve_site(p.get("site_id"))
+
+
+def merge_site(p):
+	return _merge_site(p.get("site_id"), p.get("into"))
 
 
 def update_site(b):
@@ -954,6 +985,7 @@ ACTIONS = {
 	"getZones": get_zones, "getZoneSummary": get_zone_summary,
 	"getSites": get_sites, "getSitesByZone": get_sites_by_zone, "getSitesLite": get_sites_lite,
 	"addSite": add_site, "updateSite": update_site, "deleteSite": delete_site,
+	"getNearbySites": get_nearby_sites, "approveSite": approve_site, "mergeSite": merge_site,
 	"getTrees": get_trees, "getMyTrees": get_my_trees, "getTreesBySite": get_trees_by_site,
 	"addTree": add_tree, "addTreesBulk": add_trees_bulk, "updateTree": update_tree, "deleteTree": delete_tree,
 	"getVisits": get_visits, "addVisit": add_visit, "updateVisit": update_visit,

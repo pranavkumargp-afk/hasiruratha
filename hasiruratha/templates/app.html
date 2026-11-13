@@ -1010,6 +1010,7 @@ html, body { height:100%; overflow:auto !important; }
         <div class="field" style="margin-bottom:0"><label>Area / road name <span style="color:var(--red)">*</span></label><input type="text" id="qa-road" placeholder="e.g. Pragathi Nagar, JP Nagar 7th Phase" autocomplete="off"><small class="qa-help">Type the locality or road yourself. No address suggestions will be inserted.</small></div>
         <div class="field" style="margin-top:10px;margin-bottom:0"><label>Nearby landmark <span style="color:var(--text3);font-weight:400">(optional)</span></label><input type="text" id="qa-landmark" placeholder="e.g. Near Jayanagar metro station"></div>
         <div id="qa-spot-gps-details"><div class="qa-gps-strip" style="margin-top:10px;margin-bottom:0"><i class="ti ti-crosshair"></i><div class="qa-gps-txt"><span id="qa-gps-coords">Coordinates will appear after GPS capture</span><br><small id="qa-gps-accuracy">Accuracy: —</small></div></div></div>
+        <div id="qa-nearby" style="margin-top:12px"></div>
         <div id="qa-stretch-gps-details" style="display:none;margin-top:12px">
           <div class="qa-stretch-gps">
             <div class="field"><label>Start point</label><input id="qa-start-coords" readonly placeholder="Not captured"><button type="button" class="gps-btn" style="width:100%;justify-content:center;margin-top:6px" onclick="captureQaStretchPoint('start')"><i class="ti ti-current-location"></i> Capture start</button></div>
@@ -1033,7 +1034,7 @@ html, body { height:100%; overflow:auto !important; }
       </div>
 
       <div id="qa-err" class="err" style="margin-bottom:8px">Please take a photo first.</div>
-      <button class="btn-main" id="qa-save-btn" onclick="submitQuickAdd()" style="display:none"><i class="ti ti-device-floppy"></i> Save plantation to Tree Registry</button>
+      <button class="btn-main" id="qa-save-btn" onclick="submitQuickAdd()" style="display:none"><i class="ti ti-device-floppy"></i> Save my planted tree</button>
       <p id="qa-save-hint" style="font-size:11px;color:var(--text3);text-align:center;margin-top:7px;display:none">Tree ID and recorded-by details will be generated automatically.</p>
       <div style="height:16px"></div>
     </div>
@@ -1312,7 +1313,7 @@ html, body { height:100%; overflow:auto !important; }
 <!-- ══ CONDITION MODAL ═════════════════════════════════════════════════ -->
 <div class="modal-bg" id="cond-modal">
   <div class="modal">
-    <div class="modal-head"><h3 id="cond-title">Report condition</h3><button class="modal-close" onclick="closeModal('cond-modal')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-head"><h3 id="cond-title">How is this tree doing?</h3><button class="modal-close" onclick="closeModal('cond-modal')"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
       <p style="font-size:11px;color:var(--text2);margin-bottom:12px">Tap all that apply.</p>
       <div class="flag-grid">
@@ -1329,7 +1330,7 @@ html, body { height:100%; overflow:auto !important; }
         <div class="flag-item" data-flag="dead" onclick="toggleFlag(this)"><i class="ti ti-plant-off"></i><span>Sapling dead</span></div>
       </div>
       <div class="field"><label>Notes (optional)</label><textarea id="cond-notes" placeholder="Any observations..."></textarea></div>
-      <button class="btn-main" onclick="submitCondition()"><i class="ti ti-send"></i> Submit report</button>
+      <button class="btn-main" onclick="submitCondition()"><i class="ti ti-send"></i> Send update</button>
     </div>
   </div>
 </div>
@@ -2314,6 +2315,32 @@ function useGPS(latId,lngId) {
   }, () => showToast('Could not get GPS — enter manually'));
 }
 
+// Manual Add: ask whether the pinned location is a spot that already exists (within 30 m)
+function askNearbyChoice(lat,lng){
+  return new Promise(async (resolve)=>{
+    let rows=[];
+    try{const r=await api('getNearbySites',{lat,lng,radius:60,site_type:'spot'});rows=(r.success&&r.data||[]).filter(x=>x.distance_m<=30);}catch(e){}
+    if(!rows.length)return resolve(null);
+    const el=document.createElement('div');el.id='nearby-choice';
+    el.style.cssText='position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center';
+    el.innerHTML=`<div style="background:#fff;width:100%;max-width:480px;border-radius:18px 18px 0 0;padding:16px;max-height:80vh;overflow:auto">
+      <h3 style="margin:0 0 4px">A spot is already registered here</h3>
+      <p style="margin:0 0 12px;color:#5d7066;font-size:13px">Is this the same place? Choose it to add your tree there instead of making a duplicate.</p>
+      ${rows.map(r=>`<div style="display:flex;align-items:center;gap:10px;border:1px solid #cfe3d8;border-radius:12px;padding:10px;margin-bottom:8px">
+        <div style="flex:1"><b>${esc(r.name)}</b><br><small>${esc(r.road||r.area||'')} &middot; ${r.distance_m} m away &middot; ${r.tree_count} tree${r.tree_count===1?'':'s'}</small></div>
+        <button class="btn-main" style="width:auto;padding:8px 12px" data-use="${esc(r.site_id)}">Use this spot</button></div>`).join('')}
+      <button class="btn-main" style="background:#fff;color:#0b4a34;border:2px solid #0b4a34;margin-top:4px" data-new="1">No, this is a different spot</button>
+      <button style="width:100%;border:0;background:none;color:#5d7066;margin-top:8px;padding:8px" data-cancel="1">Cancel</button></div>`;
+    el.addEventListener('click',(e)=>{
+      const t=e.target.closest('[data-use],[data-new],[data-cancel]');if(!t)return;
+      el.remove();
+      if(t.dataset.use)resolve(rows.find(r=>r.site_id===t.dataset.use)||null);
+      else if(t.dataset.new)resolve(null);
+      else resolve('cancel');
+    });
+    document.body.appendChild(el);
+  });
+}
 async function submitSite() {
   const name = document.getElementById('a-name').value.trim();
   const road = document.getElementById('a-road').value.trim();
@@ -2321,6 +2348,12 @@ async function submitSite() {
   // GPS mandatory
   if (!validateGPS('a-lat','a-lng','add-err')) return;
   document.getElementById('add-err').style.display='none';
+  let existingSite=null;
+  if(addType==='spot'){
+    const dec=await askNearbyChoice(parseFloat(document.getElementById('a-lat').value),parseFloat(document.getElementById('a-lng').value));
+    if(dec==='cancel')return;
+    existingSite=dec;
+  }
   const btn = document.getElementById('add-save-btn');
   btn.disabled = true;
   // Get status from manual status opts
@@ -2352,14 +2385,14 @@ async function submitSite() {
     tree_count:treeCount, status:'Identified', added_by:currentUser?.name||'',
     notes:document.getElementById('a-notes').value.trim(),
     photo_url:'', priority:'Medium', zone_id:activeZone||'' };
-  if (activeZone&&loadedZones[activeZone]) { loadedZones[activeZone].sites.push(newSite); renderSitesList(); if(gMap) renderMarkersForZone(activeZone); }
+  if (!existingSite&&activeZone&&loadedZones[activeZone]) { loadedZones[activeZone].sites.push(newSite); renderSitesList(); if(gMap) renderMarkersForZone(activeZone); }
   showToast('Saving...');
   btn.disabled = false;
-  const sRes = await api('addSite', { ...newSite, site_id:undefined });
+  const sRes = existingSite ? {success:true,site_id:existingSite.site_id} : await api('addSite', { ...newSite, site_id:undefined });
   if (sRes.success) {
     newSite.site_id = sRes.site_id;
     const treesArr = [];
-    for(let i=0;i<treeCount;i++) treesArr.push({species:'Unknown',position:i+1,tree_guard:guard,support_pole:pole});
+    for(let i=0;i<treeCount;i++) treesArr.push({species:'Unknown',position:(existingSite?.tree_count||0)+i+1,tree_guard:guard,support_pole:pole});
     await api('addTreesBulk', { group_id:GROUP_ID, site_id:sRes.site_id, road, planted_by:currentUser?.name||'', trees:treesArr });
     try { localStorage.removeItem(cacheKey('zone_'+activeZone)); } catch(e) {}
     // Create condition record for maintenance sites
@@ -2374,7 +2407,7 @@ async function submitSite() {
         });
       }
     }
-    showToast('Site saved! '+treesArr.length+' tree'+(treesArr.length>1?'s':'')+' created');
+    showToast(existingSite?'Added to the existing spot. Thank you!':(sRes.needs_review?'Saved. Our team will quickly check this spot is not already on the map.':'Site saved! '+treesArr.length+' tree'+(treesArr.length>1?'s':'')+' created'));
     ['a-name','a-road','a-lat','a-lng','a-lat1','a-lng1','a-lat2','a-lng2','a-notes','a-length'].forEach(id => { const e=document.getElementById(id); if(e) e.value=''; });
     document.getElementById('a-service').value='';
     treeCount=1; document.getElementById('tree-count-val').textContent='1';
@@ -2712,7 +2745,7 @@ async function submitCondition() {
   if (!Object.keys(flags).length) { showToast('Please select at least one condition'); return; }
   const res = await api('addCondition', { tree_id:condTreeId, site_id:condSiteId, reported_by:currentUser?.name||'', date:new Date().toISOString().slice(0,10), notes:document.getElementById('cond-notes').value.trim(), ...flags });
   if (res.success) {
-    showToast('✅ Condition reported!'); closeModal('cond-modal');
+    showToast('✅ Thank you! Your update has been sent.'); closeModal('cond-modal');
     const t=myTrees.find(t=>t.tree_id===condTreeId);
     if (t) { t.condition=flags.healthy?'Healthy':'Needs attention'; t.last_reported=new Date().toISOString().slice(0,10); }
     renderMyTrees(); saveCache('mytrees', myTrees);
@@ -3035,6 +3068,7 @@ function startQuickAdd(purpose){
   closeAddChooser();
   qaPurpose  = purpose||'new_plantation';
   qaPhotoB64 = null; qaLat=null; qaLng=null; qaAccuracy=null; qaStartLat=null;qaStartLng=null;qaEndLat=null;qaEndLng=null;
+  qaNearby=[];qaExistingSite=null;qaNewConfirmed=false;{const nb=document.getElementById('qa-nearby');if(nb)nb.innerHTML='';}
   setQaRecordType('spot');
   loadQaZones();
   const el_name = document.getElementById('qa-vol-name');
@@ -3101,6 +3135,52 @@ async function loadQaStretches(){
   }catch(e){/* keep new spot option available */}
 }
 
+// ─── Spots near me: reuse an existing spot instead of creating a duplicate ───────────────
+let qaNearby=[], qaExistingSite=null, qaNewConfirmed=false;
+const QA_SAME_SPOT_M=30;
+async function qaLoadNearby(){
+  const box=document.getElementById('qa-nearby');
+  if(!box||qaLat==null||qaRecordType==='stretch'){if(box)box.innerHTML='';return;}
+  box.innerHTML='<div class="qa-gps-strip"><i class="ti ti-map-search"></i><div class="qa-gps-txt">Looking for planting spots already near you…</div></div>';
+  try{const r=await api('getNearbySites',{lat:qaLat,lng:qaLng,radius:300,site_type:'spot'});qaNearby=(r.success&&Array.isArray(r.data))?r.data:[];}
+  catch(e){qaNearby=[];}
+  qaExistingSite=null;qaNewConfirmed=false;qaRenderNearby();
+}
+function qaRadarSvg(){
+  const S=240,C=S/2,maxD=Math.max(60,Math.min(300,Math.max(...qaNearby.map(s=>s.distance_m))*1.15)),k=(C-18)/maxD,cos=Math.cos(qaLat*Math.PI/180);
+  const dots=qaNearby.map(s=>{
+    const x=C+(s.gps_lng-qaLng)*cos*111320*k,y=C-(s.gps_lat-qaLat)*111320*k;
+    const col=qaExistingSite===s.site_id?'#0b4a34':(s.distance_m<=QA_SAME_SPOT_M?'#dc2626':'#16a34a');
+    return `<g onclick="qaPickExisting('${esc(s.site_id)}')" style="cursor:pointer"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${qaExistingSite===s.site_id?10:7}" fill="${col}" fill-opacity=".9" stroke="#fff" stroke-width="2"/></g>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${S} ${S}" width="100%" style="max-width:260px;display:block;margin:0 auto" role="img" aria-label="Spots around you">
+    <circle cx="${C}" cy="${C}" r="${C-18}" fill="#f0f8f5" stroke="#cfe3d8"/><circle cx="${C}" cy="${C}" r="${(C-18)/2}" fill="none" stroke="#cfe3d8" stroke-dasharray="3 3"/>
+    <text x="${C}" y="${S-3}" text-anchor="middle" font-size="9" fill="#5d7066">${Math.round(maxD)} m</text>
+    ${dots}<circle cx="${C}" cy="${C}" r="6" fill="#2563eb" stroke="#fff" stroke-width="2"/><text x="${C}" y="${C-11}" text-anchor="middle" font-size="9" font-weight="700" fill="#2563eb">You</text></svg>`;
+}
+function qaRenderNearby(){
+  const box=document.getElementById('qa-nearby');if(!box)return;
+  if(!qaNearby.length){box.innerHTML='<div class="qa-gps-strip"><i class="ti ti-circle-check"></i><div class="qa-gps-txt"><b>This looks like a new spot.</b><br><small>No registered spots within 300 m of you.</small></div></div>';return;}
+  const close=qaNearby.filter(s=>s.distance_m<=QA_SAME_SPOT_M).length;
+  const head=close?'A spot is already registered right here. Is it the same place?':'Spots already registered near you';
+  const cards=qaNearby.slice(0,6).map(s=>{
+    const on=qaExistingSite===s.site_id,isClose=s.distance_m<=QA_SAME_SPOT_M;
+    return `<div class="qa-gps-strip" style="margin-bottom:8px;${on?'border-color:#0b4a34;background:#e6f4ea':''}"><i class="ti ${on?'ti-circle-check':'ti-map-pin'}" style="color:${isClose?'#dc2626':'#16a34a'}"></i>
+      <div class="qa-gps-txt"><b>${esc(s.name)}</b><br><small>${esc(s.road||s.area||'')} · ${s.distance_m} m away · ${s.tree_count} tree${s.tree_count===1?'':'s'}</small></div>
+      <button type="button" class="gps-btn" style="padding:6px 10px;font-size:11px" onclick="qaPickExisting('${esc(s.site_id)}')">${on?'Selected':'This is my spot'}</button></div>`;
+  }).join('');
+  box.innerHTML=`<div class="fsec"><div style="font-weight:700;margin-bottom:8px">${head}</div>${qaRadarSvg()}<div style="margin-top:10px">${cards}</div>
+    ${qaExistingSite?'<small class="qa-help">Your tree will be added to the spot you selected. No new spot will be created.</small>':''}
+    <button type="button" class="gps-btn" style="width:100%;justify-content:center;margin-top:6px;${qaNewConfirmed?'background:#e6f4ea':''}" onclick="qaChooseNew()"><i class="ti ti-plus"></i> ${qaNewConfirmed?'Adding as a new spot':'No, this is a different spot'}</button></div>`;
+}
+function qaPickExisting(id){
+  const s=qaNearby.find(x=>x.site_id===id);if(!s)return;
+  qaExistingSite=id;qaNewConfirmed=false;
+  const r=document.getElementById('qa-road');if(r&&!r.value.trim())r.value=s.road||s.area||s.name||'';
+  qaRenderNearby();
+}
+function qaChooseNew(){qaExistingSite=null;qaNewConfirmed=true;qaRenderNearby();}
+
 function captureQaGPS(){
   const gt=document.getElementById('qa-gps-txt');
   const rt=document.getElementById('qa-road-txt');
@@ -3111,6 +3191,7 @@ function captureQaGPS(){
     const accEl=document.getElementById('qa-gps-accuracy'); if(accEl)accEl.textContent='GPS accuracy: ±'+Math.round(qaAccuracy)+' m';
     if(gt) gt.textContent='GPS: '+qaLat.toFixed(5)+', '+qaLng.toFixed(5);
     if(rt) rt.textContent='GPS captured — type the area / road name manually.';
+    qaLoadNearby();
   },()=>{if(gt)gt.textContent='GPS failed - location saved if available';},
   {enableHighAccuracy:true,timeout:10000,maximumAge:30000});
 }
@@ -3133,6 +3214,7 @@ async function submitQuickAdd(){
   if(!isStretch&&!qaPhotoB64){er.textContent='Please take a photo of the spot first.';er.style.display='block';return;}
   if(isStretch){if(qaStartLat==null||qaStartLng==null||qaEndLat==null||qaEndLng==null){er.textContent='Capture both the start and end GPS points for the stretch.';er.style.display='block';return;}}
   else if(qaLat==null||qaLng==null){er.textContent='Please capture GPS location before saving.';er.style.display='block';return;}
+  if(!isStretch&&qaNearby.some(s=>s.distance_m<=QA_SAME_SPOT_M)&&!qaExistingSite&&!qaNewConfirmed){er.textContent='A spot is already registered right here. Please choose it, or tap "No, this is a different spot".';er.style.display='block';document.getElementById('qa-nearby')?.scrollIntoView({behavior:'smooth',block:'center'});return;}
   const btn=document.getElementById('qa-save-btn');
   btn.disabled=true;btn.innerHTML='<span class="spinner-inline"></span> Saving…';
   try{
@@ -3154,25 +3236,25 @@ async function submitQuickAdd(){
         // A spot linked to a selected stretch is represented as its own spot site.
       }
       const dateStr=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
-      const sRes=await api('addSite',{group_id:GROUP_ID,site_type:'spot',name:road+' — '+dateStr,road,area:road,
+      const sRes=qaExistingSite?{success:true,site_id:qaExistingSite}:await api('addSite',{group_id:GROUP_ID,site_type:'spot',name:road+' — '+dateStr,road,area:road,
         gps_lat:qaLat.toFixed(6),gps_lng:qaLng.toFixed(6),tree_count:1,status:'Identified',priority:'Medium',
         added_by:currentUser?.name||'',added_by_id:currentUser?.volunteer_id||'',site_purpose:qaPurpose,notes,photo_url:photoUrl||'',zone_id:zoneId,
         parent_stretch_id:stretchId||''});
       if(!sRes.success)throw new Error(sRes.error||'Could not create the spot');
-      siteId=sRes.site_id;
+      siteId=sRes.site_id;window._qaFlagged=!!sRes.needs_review;
       const volunteersRequired=document.getElementById('qa-volunteers-required')?.value==='Yes';
       const treeRes=await api('addTree',{site_id:siteId,group_id:GROUP_ID,
         volunteers_required:volunteersRequired?1:0,volunteers_needed:volunteersRequired?Math.max(1,Number(document.getElementById('qa-volunteers-needed')?.value||1)):0,
-        time_required:Math.max(0,Number(document.getElementById('qa-time-required')?.value||0)),position:1,tree_guard:'No',support_pole:'No',status:'Identified',condition:'Unknown',road,area:road,
+        time_required:Math.max(0,Number(document.getElementById('qa-time-required')?.value||0)),position:qaExistingSite?((qaNearby.find(s=>s.site_id===qaExistingSite)?.tree_count||0)+1):1,tree_guard:'No',support_pole:'No',status:'Identified',condition:'Unknown',road,area:road,
         gps_lat:qaLat.toFixed(6),gps_lng:qaLng.toFixed(6),photo_url:photoUrl||'',notes,owner_volunteer_id:currentUser?.volunteer_id||'',planted_by:currentUser?.name||'',added_by:currentUser?.name||''});
       if(!treeRes.success)throw new Error(treeRes.error||'Spot saved, but tree record could not be created');
     }
     try{localStorage.removeItem(cacheKey('sites_lite'));}catch(e){}
-    showToast(isStretch?'Stretch saved to the zone map: '+siteId:'Plantation saved to Tree Registry');
-    btn.disabled=false;btn.innerHTML='<i class="ti ti-device-floppy"></i> Save plantation';
+    showToast(isStretch?'Stretch saved to the zone map: '+siteId:(window._qaFlagged?'Thank you! Your tree is saved. Our team will quickly check this spot is not already on the map.':'Thank you for planting! Your tree is now on the map.'));
+    btn.disabled=false;btn.innerHTML='<i class="ti ti-device-floppy"></i> Save my planted tree';
     hrAdminReturnHome();
     hrPushRoute('sites');
-  }catch(e){er.textContent=e.message||'Could not save. Please try again.';er.style.display='block';btn.disabled=false;btn.innerHTML='<i class="ti ti-device-floppy"></i> Save plantation';}
+  }catch(e){er.textContent=e.message||'Could not save. Please try again.';er.style.display='block';btn.disabled=false;btn.innerHTML='<i class="ti ti-device-floppy"></i> Save my planted tree';}
 }
 
 // ================================================================
@@ -4178,7 +4260,7 @@ function hrAdminShell(content, active='home') {
     <div class="hr-admin-shell">
       <header class="hr-admin-top">
         <div class="hr-admin-brand"><div class="hr-admin-brand-icon"><i class="ti ti-trees"></i></div><div><strong>HASIRU RATHA</strong><span>ADMIN WORKSPACE</span></div></div>
-        <div class="hr-admin-user"><span>${hrText(currentUser?.name || 'Administrator')}</span><button class="hr-admin-add-record" onclick="hrOpenTreeReport()" title="Report an issue with an existing tree"><i class="ti ti-flag"></i><span>Report a Tree</span></button><button class="hr-admin-add-record" onclick="openAddChooser()" title="Create a plantation record"><i class="ti ti-plus"></i><span>Plantation Actions</span></button><button onclick="forceRefresh()" title="Refresh"><i class="ti ti-refresh"></i></button><button onclick="doLogout()" title="Sign out"><i class="ti ti-logout"></i></button></div>
+        <div class="hr-admin-user"><span>${hrText(currentUser?.name || 'Administrator')}</span><button class="hr-admin-add-record" onclick="hrOpenTreeReport()" title="Report an issue with an existing tree"><i class="ti ti-flag"></i><span>Help a tree</span></button><button class="hr-admin-add-record" onclick="openAddChooser()" title="Create a plantation record"><i class="ti ti-plus"></i><span>Plantation Actions</span></button><button onclick="forceRefresh()" title="Refresh"><i class="ti ti-refresh"></i></button><button onclick="doLogout()" title="Sign out"><i class="ti ti-logout"></i></button></div>
       </header>
       <nav class="hr-admin-nav">${nav.map(([id,label,icon])=>`<button class="${active===id?'active':''}" onclick="hrPushRoute('${id}')"><i class="ti ${icon}"></i><span>${label}</span></button>`).join('')}</nav>
       <main class="hr-admin-main">${content}</main>
@@ -4959,7 +5041,7 @@ if (sess) { enterApp(sess, sess.role === 'admin'); }
 </style>
 <div class="hr-tree-report-overlay" id="hr-tree-report-overlay" onclick="if(event.target===this)hrCloseTreeReport()">
  <section class="hr-tree-report-panel">
-  <div class="hr-tr-heading"><div><span class="hr-admin-eyebrow">FIELD MAINTENANCE</span><h2>Report a tree issue</h2><p>Choose the location first. We’ll show the registered sites and trees in that zone.</p></div><button class="hr-tr-close" type="button" onclick="hrCloseTreeReport()" aria-label="Close">×</button></div>
+  <div class="hr-tr-heading"><div><span class="hr-admin-eyebrow">FIELD MAINTENANCE</span><h2>Tell us what this tree needs</h2><p>Choose the location first. We’ll show the registered sites and trees in that zone.</p></div><button class="hr-tr-close" type="button" onclick="hrCloseTreeReport()" aria-label="Close">×</button></div>
   <div class="hr-tr-progress"><span>1. Location</span><span>2. Issue</span><span>3. Evidence</span></div>
   <div class="hr-tr-grid">
    <div class="hr-tr-field"><label for="hr-tr-zone-select">Zone *</label><select id="hr-tr-zone-select" onchange="hrReportZoneChanged()"><option value="">Choose a zone</option></select></div>
@@ -4974,7 +5056,7 @@ if (sess) { enterApp(sess, sess.role === 'admin'); }
    <div class="hr-tr-field"><label>GPS latitude</label><input id="hr-tr-lat" readonly placeholder="Not captured"></div>
    <div class="hr-tr-field"><label>GPS longitude</label><input id="hr-tr-lng" readonly placeholder="Not captured"></div>
   </div>
-  <div class="hr-tr-actions"><button class="hr-tr-btn hr-tr-secondary" type="button" onclick="hrCloseTreeReport()">Cancel</button><button class="hr-tr-btn hr-tr-secondary" type="button" onclick="hrCaptureReportGps()">Capture GPS</button><button class="hr-tr-btn hr-tr-primary" type="button" id="hr-tr-submit" onclick="hrSubmitTreeReport()">Submit report</button></div>
+  <div class="hr-tr-actions"><button class="hr-tr-btn hr-tr-secondary" type="button" onclick="hrCloseTreeReport()">Cancel</button><button class="hr-tr-btn hr-tr-secondary" type="button" onclick="hrCaptureReportGps()">Capture GPS</button><button class="hr-tr-btn hr-tr-primary" type="button" id="hr-tr-submit" onclick="hrSubmitTreeReport()">Send to the Hasiru Ratha team</button></div>
   <div id="hr-tr-submit-message" role="status" aria-live="polite"></div>
  </section>
 </div>
@@ -5057,8 +5139,8 @@ async function hrSubmitTreeReport(){
   const r=await api('createTreeReport',payload);
   if(!r?.success)throw new Error(r?.error||'The server did not confirm that the report was saved.');
   hrCloseTreeReport();showToast('Report '+(r.report_id||'')+' submitted successfully');await hrRenderTreeReports();
- }catch(e){msg.textContent='Could not submit: '+(e.message||'Unknown error');showToast('Report failed: '+(e.message||'Unknown error'))}
- finally{btn.disabled=false;btn.textContent='Submit report'}
+ }catch(e){msg.textContent='We could not send that: '+(e.message||'Unknown error');showToast('We could not send your update: '+(e.message||'Unknown error'))}
+ finally{btn.disabled=false;btn.textContent='Send to the Hasiru Ratha team'}
 }
 async function hrRenderTreeReports(){
  hrAdminShell('<div class="hr-admin-page-head"><span class="hr-admin-eyebrow">FIELD MAINTENANCE</span><h1>Tree Reports</h1><p>Review issues, acknowledge them, assign volunteers and track maintenance through resolution.</p></div><div id="hr-tr-report-list">Loading reports…</div>','reports');

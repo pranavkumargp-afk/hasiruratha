@@ -67,3 +67,8 @@ Geolocation on a phone needs HTTPS (or localhost). Use Frappe Cloud / a tunnel f
 
 Importing the old Sheet: Frappe *Data Import* per DocType, in this order: HR Zone, HR Volunteer, HR Site, HR Tree, HR Visit, HR Condition.
 Use the Sheet headers; rename `name` to `site_name` / `volunteer_name`, and put the old ID in `site_id` / `tree_id` / etc.
+
+
+## Duplicate sites
+New sites close to an existing one (25 m, or same road/area within 150 m) are set to *Needs Review* and an admin approves or merges them. See `docs/PROJECT_NOTES.md`.
+Actions: `getNearbySites` (all members), `approveSite` / `mergeSite` (admin).
