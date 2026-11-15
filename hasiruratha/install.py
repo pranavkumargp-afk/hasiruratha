@@ -16,11 +16,16 @@ ZONES = [
 def after_install():
 	"""Idempotent - safe to run on every migrate."""
 	_role("HR Admin", desk_access=1)
+	_role("HR Citizen", desk_access=0)        # citizens use /citizen only
 	_role("HR Volunteer", desk_access=0)      # volunteers use /hasiruratha only, never /app
 	for zid, name in ZONES:
 		if not frappe.db.exists("HR Zone", zid):
 			frappe.get_doc({"doctype": "HR Zone", "zone_id": zid, "zone_name": name,
 			                "group_id": "GRP-001", "active": 1}).insert(ignore_permissions=True)
+	# keep Frappe's Map view working for rows created before the latitude/longitude fields existed
+	for dt in ("HR Site", "HR Tree", "HR Tree Report"):
+		frappe.db.sql("update `tab%s` set latitude=gps_lat, longitude=gps_lng where latitude is null and gps_lat is not null" % dt)
+	frappe.db.sql("update `tabHR Tree Report` r join `tabHR Site` s on s.name=r.site_id set r.area=s.area, r.road=s.road where r.area is null")
 	frappe.db.commit()
 
 

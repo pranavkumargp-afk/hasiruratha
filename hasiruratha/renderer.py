@@ -14,17 +14,18 @@ import frappe
 from frappe.website.page_renderers.base_renderer import BaseRenderer
 from werkzeug.wrappers import Response
 
-ROUTES = {"hasiruratha", "hasiruratha/index"}
-_TEMPLATE = os.path.join(os.path.dirname(__file__), "templates", "app.html")
-_cached = {"mtime": 0, "html": ""}
+ROUTES = {"hasiruratha": "app.html", "hasiruratha/index": "app.html", "citizen": "citizen.html", "citizen/index": "citizen.html"}
+_cached = {}
 
 
-def _template():
-	m = os.path.getmtime(_TEMPLATE)
-	if m != _cached["mtime"]:
-		with open(_TEMPLATE, encoding="utf-8") as f:
-			_cached.update(mtime=m, html=f.read())
-	return _cached["html"]
+def _template(name):
+	path = os.path.join(os.path.dirname(__file__), "templates", name)
+	m = os.path.getmtime(path)
+	hit = _cached.get(name)
+	if not hit or hit["mtime"] != m:
+		with open(path, encoding="utf-8") as f:
+			hit = _cached[name] = {"mtime": m, "html": f.read()}
+	return hit["html"]
 
 
 class HasirurathaRenderer(BaseRenderer):
@@ -34,7 +35,14 @@ class HasirurathaRenderer(BaseRenderer):
 	def render(self):
 		from hasiruratha.api import build_boot
 
-		boot = build_boot()
+		tpl = ROUTES[(self.path or "").strip("/ ")]
+		if tpl == "citizen.html":
+			u = frappe.session.user
+			boot = {"logged_in": u != "Guest"}
+			if u != "Guest":
+				boot["user"] = {"name": frappe.utils.get_fullname(u), "email": u}
+		else:
+			boot = build_boot()
 		try:
 			boot["csrf_token"] = frappe.sessions.get_csrf_token() if frappe.session.user != "Guest" else ""
 		except Exception:
@@ -42,7 +50,7 @@ class HasirurathaRenderer(BaseRenderer):
 		maps_key = frappe.db.get_single_value("Hasiruratha Settings", "google_maps_browser_key") or ""
 
 		blob = json.dumps(boot).replace("</", "<\\/")
-		html = _template().replace("__HR_BOOT__", blob).replace("__GMAPS_KEY__", maps_key)
+		html = _template(tpl).replace("__HR_BOOT__", blob).replace("__GMAPS_KEY__", maps_key)
 
 		resp = Response(html, status=200, content_type="text/html; charset=utf-8")
 		resp.headers["Cache-Control"] = "no-store"

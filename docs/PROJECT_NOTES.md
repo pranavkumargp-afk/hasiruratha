@@ -36,7 +36,27 @@ Open `/app/hr-console`. Tiles: Plant a sapling (opens `/hasiruratha`), Report a 
 * **Manual Add (pin on map):** after the pin is set and Save is tapped, if a spot is within 30 m the user must choose *Use this spot* or *No, this is a different spot*
 * both flows: the server still flags Needs Review if a near match slips through
 
+## Citizen portal (`/citizen`)
+* **Login:** mobile number + email, no OTP. First time also asks for a name. Creates a user with only the `HR Citizen` role. An existing email must come with the same mobile number. Admin accounts can never sign in here.
+* **Dashboard:** totals (trees, zones, sites, volunteers), trees per month, trees by status, browse zones -> sites -> trees, volunteer NAMES only (phone/email are never sent to the browser).
+* **Plant a tree:** photo (required) -> location from the photo, else phone GPS, else a map pin -> area/road/zone auto-filled and editable -> tree type -> "willing to volunteer?" -> save. If a spot is within 30 m the citizen is asked to reuse it.
+* **Report a tree:** photo (required) -> location -> pick the nearest registered tree (or "not listed") -> issue -> send. A tree that is not in the records is saved as a flagged, unconfirmed entry for admin to verify.
+* **Volunteer:** email verification code, then an HR Application (Pending, email verified) and a ToDo for HR Admins. Approve / Reject buttons on the HR Application form. Several volunteers can apply for the same tree; the first approved one becomes the tree's owner volunteer.
+* **My status:** the citizen's own trees, reports (with assigned volunteer name) and volunteer application.
+* **Admin side:** Console tile + panel "Citizen submissions" (photo, address, zone guess and why, who, when; confirm or change the zone; plan a visit; open site). ToDos for every submission. Number Cards: Citizen Plantings To Review, Citizen Reports To Review.
+* **Needs setup:** an outgoing Email Account on the site (for the verification code); the HR Citizen role is created on migrate.
+
+## Admin: area search, map and filters
+* Console map filter bar: search area/road (e.g. "Electronic City"), zone, sites/reports, issue type, status. The summary line lists the zones the matches fall in. Report pins are coloured by priority; popups have Open / Assign volunteer / Plan a visit. Citizen submissions are filtered the same way.
+* HR Site, HR Tree, HR Tree Report have `latitude` / `longitude` (copied from GPS), so Frappe's own **Map** view works: `/app/hr-tree-report/view/map`, `/app/hr-site/view/map`.
+* Standard filters: HR Tree Report (zone, site, area, issue type, status, priority, submitted via, admin reviewed), HR Site (area, road, zone, status).
+* Citizen "My status": thank-you note, tree messages, report progress bar (Received, Seen, Volunteer, In progress, Resolved).
+
+## Frappe-native citizen side (replaces the custom `/citizen` page)
+Citizens use Frappe Web Forms and website pages. Each submission is first saved as a record the admin can filter and map (HR Citizen Planting, HR Citizen Report, HR Volunteer Request), then processed into the real site / tree / report / volunteer application by `citizen_forms.py`. Status flows back to the citizen automatically. The earlier custom page (`templates/citizen.html`, route `/citizen`) is still in the repo and can be deleted. See `docs/FRAPPE_SETUP.md`.
+
 ## CHANGELOG
+* `citizen_api.py`, `templates/citizen.html`, `renderer.py` route `/citizen`; new fields `submitted_via`, `address_full`, `zone_note`, `admin_reviewed` (HR Site / Tree / Tree Report), `email_verified` (HR Application)
 * `page/hr_console/*`: the Console page; python endpoints reuse `api.add_visit`, `create_tree_report`, `assign_tree`, `assign_tree_report`
 * `hr_site.py`: duplicate detection, approve and merge
 * `hr_site.json`: field `possible_duplicate_of`, status `Needs Review`

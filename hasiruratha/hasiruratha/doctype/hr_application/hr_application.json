@@ -16,7 +16,8 @@
   "status",
   "reviewed_by",
   "review_date",
-  "review_notes"
+  "review_notes",
+  "email_verified"
  ],
  "fields": [
   {
@@ -78,12 +79,18 @@
    "fieldname": "review_notes",
    "fieldtype": "Small Text",
    "label": "Review Notes"
+  },
+  {
+   "fieldname": "email_verified",
+   "fieldtype": "Check",
+   "label": "Email Verified",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-11-05 02:55:10.337260",
+ "modified": "2026-11-14 10:00:00.000000",
  "modified_by": "Administrator",
  "module": "Hasiruratha",
  "name": "HR Application",

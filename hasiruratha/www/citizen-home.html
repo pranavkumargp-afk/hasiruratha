@@ -1,0 +1,54 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<div class="container" style="max-width:900px">
+	<div class="card mb-3" style="background:linear-gradient(135deg,#0b4a34,#0f7a5a 60%,#3fae6a);color:#fff;border:0">
+		<div class="card-body">
+			<h2 class="mb-1">Hello, {{ full_name | e }} 🌳</h2>
+			<p class="mb-0">Hasiru Ratha is a volunteer-run plantation drive for Bengaluru. Browse every zone, site and tree we track, plant one yourself, or tell us about a tree that needs care.</p>
+		</div>
+	</div>
+
+	<div class="row text-center mb-3">
+		<div class="col-4"><a class="btn btn-primary btn-block py-3" style="width:100%" href="/plant-a-tree/new"><div style="font-size:26px">🌱</div>Plant a tree</a></div>
+		<div class="col-4"><a class="btn btn-default btn-block py-3" style="width:100%" href="/report-a-tree/new"><div style="font-size:26px">📝</div>Report a tree</a></div>
+		<div class="col-4"><a class="btn btn-default btn-block py-3" style="width:100%" href="/become-a-volunteer/new"><div style="font-size:26px">🤝</div>Volunteer</a></div>
+	</div>
+
+	<div class="row text-center mb-3">
+		{% for label, key in [("Trees","trees"),("Zones","zones"),("Sites","sites"),("Volunteers","volunteers")] %}
+		<div class="col-6 col-md-3 mb-2"><div class="card"><div class="card-body py-3">
+			<div style="font-size:26px;font-weight:700;color:#0b4a34">{{ ov.counts[key] }}</div>
+			<div class="text-muted small text-uppercase">{{ label }}</div></div></div></div>
+		{% endfor %}
+	</div>
+
+	<div class="row mb-3">
+		<div class="col-md-7 mb-2"><div class="card"><div class="card-body"><h5>Trees planted per month</h5><canvas id="c1" height="170"></canvas></div></div></div>
+		<div class="col-md-5 mb-2"><div class="card"><div class="card-body"><h5>Trees by status</h5><canvas id="c2" height="170"></canvas></div></div></div>
+	</div>
+
+	<h5>Browse zones</h5>
+	<div class="row mb-3">
+		{% for z in ov.zones %}
+		<div class="col-6 col-md-4 mb-2"><a class="card h-100" href="/citizen-zone?zone={{ z.zone_id | urlencode }}" style="text-decoration:none;color:inherit;border-left:4px solid #16a34a">
+			<div class="card-body py-3"><b>{{ z.zone_name | e }}</b><div class="text-muted small">{{ z.sites }} sites · {{ z.trees }} trees</div></div></a></div>
+		{% endfor %}
+	</div>
+
+	<h5>Our volunteers</h5>
+	<div class="card mb-5"><div class="card-body">
+		{% for v in ov.volunteers[:80] %}<span class="badge badge-pill badge-light border mr-1 mb-1" style="font-size:13px;padding:6px 10px">{{ v.name | e }}</span>{% else %}<span class="text-muted">Be our first volunteer!</span>{% endfor %}
+		{% if ov.volunteers|length > 80 %}<span class="text-muted">+{{ ov.volunteers|length - 80 }} more</span>{% endif %}
+	</div></div>
+</div>
+<a href="/my-status" class="btn btn-primary" style="position:fixed;right:16px;bottom:16px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.25);z-index:20">📊 My status</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const D = {{ charts | safe }};
+if (window.Chart) {
+	new Chart(document.getElementById("c1"), { type: "bar", data: { labels: D.months.map(m => m.label), datasets: [{ data: D.months.map(m => m.value), backgroundColor: "#16a34a" }] }, options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } } });
+	const st = Object.entries(D.status);
+	new Chart(document.getElementById("c2"), { type: "doughnut", data: { labels: st.map(x => x[0]), datasets: [{ data: st.map(x => x[1]), backgroundColor: ["#16a34a","#eab308","#2563eb","#dc2626","#7c3aed","#6b7280","#0ea5e9"] }] }, options: { plugins: { legend: { position: "bottom" } } } });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<div class="container" style="max-width:440px;margin:32px auto">
+	<div class="text-center mb-4">
+		<div style="font-size:52px">🌳</div>
+		<h2>Hasiru Ratha</h2>
+		<p class="text-muted">Every tree we plant makes Bengaluru greener.</p>
+	</div>
+	<div class="card"><div class="card-body">
+		<div class="form-group"><label>Mobile number</label>
+			<input id="lp" type="tel" inputmode="numeric" class="form-control" placeholder="10-digit mobile number" autocomplete="tel"></div>
+		<div class="form-group"><label>Email</label>
+			<input id="le" type="email" class="form-control" placeholder="you@gmail.com" autocomplete="email"></div>
+		<div class="form-group" id="lnw" style="display:none"><label>Your name (first time only)</label>
+			<input id="ln" class="form-control" autocomplete="name"></div>
+		<button class="btn btn-primary btn-block" id="lgo" style="width:100%">Continue</button>
+		<p class="text-danger mt-3 mb-0" id="lerr"></p>
+	</div></div>
+</div>
+<script>
+document.getElementById("lgo").onclick = async function () {
+	const err = document.getElementById("lerr"), b = this; err.textContent = ""; b.disabled = true;
+	try {
+		const r = await fetch("/api/method/hasiruratha.citizen_api.citizen_login", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+			body: JSON.stringify({ phone: lp.value, email: le.value, full_name: ln.value }) });
+		const j = await r.json(); const m = j.message || {};
+		if (m.success && m.need_name) { lnw.style.display = "block"; ln.focus(); err.textContent = "Welcome! Please tell us your name."; }
+		else if (m.success) { const to = new URLSearchParams(location.search).get("redirect-to"); location.href = to && to.startsWith("/") && !to.startsWith("//") ? to : "/citizen-home"; }
+		else err.textContent = m.error || "Something went wrong. Please try again.";
+	} catch (e) { err.textContent = "Something went wrong. Please try again."; }
+	b.disabled = false;
+};
+</script>
+{% endblock %}

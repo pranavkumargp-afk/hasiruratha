@@ -1,0 +1,113 @@
+{
+ "allow_comments": 0,
+ "allow_delete": 0,
+ "allow_edit": 0,
+ "allow_incomplete": 0,
+ "allow_multiple": 1,
+ "allow_print": 0,
+ "anonymous": 0,
+ "apply_document_permissions": 0,
+ "button_label": "Verify and apply",
+ "client_script": "\nfrappe.ready(function () {\n  const wf = frappe.web_form;\n  if (frappe.session && frappe.session.user && frappe.session.user !== \"Guest\") wf.set_value(\"email\", frappe.session.user);\n  const wrap = document.querySelector('.frappe-control[data-fieldname=\"verification_code\"]');\n  if (!wrap) return;\n  wrap.insertAdjacentHTML(\"afterend\", '<div style=\"margin:-6px 0 12px\"><button type=\"button\" class=\"btn btn-default btn-sm\" id=\"hr-send-code\">Send code to my email</button></div>');\n  document.getElementById(\"hr-send-code\").onclick = function () {\n    frappe.call({ method: \"hasiruratha.citizen_api.send_email_code\", args: { email: wf.get_value(\"email\") } })\n      .then(() => frappe.msgprint(__(\"We sent a 6-digit code to your email. Enter it below.\")));\n  };\n});\n",
+ "creation": "2026-11-15 12:00:00.000000",
+ "custom_css": "",
+ "doc_type": "HR Volunteer Request",
+ "docstatus": 0,
+ "doctype": "Web Form",
+ "idx": 0,
+ "introduction_text": "<p>We verify your email, then our team reviews your application.</p>",
+ "is_standard": 1,
+ "list_columns": [
+  {
+   "fieldname": "area",
+   "fieldtype": "Data",
+   "label": "Area"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status"
+  }
+ ],
+ "list_title": "My applications",
+ "login_required": 1,
+ "max_attachment_size": 0,
+ "modified": "2026-11-15 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Hasiruratha",
+ "name": "become-a-volunteer",
+ "owner": "Administrator",
+ "published": 1,
+ "route": "become-a-volunteer",
+ "show_attachments": 0,
+ "show_list": 1,
+ "show_sidebar": 0,
+ "success_message": "Thank you! Our team will review it. You will see the result under My status. See everything under My status (/my-status).",
+ "success_title": "Application sent \ud83e\udd1d",
+ "success_url": "",
+ "title": "Become a volunteer",
+ "web_form_fields": [
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Your email",
+   "max_length": 0,
+   "max_value": 0,
+   "read_only": 0,
+   "reqd": 1,
+   "show_in_filter": 0,
+   "hidden": 0,
+   "options": "Email"
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "verification_code",
+   "fieldtype": "Data",
+   "label": "Verification code",
+   "max_length": 0,
+   "max_value": 0,
+   "read_only": 0,
+   "reqd": 1,
+   "show_in_filter": 0,
+   "hidden": 0,
+   "description": "Press the button below to get a 6-digit code by email."
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "area",
+   "fieldtype": "Data",
+   "label": "Your area",
+   "max_length": 0,
+   "max_value": 0,
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0,
+   "hidden": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "tree_preference",
+   "fieldtype": "Data",
+   "label": "Tree or place you would like to look after (optional)",
+   "max_length": 0,
+   "max_value": 0,
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0,
+   "hidden": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Why do you want to volunteer? (optional)",
+   "max_length": 0,
+   "max_value": 0,
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0,
+   "hidden": 0
+  }
+ ]
+}

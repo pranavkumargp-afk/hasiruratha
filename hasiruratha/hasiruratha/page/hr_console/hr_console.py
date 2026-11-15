@@ -2,7 +2,7 @@ import frappe
 from frappe import _
 from frappe.utils import flt
 
-from hasiruratha import api
+from hasiruratha import api, citizen_api
 from hasiruratha.hasiruratha.doctype.hr_site import hr_site as hs
 
 
@@ -31,9 +31,15 @@ def get_console_data():
 		"trees": frappe.get_all("HR Tree", fields=["tree_id", "site_id", "species", "owner_volunteer_id"],
 		                        limit_page_length=0),
 		"volunteers": frappe.get_all("HR Volunteer", filters={"active": 1},
-		                             fields=["volunteer_id", "volunteer_name"], limit_page_length=0),
-		"reports": frappe.get_all("HR Tree Report", filters={"status": ["in", ["Open", "Assigned"]]},
+		                             fields=["volunteer_id", "volunteer_name", "area"], limit_page_length=0),
+		"reports": frappe.get_all("HR Tree Report", filters={"status": ["!=", "Resolved"]},
 		                          fields=["report_id", "tree_id", "issue_type", "status"], limit_page_length=0),
+		"report_pins": frappe.get_all(
+			"HR Tree Report", {"status": ["!=", "Resolved"]},
+			["name", "report_id", "tree_id", "site_id", "zone_id", "area", "road", "issue_type", "priority", "status",
+			 "gps_lat", "gps_lng", "photo_url", "assigned_volunteer_name", "submitted_via"], limit_page_length=0),
+		"citizen": citizen_api.admin_submissions(),
+		"zones": frappe.get_all("HR Zone", {"active": 1}, ["zone_id", "zone_name"], order_by="zone_name"),
 		"counts": {
 			"review": len(queue),
 			"applications": frappe.db.count("HR Application", {"status": "Pending"}),

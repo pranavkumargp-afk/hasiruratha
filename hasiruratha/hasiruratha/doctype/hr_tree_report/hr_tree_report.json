@@ -23,7 +23,16 @@
   "assigned_volunteer_name",
   "resolution_photo",
   "resolution_notes",
-  "resolved_on"
+  "resolved_on",
+  "section_citizen",
+  "submitted_via",
+  "address_full",
+  "zone_note",
+  "admin_reviewed",
+  "latitude",
+  "longitude",
+  "area",
+  "road"
  ],
  "fields": [
   {
@@ -47,13 +56,15 @@
    "fieldtype": "Link",
    "label": "Site",
    "options": "HR Site",
-   "reqd": 1
+   "reqd": 1,
+   "in_standard_filter": 1
   },
   {
    "fieldname": "zone_id",
    "fieldtype": "Link",
    "label": "Zone",
-   "options": "HR Zone"
+   "options": "HR Zone",
+   "in_standard_filter": 1
   },
   {
    "fieldname": "group_id",
@@ -77,7 +88,8 @@
    "in_list_view": 1,
    "label": "Issue Type",
    "options": "Damage\nWatering\nPest / Disease\nDead tree\nGuard / Support\nDebris\nLeaning\nOther",
-   "reqd": 1
+   "reqd": 1,
+   "in_standard_filter": 1
   },
   {
    "fieldname": "description",
@@ -90,7 +102,8 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Priority",
-   "options": "Low\nMedium\nHigh\nCritical"
+   "options": "Low\nMedium\nHigh\nCritical",
+   "in_standard_filter": 1
   },
   {
    "default": "Open",
@@ -98,7 +111,8 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Status",
-   "options": "Open\nAcknowledged\nAssigned\nIn Progress\nOn Hold\nResolved"
+   "options": "Open\nAcknowledged\nAssigned\nIn Progress\nOn Hold\nResolved",
+   "in_standard_filter": 1
   },
   {
    "fieldname": "photo_url",
@@ -140,10 +154,75 @@
    "fieldname": "resolved_on",
    "fieldtype": "Date",
    "label": "Resolved On"
+  },
+  {
+   "fieldname": "section_citizen",
+   "fieldtype": "Section Break",
+   "label": "Citizen submission",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "submitted_via",
+   "fieldtype": "Select",
+   "label": "Submitted Via",
+   "options": "\nAdmin\nVolunteer\nCitizen",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "address_full",
+   "fieldtype": "Small Text",
+   "label": "Address (from location)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "zone_note",
+   "fieldtype": "Data",
+   "label": "Zone Note",
+   "read_only": 1,
+   "description": "How the zone was guessed"
+  },
+  {
+   "fieldname": "admin_reviewed",
+   "fieldtype": "Check",
+   "label": "Admin Reviewed",
+   "default": "0",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Float",
+   "label": "Latitude",
+   "precision": "8",
+   "read_only": 1,
+   "hidden": 1,
+   "description": "Copy of GPS lat, used by Frappe Map view"
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Float",
+   "label": "Longitude",
+   "precision": "8",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "area",
+   "fieldtype": "Data",
+   "label": "Area",
+   "read_only": 1,
+   "in_standard_filter": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "road",
+   "fieldtype": "Data",
+   "label": "Road",
+   "read_only": 1
   }
  ],
  "links": [],
- "modified": "2026-11-05 02:35:45.939074",
+ "modified": "2026-11-15 10:00:00.000000",
  "modified_by": "Administrator",
  "module": "Hasiruratha",
  "name": "HR Tree Report",

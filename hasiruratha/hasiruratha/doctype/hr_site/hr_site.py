@@ -78,6 +78,8 @@ def find_duplicate(lat, lng, site_type, road, area, exclude=None):
 class HRSite(Document):
 	def validate(self):
 		self.flag_possible_duplicate()
+		if flt(self.gps_lat) and flt(self.gps_lng):
+			self.latitude, self.longitude = flt(self.gps_lat), flt(self.gps_lng)
 
 	def flag_possible_duplicate(self):
 		if not self.is_new() or self.flags.ignore_duplicate_check or self.possible_duplicate_of:

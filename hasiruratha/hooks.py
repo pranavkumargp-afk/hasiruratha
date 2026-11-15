@@ -14,3 +14,10 @@ page_renderer = ["hasiruratha.renderer.HasirurathaRenderer"]
 # Create roles, settings and the starter zones on install and after every migrate (idempotent)
 after_install = "hasiruratha.install.after_install"
 after_migrate = "hasiruratha.install.after_install"
+
+
+# keep the citizen's copy of a report / volunteer request in step with the real record
+doc_events = {
+	"HR Tree Report": {"on_update": "hasiruratha.citizen_forms.sync_report_status"},
+	"HR Application": {"on_update": "hasiruratha.citizen_forms.sync_application_status"},
+}

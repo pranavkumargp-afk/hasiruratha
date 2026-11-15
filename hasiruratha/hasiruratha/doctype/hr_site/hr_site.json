@@ -29,7 +29,14 @@
   "gps_lng2",
   "section_more",
   "notes",
-  "photo_url"
+  "photo_url",
+  "section_citizen",
+  "submitted_via",
+  "address_full",
+  "zone_note",
+  "admin_reviewed",
+  "latitude",
+  "longitude"
  ],
  "fields": [
   {
@@ -108,12 +115,14 @@
    "fieldname": "road",
    "fieldtype": "Data",
    "label": "Road",
-   "in_list_view": 1
+   "in_list_view": 1,
+   "in_standard_filter": 1
   },
   {
    "fieldname": "area",
    "fieldtype": "Data",
-   "label": "Area"
+   "label": "Area",
+   "in_standard_filter": 1
   },
   {
    "fieldname": "tree_count",
@@ -184,11 +193,62 @@
    "fieldname": "photo_url",
    "fieldtype": "Small Text",
    "label": "Photo URL"
+  },
+  {
+   "fieldname": "section_citizen",
+   "fieldtype": "Section Break",
+   "label": "Citizen submission",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "submitted_via",
+   "fieldtype": "Select",
+   "label": "Submitted Via",
+   "options": "\nAdmin\nVolunteer\nCitizen",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "address_full",
+   "fieldtype": "Small Text",
+   "label": "Address (from location)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "zone_note",
+   "fieldtype": "Data",
+   "label": "Zone Note",
+   "read_only": 1,
+   "description": "How the zone was guessed"
+  },
+  {
+   "fieldname": "admin_reviewed",
+   "fieldtype": "Check",
+   "label": "Admin Reviewed",
+   "default": "0",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Float",
+   "label": "Latitude",
+   "precision": "8",
+   "read_only": 1,
+   "hidden": 1,
+   "description": "Copy of GPS lat, used by Frappe Map view"
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Float",
+   "label": "Longitude",
+   "precision": "8",
+   "read_only": 1,
+   "hidden": 1
   }
  ],
  "index_web_pages_for_search": 0,
  "links": [],
- "modified": "2026-11-12 20:30:00.000000",
+ "modified": "2026-11-15 10:00:00.000000",
  "modified_by": "Administrator",
  "module": "Hasiruratha",
  "name": "HR Site",

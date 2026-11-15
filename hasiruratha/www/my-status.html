@@ -1,0 +1,39 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<div class="container" style="max-width:760px">
+	<a href="/citizen-home">← Home</a>
+	<h2 class="mt-2">My status</h2>
+	{% if s.trees or s.reports %}
+	<div class="alert alert-success">Thank you, {{ s.name | e }}! You have planted <b>{{ s.trees|length }}</b> tree{{ "" if s.trees|length == 1 else "s" }} and sent <b>{{ s.reports|length }}</b> report{{ "" if s.reports|length == 1 else "s" }}{% if resolved %} ({{ resolved }} resolved){% endif %}. Bengaluru is greener because of you. 💚</div>
+	{% endif %}
+
+	<h4>My trees</h4>
+	{% for t in s.trees %}
+	<div class="card mb-2"><div class="card-body py-3 d-flex">
+		{% if t.photo_url %}<img src="{{ t.photo_url | e }}" style="width:64px;height:64px;object-fit:cover;border-radius:8px;margin-right:12px">{% endif %}
+		<div><b>{{ (t.species or "Tree") | e }}</b> <span class="badge badge-light border">{{ t.status | e }}</span>
+			<div class="text-muted small">{{ t.place | e }} {% if t.date_planted %}· {{ t.date_planted }}{% endif %}</div>
+			<div class="small">{{ t.msg }}</div></div></div></div>
+	{% else %}<p class="text-muted">No trees yet. <a href="/plant-a-tree/new">Plant your first one</a>.</p>{% endfor %}
+
+	<h4 class="mt-4">My reports</h4>
+	{% for r in s.reports %}
+	<div class="card mb-2"><div class="card-body py-3">
+		<div class="d-flex">
+			{% if r.photo_url %}<img src="{{ r.photo_url | e }}" style="width:64px;height:64px;object-fit:cover;border-radius:8px;margin-right:12px">{% endif %}
+			<div style="flex:1"><b>{{ r.issue_type | e }}</b>
+				<div class="text-muted small">Reported {{ r.reported_on }}{% if r.assigned_volunteer_name %} · {{ r.assigned_volunteer_name | e }} is on it{% endif %}</div>
+				{% if r.step >= 0 %}
+				<div class="progress mt-2" style="height:6px"><div class="progress-bar bg-success" style="width:{{ ((r.step + 1) / 5 * 100)|int }}%"></div></div>
+				<div class="d-flex justify-content-between text-muted" style="font-size:11px">{% for l in steps %}<span>{{ l }}</span>{% endfor %}</div>
+				{% else %}<span class="badge badge-light border">{{ r.status | e }}</span> Our team is looking at it.{% endif %}
+				{% if r.status == "Resolved" %}<div class="alert alert-success mt-2 mb-0 py-2">Thank you! This was resolved{% if r.resolved_on %} on {{ r.resolved_on }}{% endif %} because you spoke up. 💚</div>{% endif %}
+			</div></div></div></div>
+	{% else %}<p class="text-muted">No reports yet. <a href="/report-a-tree/new">Report a tree</a>.</p>{% endfor %}
+
+	<h4 class="mt-4">Volunteering</h4>
+	{% if s.volunteer and s.volunteer.active %}<p>You are a volunteer. Thank you! 💚</p>
+	{% elif requests %}{% for q in requests %}<p>Application sent on {{ q.creation.strftime("%d %b %Y") }}: <span class="badge badge-light border">{{ q.status | e }}</span></p>{% endfor %}
+	{% else %}<p class="text-muted"><a href="/become-a-volunteer/new">Become a volunteer</a></p>{% endif %}
+</div>
+{% endblock %}

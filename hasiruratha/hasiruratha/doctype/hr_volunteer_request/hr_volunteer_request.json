@@ -1,0 +1,128 @@
+{
+ "actions": [],
+ "autoname": "format:HRVR-{#####}",
+ "creation": "2026-11-15 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "email",
+  "verification_code",
+  "area",
+  "tree_preference",
+  "reason",
+  "sec_rev",
+  "email_verified",
+  "volunteer",
+  "application",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Your email",
+   "options": "Email",
+   "reqd": 1
+  },
+  {
+   "fieldname": "verification_code",
+   "fieldtype": "Data",
+   "label": "Verification code",
+   "description": "We email you a 6-digit code. Press Send code first."
+  },
+  {
+   "fieldname": "area",
+   "fieldtype": "Data",
+   "label": "Your area",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "tree_preference",
+   "fieldtype": "Data",
+   "label": "Tree or place you would like to look after (optional)"
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Why do you want to volunteer? (optional)"
+  },
+  {
+   "fieldname": "sec_rev",
+   "fieldtype": "Section Break",
+   "label": "Review (admin)"
+  },
+  {
+   "fieldname": "email_verified",
+   "fieldtype": "Check",
+   "label": "Email verified",
+   "read_only": 1
+  },
+  {
+   "fieldname": "volunteer",
+   "fieldtype": "Link",
+   "label": "Volunteer",
+   "options": "HR Volunteer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "application",
+   "fieldtype": "Link",
+   "label": "Application",
+   "options": "HR Application",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nApproved\nRejected",
+   "default": "Pending",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-15 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Hasiruratha",
+ "name": "HR Volunteer Request",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "HR Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "print": 1,
+   "report": 1,
+   "share": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "print": 1,
+   "report": 1,
+   "share": 1
+  },
+  {
+   "role": "HR Citizen",
+   "read": 1,
+   "create": 1,
+   "if_owner": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "search_fields": "email,area",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "email",
+ "track_changes": 1
+}

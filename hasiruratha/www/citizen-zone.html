@@ -1,0 +1,20 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<div class="container" style="max-width:800px">
+	<a href="/citizen-home">← Back</a>
+	<h2 class="mt-2">{{ zone_name | e }}</h2>
+	{% for s in sites %}
+	<details class="card mb-2"><summary class="card-body py-3" style="cursor:pointer">
+		<b>{{ (s.site_name or s.site_id) | e }}</b> <span class="text-muted small">{{ (s.area or s.road or "") | e }} · {{ s.tree_count or 0 }} trees</span>
+		<span class="badge badge-light border float-right">{{ s.status | e }}</span></summary>
+		<div class="card-body pt-0">
+			{% for t in s.trees %}
+			<div class="d-flex align-items-center border-top py-2">
+				{% if t.photo_url %}<img src="{{ t.photo_url | e }}" style="width:56px;height:56px;object-fit:cover;border-radius:8px;margin-right:10px">{% endif %}
+				<div><b>{{ (t.species or "Tree") | e }}</b> <span class="text-muted small">{{ t.tree_id | e }}</span><br><span class="badge badge-light border">{{ t.status | e }}</span></div>
+			</div>
+			{% else %}<span class="text-muted">No trees listed yet.</span>{% endfor %}
+		</div></details>
+	{% else %}<p class="text-muted">No sites in this zone yet.</p>{% endfor %}
+</div>
+{% endblock %}

@@ -1,8 +1,8 @@
-# Copyright (c) 2026, Hasiru Ratha and contributors
-# For license information, please see license.txt
-
 from frappe.model.document import Document
+from frappe.utils import flt
 
 
 class HRTree(Document):
-	pass
+	def validate(self):
+		if flt(self.gps_lat) and flt(self.gps_lng):
+			self.latitude, self.longitude = flt(self.gps_lat), flt(self.gps_lng)

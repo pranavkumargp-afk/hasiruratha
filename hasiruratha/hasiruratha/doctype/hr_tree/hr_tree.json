@@ -28,7 +28,12 @@
   "photo_url",
   "time_required",
   "volunteers_required",
-  "volunteers_needed"
+  "volunteers_needed",
+  "section_citizen",
+  "submitted_via",
+  "admin_reviewed",
+  "latitude",
+  "longitude"
  ],
  "fields": [
   {
@@ -174,10 +179,48 @@
    "default": "0",
    "depends_on": "volunteers_required",
    "non_negative": 1
+  },
+  {
+   "fieldname": "section_citizen",
+   "fieldtype": "Section Break",
+   "label": "Citizen submission",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "submitted_via",
+   "fieldtype": "Select",
+   "label": "Submitted Via",
+   "options": "\nAdmin\nVolunteer\nCitizen",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "admin_reviewed",
+   "fieldtype": "Check",
+   "label": "Admin Reviewed",
+   "default": "0",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Float",
+   "label": "Latitude",
+   "precision": "8",
+   "read_only": 1,
+   "hidden": 1,
+   "description": "Copy of GPS lat, used by Frappe Map view"
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Float",
+   "label": "Longitude",
+   "precision": "8",
+   "read_only": 1,
+   "hidden": 1
   }
  ],
  "links": [],
- "modified": "2026-11-08 00:30:00.000000",
+ "modified": "2026-11-15 10:00:00.000000",
  "modified_by": "Administrator",
  "module": "Hasiruratha",
  "name": "HR Tree",

@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b4a34">
+<title>Hasiru Ratha</title>
+<style>
+:root{--g:#0b4a34;--g2:#16a34a;--bg:#f4f6f4;--card:#fff;--line:#e3e8e4;--mut:#64748b;--r:14px}
+*{box-sizing:border-box}html,body{margin:0}body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:#1f2937;padding-bottom:90px}
+.wrap{max-width:760px;margin:0 auto;padding:12px}
+h1,h2,h3{margin:0}.small{font-size:13px;color:var(--mut)}.err{color:#dc2626;font-size:14px;min-height:18px}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar b{color:var(--g)}.link{background:none;border:0;color:var(--g);font-weight:600;cursor:pointer;padding:6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:12px 0}
+.hero{color:#fff;border-radius:18px;padding:20px;background:linear-gradient(135deg,#0b4a34,#0f7a5a 60%,#3fae6a)}
+.hero h1{font-size:26px}.hero p{margin:6px 0 0;opacity:.92}
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.act{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 6px;text-align:center;font-weight:700;cursor:pointer;font-size:14px}
+.act span{display:block;font-size:28px;margin-bottom:4px}.act.p{background:var(--g2);color:#fff;border-color:var(--g2)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 4px;text-align:center}
+.kpi b{display:block;font-size:22px;color:var(--g)}.kpi span{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:640px){.grid2{grid-template-columns:1fr}}
+canvas{max-width:100%}
+.zones{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.zone{background:#fff;border:1px solid var(--line);border-left:4px solid var(--g2);border-radius:12px;padding:10px;cursor:pointer}
+.zone b{display:block}.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{background:#eaf5ee;color:var(--g);border-radius:999px;padding:4px 10px;font-size:13px}
+.chip.btn2{cursor:pointer;border:1px solid #cfe3d8;background:#fff}.chip.on{background:var(--g);color:#fff}
+input,select,textarea{width:100%;border:1px solid #cbd5d0;border-radius:10px;padding:11px;font-size:16px;font-family:inherit;margin:4px 0 10px;background:#fff}
+label{font-size:13px;font-weight:600;color:#374151}
+.btn{width:100%;background:var(--g);color:#fff;border:0;border-radius:12px;padding:14px;font-size:16px;font-weight:700;cursor:pointer}
+.btn:disabled{opacity:.45}.btn.sec{background:#fff;color:var(--g);border:2px solid var(--g)}
+.photo{border:2px dashed #9fc5b0;border-radius:14px;text-align:center;padding:22px;color:var(--g);background:#f3faf6}
+.photo img{max-width:100%;max-height:260px;border-radius:10px;display:block;margin:0 auto}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.opt{display:flex;gap:10px;align-items:center;border:2px solid var(--line);border-radius:12px;padding:10px;margin:6px 0;cursor:pointer;background:#fff}
+.opt.on{border-color:var(--g2);background:#f0faf3}.opt img{width:48px;height:48px;object-fit:cover;border-radius:8px}
+.seg{display:flex;gap:8px;margin:6px 0 12px}.seg button{flex:1;padding:12px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:700;font-size:15px}
+.seg button.on{border-color:var(--g2);background:#f0faf3;color:var(--g)}
+.fab{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));background:var(--g);color:#fff;border:0;border-radius:999px;padding:14px 18px;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,.25);z-index:20}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:#fff;width:100%;max-width:640px;max-height:88vh;overflow:auto;border-radius:20px 20px 0 0;padding:16px}
+.tag{display:inline-block;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700;background:#e5e7eb}
+.t-Completed,.t-Healthy,.t-Resolved,.t-Approved,.t-Assigned{background:#dcfce7;color:#166534}.t-Identified,.t-Open,.t-Pending{background:#fef9c3;color:#854d0e}
+.t-Planned,.t-Acknowledged,.t-InProgress{background:#dbeafe;color:#1e40af}.t-Urgent,.t-Rejected{background:#fee2e2;color:#991b1b}
+.steps{display:flex;gap:4px;margin:6px 0 2px}.steps i{flex:1;height:6px;border-radius:3px;background:#e5e7eb}.steps i.on{background:var(--g2)}
+.stl{display:flex;justify-content:space-between;font-size:11px;color:var(--mut)}
+.thanks{background:#f0faf3;border:1px solid #cfe3d8;border-radius:12px;padding:12px;margin:8px 0;color:var(--g)}
+.item{display:flex;gap:10px;border-bottom:1px solid var(--line);padding:10px 0}.item img{width:56px;height:56px;border-radius:8px;object-fit:cover}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:#111827;color:#fff;padding:10px 16px;border-radius:10px;z-index:99;max-width:90%}
+#mp{position:fixed;inset:0;z-index:60;background:#fff;display:flex;flex-direction:column}#mpm{flex:1}
+.login{max-width:420px;margin:0 auto;padding:36px 18px}.login .logo{font-size:56px;text-align:center}.login h1{text-align:center;color:var(--g)}
+.login p{text-align:center;color:var(--mut)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>const BOOT = __HR_BOOT__;</script>
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const LIBS = { chart: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js", exif: "https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js", leaflet: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" };
+const loaded = {};
+function lib(k) {
+  if (!loaded[k]) loaded[k] = new Promise((ok, no) => {
+    if (k === "leaflet") { const l = document.createElement("link"); l.rel = "stylesheet"; l.href = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"; document.head.appendChild(l); }
+    const s = document.createElement("script"); s.src = LIBS[k]; s.onload = ok; s.onerror = () => no(new Error("lib " + k)); document.head.appendChild(s);
+  });
+  return loaded[k];
+}
+function toast(m) { const t = document.createElement("div"); t.className = "toast"; t.textContent = m; document.body.appendChild(t); setTimeout(() => t.remove(), 3500); }
+function errMsg(j) { try { const m = JSON.parse(j._server_messages || "[]"); if (m.length) return m.map((x) => JSON.parse(x).message).join(" ").replace(/<[^>]+>/g, ""); } catch (e) {} return "Something went wrong. Please try again."; }
+async function call(m, args) {
+  const r = await fetch("/api/method/hasiruratha.citizen_api." + m, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json", "X-Frappe-CSRF-Token": BOOT.csrf_token || "" }, body: JSON.stringify(args || {}) });
+  let j = {}; try { j = await r.json(); } catch (e) {}
+  if (!r.ok || j.exc || j.exception) throw new Error(errMsg(j));
+  return j.message;
+}
+const chip = (s) => `<span class="tag t-${esc(String(s || "").replace(/\s+/g, ""))}">${esc(s)}</span>`;
+function sheet(html) {
+  const o = document.createElement("div"); o.className = "ov";
+  o.innerHTML = `<div class="sheet"><div style="text-align:right"><button class="link" data-x>Close ✕</button></div><div data-b>${html}</div></div>`;
+  o.addEventListener("click", (e) => { if (e.target === o || e.target.dataset.x !== undefined) o.remove(); });
+  document.body.appendChild(o); return o;
+}
+
+/* ───────────── login ───────────── */
+function loginView() {
+  $("#app").innerHTML = `<div class="login"><div class="logo">🌳</div><h1>Hasiru Ratha</h1><p>Every tree we plant makes Bengaluru greener.</p>
+  <label>Mobile number</label><input id="lp" type="tel" inputmode="numeric" placeholder="10-digit mobile number" autocomplete="tel">
+  <label>Email</label><input id="le" type="email" placeholder="you@gmail.com" autocomplete="email">
+  <div id="lnw" hidden><label>Your name (first time only)</label><input id="ln" autocomplete="name"></div>
+  <button class="btn" id="lgo">Continue</button><div class="err" id="lerr"></div></div>`;
+  $("#lgo").onclick = async () => {
+    $("#lerr").textContent = ""; $("#lgo").disabled = true;
+    try {
+      const r = await call("citizen_login", { phone: $("#lp").value, email: $("#le").value, full_name: $("#ln").value });
+      if (r.success && r.need_name) { $("#lnw").hidden = false; $("#ln").focus(); $("#lerr").textContent = "Welcome! Please tell us your name."; }
+      else if (r.success) location.reload();
+      else $("#lerr").textContent = r.error;
+    } catch (e) { $("#lerr").textContent = e.message; }
+    $("#lgo").disabled = false;
+  };
+}
+
+/* ───────────── dashboard ───────────── */
+let OV = null;
+function shell(inner, back) {
+  $("#app").innerHTML = `<div class="bar"><div>${back ? '<button class="link" id="bk">← Back</button>' : "<b>🌳 Hasiru Ratha</b>"}</div>
+  <div class="small">${esc(BOOT.user.name)} · <button class="link" id="lo">Sign out</button></div></div><div class="wrap">${inner}</div>
+  <button class="fab" id="fab">📊 My status</button>`;
+  $("#lo").onclick = async () => { await fetch("/api/method/logout", { method: "POST", headers: { "X-Frappe-CSRF-Token": BOOT.csrf_token } }); location.reload(); };
+  $("#fab").onclick = myStatus; if (back) $("#bk").onclick = home;
+}
+async function home() {
+  shell(`<div class="hero"><h1>Hasiru Ratha</h1><p>A volunteer-run plantation drive for Bengaluru. Browse every zone, site and tree we are tracking, plant one yourself, or tell us about a tree that needs care.</p></div>
+  <div class="acts"><div class="act p" id="a1"><span>🌱</span>Plant a tree</div><div class="act" id="a2"><span>📝</span>Report a tree</div><div class="act" id="a3"><span>🤝</span>Volunteer</div></div>
+  <div id="dash"><div class="card small">Loading…</div></div>`);
+  $("#a1").onclick = () => capture("plant"); $("#a2").onclick = () => capture("report"); $("#a3").onclick = () => volunteer();
+  try { OV = await call("overview"); } catch (e) { $("#dash").innerHTML = `<div class="card err">${esc(e.message)}</div>`; return; }
+  const c = OV.counts;
+  $("#dash").innerHTML = `<div class="kpis"><div class="kpi"><b>${c.trees}</b><span>Trees</span></div><div class="kpi"><b>${c.zones}</b><span>Zones</span></div><div class="kpi"><b>${c.sites}</b><span>Sites</span></div><div class="kpi"><b>${c.volunteers}</b><span>Volunteers</span></div></div>
+  <div class="grid2"><div class="card"><h3>Trees planted per month</h3><canvas id="c1" height="170"></canvas></div><div class="card"><h3>Trees by status</h3><canvas id="c2" height="170"></canvas></div></div>
+  <h3 style="margin:14px 0 6px">Browse zones</h3><div class="zones">${OV.zones.map((z) => `<div class="zone" data-z="${esc(z.zone_id)}" data-n="${esc(z.zone_name)}"><b>${esc(z.zone_name)}</b><span class="small">${z.sites} sites · ${z.trees} trees</span></div>`).join("")}</div>
+  <h3 style="margin:14px 0 6px">Our volunteers</h3><div class="card"><div class="chips">${OV.volunteers.slice(0, 60).map((v) => `<span class="chip">${esc(v.name)}</span>`).join("") || '<span class="small">Be our first volunteer!</span>'}${OV.volunteers.length > 60 ? `<span class="chip">+${OV.volunteers.length - 60} more</span>` : ""}</div></div>`;
+  document.querySelectorAll(".zone").forEach((el) => el.onclick = () => zoneView(el.dataset.z, el.dataset.n));
+  try {
+    await lib("chart");
+    new Chart($("#c1"), { type: "bar", data: { labels: OV.trees_per_month.map((m) => m.label), datasets: [{ data: OV.trees_per_month.map((m) => m.value), backgroundColor: "#16a34a" }] }, options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } } });
+    const st = Object.entries(OV.trees_by_status);
+    new Chart($("#c2"), { type: "doughnut", data: { labels: st.map((x) => x[0]), datasets: [{ data: st.map((x) => x[1]), backgroundColor: ["#16a34a", "#eab308", "#2563eb", "#dc2626", "#7c3aed", "#6b7280", "#0ea5e9"] }] }, options: { plugins: { legend: { position: "bottom" } } } });
+  } catch (e) {}
+}
+async function zoneView(id, name) {
+  const o = sheet(`<h3>${esc(name)}</h3><div class="small">Loading sites…</div>`);
+  const rows = await call("zone_sites", { zone_id: id });
+  o.querySelector("[data-b]").innerHTML = `<h3>${esc(name)}</h3>` + (rows.map((s) => `<div class="item" data-s="${esc(s.site_id)}" data-n="${esc(s.site_name || s.site_id)}" style="cursor:pointer">${s.photo_url ? `<img src="${esc(s.photo_url)}">` : ""}<div style="flex:1"><b>${esc(s.site_name || s.site_id)}</b><div class="small">${esc(s.area || s.road || "")} · ${s.tree_count || 0} trees</div></div>${chip(s.status)}</div>`).join("") || '<p class="small">No sites here yet.</p>');
+  o.querySelectorAll("[data-s]").forEach((el) => el.onclick = async () => {
+    const t = await call("site_trees", { site_id: el.dataset.s });
+    o.querySelector("[data-b]").innerHTML = `<h3>${esc(el.dataset.n)}</h3>` + (t.map((x) => `<div class="item">${x.photo_url ? `<img src="${esc(x.photo_url)}">` : ""}<div style="flex:1"><b>${esc(x.species || "Tree")}</b><div class="small">${esc(x.tree_id)} ${x.date_planted ? "· planted " + esc(x.date_planted) : ""}</div></div>${chip(x.status)}</div>`).join("") || '<p class="small">No trees listed.</p>');
+  });
+}
+
+/* ───────────── plant / report ───────────── */
+let C = null;
+const SPECIES = ["Neem", "Pongamia (Honge)", "Peepal", "Banyan", "Mango", "Jamun", "Gulmohar", "Tabebuia", "Rain tree", "Tamarind", "Not sure"];
+const ISSUE_LABELS = [["Dead tree", "Dead tree"], ["Damage", "Broken / damaged"], ["Watering", "Needs water"], ["Pest / Disease", "Pests / disease"], ["Leaning", "Leaning / fallen"], ["Debris", "Garbage around it"], ["Other", "Something else"]];
+function capture(kind) {
+  C = { kind, loc: null, src: "", seq: 0, dirty: {}, spots: [], trees: [], site: "", tree: "", willing: 0, issue: "Dead tree", addr: {}, device: null, up: null, photo: false };
+  const plant = kind === "plant";
+  shell(`<h2>${plant ? "Plant a tree" : "Report a tree"}</h2>
+  <div class="card"><div class="photo" id="ph">📷 <b>Add a photo</b><div class="small">Required. We read the location from it.</div></div>
+  <div class="row" style="margin-top:10px"><button class="btn" id="b1">Take photo</button><button class="btn sec" id="b2">Choose photo</button></div>
+  <input type="file" id="f1" accept="image/*" capture="environment" hidden><input type="file" id="f2" accept="image/*" hidden><div class="small" id="upl"></div></div>
+  <div class="card"><div id="ll" class="small">📍 Getting your location…</div><button class="link" id="pin">Set location on map</button>
+  <label>Area</label><input id="ar" placeholder="e.g. Doddathogur, Electronic City Phase 1"><label>Road</label><input id="rd" placeholder="Road name">
+  <div class="small" id="zn"></div></div>
+  ${plant ? `<div id="dup"></div><div class="card"><label>Tree type</label><input id="sp" list="spl" placeholder="e.g. Neem (optional)"><datalist id="spl">${SPECIES.map((s) => `<option value="${s}">`).join("")}</datalist>
+  <label>Are you willing to volunteer?</label><div class="seg" id="wl"><button data-v="1">Yes</button><button data-v="0" class="on">No</button></div></div>`
+  : `<div class="card"><label>Which tree?</label><div id="tl" class="small">We will list registered trees near you.</div></div>
+  <div class="card"><label>What is wrong?</label><div class="chips" id="is">${ISSUE_LABELS.map(([v, l]) => `<span class="chip btn2 ${v === "Dead tree" ? "on" : ""}" data-v="${esc(v)}">${l}</span>`).join("")}</div>
+  <label style="margin-top:10px">Notes (optional)</label><textarea id="ds" rows="2"></textarea></div>`}
+  <button class="btn" id="sv" disabled>${plant ? "Save my tree" : "Send report"}</button><div class="err" id="er"></div>`, true);
+
+  $("#b1").onclick = () => $("#f1").click(); $("#b2").onclick = () => $("#f2").click(); $("#pin").onclick = pickOnMap;
+  ["f1", "f2"].forEach((id) => $("#" + id).onchange = (e) => e.target.files[0] && onPhoto(e.target.files[0]));
+  $("#ar").oninput = () => C.dirty.area = 1; $("#rd").oninput = () => C.dirty.road = 1;
+  if (plant) document.querySelectorAll("#wl button").forEach((b) => b.onclick = () => { C.willing = +b.dataset.v; document.querySelectorAll("#wl button").forEach((x) => x.classList.toggle("on", x === b)); });
+  else document.querySelectorAll("#is .chip").forEach((b) => b.onclick = () => { C.issue = b.dataset.v; document.querySelectorAll("#is .chip").forEach((x) => x.classList.toggle("on", x === b)); });
+  $("#sv").onclick = save; check();
+  if (navigator.geolocation) navigator.geolocation.getCurrentPosition((p) => { C.device = p.coords; if (C.src !== "photo" && C.src !== "map") setLoc(p.coords.latitude, p.coords.longitude, "your phone"); },
+    () => { if (!C.loc) $("#ll").textContent = "📍 Location not available. Allow GPS, or set it on the map."; }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
+  else $("#ll").textContent = "📍 Set the location on the map.";
+}
+const dms = (a, r) => { if (!a || a.length < 3) return null; let v = +a[0] + a[1] / 60 + a[2] / 3600; return r === "S" || r === "W" ? -v : v; };
+async function shrink(file) {
+  try {
+    const b = await createImageBitmap(file, { imageOrientation: "from-image" }), k = Math.min(1, 1600 / Math.max(b.width, b.height));
+    const cv = document.createElement("canvas"); cv.width = Math.round(b.width * k); cv.height = Math.round(b.height * k);
+    cv.getContext("2d").drawImage(b, 0, 0, cv.width, cv.height);
+    return await new Promise((ok) => cv.toBlob((x) => ok(x || file), "image/jpeg", 0.82));
+  } catch (e) { return file; }
+}
+async function upload(blob) {
+  const fd = new FormData(); fd.append("file", blob, "tree-" + Date.now() + ".jpg"); fd.append("is_private", "0"); fd.append("folder", "Home/Attachments");
+  const r = await fetch("/api/method/upload_file", { method: "POST", headers: { "X-Frappe-CSRF-Token": BOOT.csrf_token }, body: fd });
+  const j = await r.json(); if (!j.message || !j.message.file_url) throw new Error("Photo upload failed"); return j.message.file_url;
+}
+async function onPhoto(file) {
+  C.photo = true; $("#ph").innerHTML = `<img src="${URL.createObjectURL(file)}">`; $("#upl").textContent = "Uploading photo…"; check();
+  C.up = shrink(file).then(upload).then((u) => { $("#upl").textContent = "Photo ready ✓"; return u; }).catch((e) => { $("#upl").textContent = "Photo upload failed. Please choose it again."; C.photo = false; check(); throw e; });
+  C.up.catch(() => {});
+  try {   // GPS stored in the photo (if the phone kept it)
+    await lib("exif");
+    EXIF.getData(file, function () {
+      const la = dms(EXIF.getTag(this, "GPSLatitude"), EXIF.getTag(this, "GPSLatitudeRef")), ln = dms(EXIF.getTag(this, "GPSLongitude"), EXIF.getTag(this, "GPSLongitudeRef"));
+      if (la != null && ln != null && isFinite(la) && isFinite(ln) && C.src !== "map") setLoc(la, ln, "your photo");
+    });
+  } catch (e) {}
+}
+async function setLoc(lat, lng, src) {
+  C.loc = { lat, lng }; C.src = src === "your photo" ? "photo" : src === "map" ? "map" : "gps";
+  $("#ll").textContent = "📍 Location from " + (src === "map" ? "the map pin" : src) + " ✓"; check();
+  const my = ++C.seq;
+  try {
+    const r = await call("locate", { lat, lng, for_report: C.kind === "report" ? 1 : 0 });
+    if (my !== C.seq) return;
+    C.addr = r;
+    if (!C.dirty.area) $("#ar").value = r.area || ""; if (!C.dirty.road) $("#rd").value = r.road || "";
+    $("#zn").textContent = r.zone_name ? "Zone: " + r.zone_name + " (our team will confirm)" : "Our team will confirm the zone";
+    if (C.kind === "plant") { C.spots = r.spots || []; C.site = C.spots.length ? C.spots[0].site_id : ""; drawDup(); } else { C.trees = r.trees || []; C.tree = C.trees.length && C.trees[0].distance_m <= 30 ? C.trees[0].tree_id : ""; drawTrees(); }
+  } catch (e) { $("#zn").textContent = "Could not look up the address. You can type it."; }
+}
+function drawDup() {
+  const d = $("#dup"); if (!d) return;
+  if (!C.spots.length) { d.innerHTML = ""; return; }
+  d.innerHTML = `<div class="card"><b>A spot is already registered here</b><div class="small">Is this the same place? Adding your tree to it avoids duplicates.</div>` +
+    C.spots.map((s) => `<div class="opt ${C.site === s.site_id ? "on" : ""}" data-s="${esc(s.site_id)}"><div style="flex:1"><b>Add to ${esc(s.name)}</b><div class="small">${s.distance_m} m away · ${s.tree_count} tree${s.tree_count === 1 ? "" : "s"}</div></div></div>`).join("") +
+    `<div class="opt ${C.site === "" ? "on" : ""}" data-s=""><b>No, this is a different spot</b></div></div>`;
+  d.querySelectorAll(".opt").forEach((o) => o.onclick = () => { C.site = o.dataset.s; drawDup(); });
+}
+function drawTrees() {
+  const t = $("#tl"); if (!t) return;
+  if (!C.trees.length) { t.innerHTML = "We could not find a registered tree within 100 m. We will record it for our team to check."; return; }
+  t.innerHTML = C.trees.map((x) => `<div class="opt ${C.tree === x.tree_id ? "on" : ""}" data-t="${esc(x.tree_id)}">${x.photo_url ? `<img src="${esc(x.photo_url)}">` : ""}<div style="flex:1"><b>${esc(x.species || "Tree")}</b> · ${esc(x.tree_id)}<div class="small">${x.distance_m} m away · ${esc(x.road)}</div></div></div>`).join("") +
+    `<div class="opt ${C.tree === "" ? "on" : ""}" data-t=""><b>My tree is not in this list</b></div>`;
+  t.querySelectorAll(".opt").forEach((o) => o.onclick = () => { C.tree = o.dataset.t; drawTrees(); });
+}
+function check() { const b = $("#sv"); if (b) b.disabled = !(C.photo && C.loc); }
+async function pickOnMap() {
+  await lib("leaflet");
+  const o = document.createElement("div"); o.id = "mp"; o.innerHTML = `<div class="bar"><b>Tap the tree's location</b><button class="link" id="mx">Cancel</button></div><div id="mpm"></div><div style="padding:10px"><button class="btn" id="mu">Use this location</button></div>`;
+  document.body.appendChild(o);
+  const c = C.loc ? [C.loc.lat, C.loc.lng] : [12.9716, 77.5946], m = L.map("mpm").setView(c, C.loc ? 18 : 12);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap" }).addTo(m);
+  let mk = C.loc ? L.marker(c, { draggable: true }).addTo(m) : null;
+  m.on("click", (e) => { if (mk) mk.setLatLng(e.latlng); else mk = L.marker(e.latlng, { draggable: true }).addTo(m); });
+  $("#mx").onclick = () => o.remove();
+  $("#mu").onclick = () => { if (!mk) return toast("Tap the map to drop a pin"); const p = mk.getLatLng(); o.remove(); C.dirty = {}; setLoc(p.lat, p.lng, "map"); };
+}
+async function save() {
+  const b = $("#sv"); b.disabled = true; $("#er").textContent = "";
+  try {
+    const photo_url = await C.up;
+    const base = { photo_url, gps_lat: C.loc.lat, gps_lng: C.loc.lng, road: $("#rd").value, area: $("#ar").value, address_full: C.addr.address || "" };
+    if (C.kind === "plant") {
+      const r = await call("submit_planting", { ...base, species: $("#sp").value, existing_site: C.site, confirm_new: C.spots.length && !C.site ? 1 : 0 });
+      if (r.duplicate) { C.spots = r.spots; C.site = r.spots[0].site_id; drawDup(); $("#er").textContent = "A spot is already registered here. Please choose one below."; b.disabled = false; return; }
+      done("Thank you for planting! 🌱", "Your tree is on the map. Our team will confirm the zone" + (r.zone_name ? " (we think: " + r.zone_name + ")" : "") + ".", C.willing);
+    } else {
+      await call("submit_report", { ...base, tree_id: C.tree, issue_type: C.issue, description: $("#ds").value });
+      done("Thank you for reporting 🙏", "Our team has been told and will look into it. You can follow progress in “My status”.", 0);
+    }
+  } catch (e) { $("#er").textContent = e.message; b.disabled = false; }
+}
+function done(t, m, vol) {
+  shell(`<div class="card" style="text-align:center"><div style="font-size:54px">✅</div><h2>${t}</h2><p class="small">${m}</p>
+  ${vol ? '<button class="btn" id="dv">Continue to volunteer application</button>' : '<button class="btn" id="dh">Back to home</button>'}
+  <button class="btn sec" id="ds2" style="margin-top:8px">See my status</button></div>`);
+  if (vol) $("#dv").onclick = () => volunteer(); else $("#dh").onclick = home; $("#ds2").onclick = myStatus;
+}
+
+/* ───────────── volunteer ───────────── */
+async function volunteer() {
+  shell(`<h2>Become a volunteer</h2><div id="vb" class="small card">Loading…</div>`, true);
+  let st; try { st = await call("my_status"); } catch (e) { $("#vb").textContent = e.message; return; }
+  const v = st.volunteer;
+  if (v && v.active) { $("#vb").innerHTML = "You are already a volunteer. Thank you! 💚"; return; }
+  if (v && v.application && v.application.status === "Pending") { $("#vb").innerHTML = "Your application is waiting for our team to review. We will update your status here."; return; }
+  $("#vb").className = "card";
+  $("#vb").innerHTML = `<p class="small">We verify your email with a code. Then our team reviews and approves your application.</p>
+  <label>Email</label><input id="ve" type="email" value="${esc(BOOT.user.email)}"><button class="btn sec" id="vs">Send code</button>
+  <div id="vc" hidden><label>6-digit code from your email</label><input id="vk" inputmode="numeric" maxlength="6"></div>
+  <label>Your area</label><input id="va" value="${esc((C && C.addr && C.addr.area) || "")}" placeholder="Where do you live?">
+  <label>Tree you would like to look after</label><select id="vt"><option value="">Any tree - the team will decide</option>${st.trees.map((t) => `<option value="${esc(t.tree_id)}">${esc(t.species || "Tree")} · ${esc(t.tree_id)}</option>`).join("")}</select>
+  <label>Why do you want to volunteer? (optional)</label><textarea id="vr" rows="2"></textarea>
+  <button class="btn" id="vgo" disabled>Verify and apply</button><div class="err" id="ve2"></div>`;
+  $("#vs").onclick = async () => { try { await call("send_email_code", { email: $("#ve").value }); $("#vc").hidden = false; $("#vgo").disabled = false; toast("Code sent. Check your email."); } catch (e) { $("#ve2").textContent = e.message; } };
+  $("#vgo").onclick = async () => {
+    $("#ve2").textContent = "";
+    try {
+      await call("volunteer_apply", { code: $("#vk").value, email: $("#ve").value, area: $("#va").value, reason: $("#vr").value, tree_id: $("#vt").value });
+      done("Application sent 🤝", "Our team will review it. You will see the result under “My status”.", 0);
+    } catch (e) { $("#ve2").textContent = e.message; }
+  };
+}
+
+/* ───────────── my status ───────────── */
+const TREE_MSG = { Identified: "Recorded. Our team will visit soon.", Planned: "A care visit is planned.", Completed: "Planted. Thank you! 🌱", Healthy: "Growing well 🌿", Monitoring: "Our volunteers are keeping an eye on it.", Urgent: "Needs urgent care. Our team has been told.", Hold: "On hold for now." };
+const STEPS = [["Open", "Received"], ["Acknowledged", "Seen"], ["Assigned", "Volunteer"], ["In Progress", "In progress"], ["Resolved", "Resolved"]];
+function stepper(status) {
+  const i = STEPS.findIndex((x) => x[0] === status);
+  if (i < 0) return `<div class="small">${chip(status)} Our team is looking at it.</div>`;
+  return `<div class="steps">${STEPS.map((x, k) => `<i class="${k <= i ? "on" : ""}"></i>`).join("")}</div><div class="stl">${STEPS.map((x) => `<span>${x[1]}</span>`).join("")}</div>`;
+}
+async function myStatus() {
+  const o = sheet('<div class="small">Loading…</div>');
+  try {
+    const s = await call("my_status");
+    const done = s.reports.filter((r) => r.status === "Resolved").length;
+    const trees = s.trees.map((t) => `<div class="item">${t.photo_url ? `<img src="${esc(t.photo_url)}">` : ""}<div style="flex:1"><b>${esc(t.species || "Tree")}</b> ${chip(t.status)}<div class="small">${esc(t.place)} ${t.date_planted ? "· " + esc(t.date_planted) : ""}</div><div class="small">${esc(TREE_MSG[t.status] || "")}</div></div></div>`).join("");
+    const reps = s.reports.map((r) => `<div class="item">${r.photo_url ? `<img src="${esc(r.photo_url)}">` : ""}<div style="flex:1"><b>${esc(r.issue_type)}</b><div class="small">Reported ${esc(r.reported_on)}${r.assigned_volunteer_name ? " · " + esc(r.assigned_volunteer_name) + " is on it" : ""}</div>${stepper(r.status)}${r.status === "Resolved" ? `<div class="thanks">Thank you! This was resolved${r.resolved_on ? " on " + esc(r.resolved_on) : ""} because you spoke up. 💚</div>` : ""}</div></div>`).join("");
+    const v = s.volunteer ? (s.volunteer.active ? "You are a volunteer 💚" : s.volunteer.application ? "Volunteer application: " + chip(s.volunteer.application.status) : "") : "";
+    const hello = s.trees.length || s.reports.length ? `<div class="thanks">Thank you, ${esc(s.name)}! You have planted <b>${s.trees.length}</b> tree${s.trees.length === 1 ? "" : "s"} and sent <b>${s.reports.length}</b> report${s.reports.length === 1 ? "" : "s"}${done ? ` (${done} resolved)` : ""}. Bengaluru is greener because of you.</div>` : "";
+    o.querySelector("[data-b]").innerHTML = `<h3>My status</h3>${hello}${v ? `<p>${v}</p>` : ""}<h4>My trees</h4>${trees || '<p class="small">No trees yet.</p>'}<h4>My reports</h4>${reps || '<p class="small">No reports yet.</p>'}`;
+  } catch (e) { o.querySelector("[data-b]").textContent = e.message; }
+}
+
+if (BOOT.logged_in) home(); else loginView();
+</script>
+</body>
+</html>
