@@ -5,6 +5,10 @@
 		<div class="card-body">
 			<h2 class="mb-1">Hello, {{ full_name | e }} 🌳</h2>
 			<p class="mb-0">Hasiru Ratha is a volunteer-run plantation drive for Bengaluru. Browse every zone, site and tree we track, plant one yourself, or tell us about a tree that needs care.</p>
+			<div class="mt-3">
+				{% if facebook_url %}<a class="btn btn-sm btn-light mr-2" href="{{ facebook_url | e }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
+				{% if x_url %}<a class="btn btn-sm btn-light" href="{{ x_url | e }}" target="_blank" rel="noopener">X (Twitter)</a>{% endif %}
+			</div>
 		</div>
 	</div>
 
@@ -26,6 +30,28 @@
 		<div class="col-md-7 mb-2"><div class="card"><div class="card-body"><h5>Trees planted per month</h5><canvas id="c1" height="170"></canvas></div></div></div>
 		<div class="col-md-5 mb-2"><div class="card"><div class="card-body"><h5>Trees by status</h5><canvas id="c2" height="170"></canvas></div></div></div>
 	</div>
+
+	{% if about_text or milestones %}
+	<h5>{{ about_title | e }}</h5>
+	<div class="card mb-3"><div class="card-body">
+		{% if about_text %}<p style="white-space:pre-line">{{ about_text | e }}</p>{% endif %}
+		{% for m in milestones %}
+		<div class="d-flex mb-2"><div style="min-width:64px;font-weight:700;color:#0b4a34">{{ m.year | e }}</div>
+			<div><b>{{ m.title | e }}</b>{% if m.details %}<div class="text-muted small">{{ m.details | e }}</div>{% endif %}</div></div>
+		{% endfor %}
+	</div></div>
+	{% endif %}
+	{% if gallery %}
+	<h5>Our journey in photos</h5>
+	<div class="row mb-3">
+		{% for g in gallery %}
+		<div class="col-6 col-md-4 mb-3"><div class="card h-100">
+			<a href="{{ g.image | e }}" target="_blank"><img src="{{ g.image | e }}" loading="lazy" style="width:100%;height:170px;object-fit:cover;border-radius:6px 6px 0 0"></a>
+			{% if g.caption or g.year %}<div class="card-body py-2 small">{{ (g.caption or "") | e }} {% if g.year %}<span class="text-muted">· {{ g.year | e }}</span>{% endif %}</div>{% endif %}
+		</div></div>
+		{% endfor %}
+	</div>
+	{% endif %}
 
 	<h5>Browse zones</h5>
 	<div class="row mb-3">

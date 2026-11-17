@@ -11,6 +11,7 @@
   "parent_stretch_id",
   "status",
   "possible_duplicate_of",
+  "duplicate_map",
   "priority",
   "zone_id",
   "group_id",
@@ -85,6 +86,12 @@
    "in_standard_filter": 1,
    "depends_on": "eval:doc.possible_duplicate_of",
    "description": "Set automatically when another site is very close to this one"
+  },
+  {
+   "fieldname": "duplicate_map",
+   "fieldtype": "HTML",
+   "label": "Duplicate check",
+   "depends_on": "eval:doc.possible_duplicate_of"
   },
   {
    "fieldname": "priority",

@@ -10,6 +10,7 @@ are not Merged, there is one that is
 (Road+area alone would flag every site on a long road, so it is paired with a distance cap.)
 The admin then approves it as a new site or merges it into the existing one.
 """
+import json
 import math
 
 import frappe
@@ -150,3 +151,63 @@ def merge_site(name, into=None):
 	})
 	_close_todos(name)
 	return {"success": True, "merged_into": target}
+
+
+def _site_card(name):
+	if not name:
+		return None
+	s = frappe.db.get_value("HR Site", name, ["name", "site_name", "road", "area", "zone_id", "gps_lat", "gps_lng",
+	                                          "tree_count", "photo_url", "status"], as_dict=True)
+	if not s:
+		return None
+	s["photo"] = s.photo_url or frappe.db.get_value("HR Tree", {"site_id": name, "photo_url": ["is", "set"]}, "photo_url")
+	return s
+
+
+@frappe.whitelist()
+def duplicate_info(name):
+	"""Both sites side by side (with photos) so the admin can tell if they are the same place."""
+	_require_admin()
+	a = _site_card(name)
+	b = _site_card(frappe.db.get_value("HR Site", name, "possible_duplicate_of"))
+	dist = None
+	if a and b and flt(a.gps_lat) and flt(b.gps_lat):
+		dist = round(haversine(flt(a.gps_lat), flt(a.gps_lng), flt(b.gps_lat), flt(b.gps_lng)))
+	return {"this": a, "other": b, "distance_m": dist}
+
+
+@frappe.whitelist(methods=["POST"])
+def delete_duplicate(name, reason=None):
+	"""Admin: delete a duplicate site. Its trees and records move to the original; a full copy is kept in HR Deleted Site."""
+	_require_admin()
+	reason = (reason or "").strip()
+	if not reason:
+		frappe.throw(_("Please give a reason"))
+	doc = frappe.get_doc("HR Site", name)
+	target = doc.possible_duplicate_of
+	if target and (target == name or not frappe.db.exists("HR Site", target)):
+		target = None
+	trees = frappe.get_all("HR Tree", {"site_id": name}, pluck="name")
+	linked = sum(frappe.db.count(dt, {"site_id": name}) for dt in ("HR Visit", "HR Condition", "HR Tree Report"))
+	if (trees or linked) and not target:
+		frappe.throw(_("This site has trees or records. Set Possible Duplicate Of first, so they can be moved there."))
+
+	card = _site_card(name)
+	archive = frappe.get_doc({
+		"doctype": "HR Deleted Site", "original_site": name, "site_name": doc.site_name, "photo": card.photo,
+		"reason": reason, "possible_duplicate_of": doc.possible_duplicate_of, "moved_to": target,
+		"trees_moved": ", ".join(trees) if target else "", "deleted_by": frappe.session.user,
+		"deleted_on": frappe.utils.now_datetime(), "site_type": doc.site_type, "status_at_delete": doc.status,
+		"zone": doc.zone_id, "road": doc.road, "area": doc.area, "gps_lat": doc.gps_lat, "gps_lng": doc.gps_lng,
+		"tree_count": doc.tree_count, "snapshot": json.dumps(doc.as_dict(), default=str, indent=1),
+	}).insert(ignore_permissions=True)
+
+	if target:
+		for dt in ("HR Tree", "HR Visit", "HR Condition", "HR Tree Report"):
+			frappe.db.sql("update `tab%s` set site_id=%%s where site_id=%%s" % dt, (target, name))
+		frappe.db.set_value("HR Site", target, "tree_count", frappe.db.count("HR Tree", {"site_id": target}))
+	if frappe.db.exists("DocType", "HR Citizen Planting"):
+		frappe.db.sql("update `tabHR Citizen Planting` set site=%s where site=%s", (target, name))
+	_close_todos(name)
+	frappe.delete_doc("HR Site", name, force=True, ignore_permissions=True)
+	return {"success": True, "archive": archive.name, "moved_to": target}

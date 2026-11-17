@@ -49,6 +49,18 @@ def _check_photo(url):
 	return url
 
 
+def make_public(url):
+	"""Photos shown to citizens must be public files."""
+	if url and url.startswith("/private/"):
+		name = frappe.db.get_value("File", {"file_url": url}, "name")
+		if name:
+			f = frappe.get_doc("File", name)
+			f.is_private = 0
+			f.save(ignore_permissions=True)
+			return f.file_url
+	return url
+
+
 def _todo_admins(ref_dt, ref_name, text):
 	admins = frappe.get_all("Has Role", {"role": "HR Admin", "parenttype": "User"}, pluck="parent")
 	for u in set(admins) - {"Administrator", "Guest"}:
@@ -200,9 +212,11 @@ def locate(lat=None, lng=None, for_report=0):
 				              "site_name": s.site_name or s.name, "road": s.road or s.area or ""})
 		res["trees"] = sorted(trees, key=lambda x: x["distance_m"])[:8]
 	else:
-		res["spots"] = [{"site_id": s.name, "name": s.site_name or s.name, "road": s.road or s.area or "",
-		                 "tree_count": s.tree_count or 0, "distance_m": s.distance_m}
-		                for s in hs.get_nearby(lat, lng, 30, "spot")]
+		near = hs.get_nearby(lat, lng, 150, "spot")
+		res["nearby"] = [{"site_id": s.name, "name": s.site_name or s.name, "road": s.road or s.area or "",
+		                  "tree_count": s.tree_count or 0, "distance_m": s.distance_m,
+		                  "gps_lat": s.gps_lat, "gps_lng": s.gps_lng} for s in near]
+		res["spots"] = [x for x in res["nearby"] if x["distance_m"] <= 30]
 	return res
 
 

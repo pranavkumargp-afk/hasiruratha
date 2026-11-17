@@ -1,8 +1,9 @@
-# Copyright (c) 2026, Hasiru Ratha and contributors
-# For license information, please see license.txt
-
 from frappe.model.document import Document
+
+from hasiruratha import citizen_api as ca
 
 
 class HasirurathaSettings(Document):
-	pass
+	def validate(self):
+		for row in self.get("gallery") or []:
+			row.image = ca.make_public(row.image)

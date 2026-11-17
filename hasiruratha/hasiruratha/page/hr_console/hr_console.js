@@ -95,6 +95,7 @@ class HRConsole {
 			<div class="text-muted small">${__("is close to")} <a href="/app/hr-site/${x.other_id}">${frappe.utils.escape_html(x.other_name || x.other_id)}</a>${x.distance_m != null ? ` · ${x.distance_m} m` : ""}</div>
 			<button class="btn btn-xs btn-default" data-q="approve" data-name="${x.site_id}">${__("Different site")}</button>
 			<button class="btn btn-xs btn-primary" data-q="merge" data-name="${x.site_id}" data-other="${x.other_id}">${__("Same place - merge")}</button>
+			<button class="btn btn-xs btn-danger" data-q="delete" data-name="${x.site_id}" data-other="${x.other_id}">${__("Delete duplicate")}</button>
 			<a class="btn btn-xs btn-link" href="/app/hr-site/${x.site_id}">${__("Open")}</a></div>`).join("");
 		const cn = (this.data.citizen || []).length, $cb = $("#hrc-cbadge");
 		cn ? $cb.text(cn).show() : $cb.hide();
@@ -240,6 +241,10 @@ class HRConsole {
 	}
 
 	review(kind, name, other) {
+		if (kind === "delete") return frappe.prompt({ fieldname: "reason", fieldtype: "Small Text", reqd: 1, label: __("Why is this a duplicate?"),
+			description: __("Trees and records of this site move to {0}. A full copy is kept in HR Deleted Site.", [other]) },
+			(v) => frappe.xcall(`${HR_SITE}.delete_duplicate`, { name, reason: v.reason }).then(() => { frappe.show_alert({ message: __("Deleted. A copy is in HR Deleted Site."), indicator: "green" }); this.load(); }),
+			__("Delete duplicate site {0}", [name]), __("Delete"));
 		const go = () => frappe.xcall(`${HR_SITE}.${kind === "merge" ? "merge_site" : "approve_site"}`, { name }).then(() => this.load());
 		kind === "merge"
 			? frappe.confirm(__("Move all trees, visits and reports of {0} to {1} and mark it Merged?", [name, other]), go)

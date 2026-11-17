@@ -17,3 +17,10 @@ def get_context(context):
 	context.ov = ov
 	context.charts = json.dumps({"months": ov["trees_per_month"], "status": ov["trees_by_status"]})
 	context.full_name = frappe.utils.get_fullname(frappe.session.user)
+	st = frappe.get_cached_doc("Hasiruratha Settings")
+	context.about_title = st.about_title or "What Hasiru Ratha has built"
+	context.about_text = st.about_text or ""
+	context.facebook_url = st.facebook_url
+	context.x_url = st.x_url
+	context.milestones = sorted(st.get("milestones") or [], key=lambda m: str(m.year))
+	context.gallery = [g for g in (st.get("gallery") or []) if g.image]

@@ -11,7 +11,16 @@
   "section_login",
   "allow_phone_login",
   "allow_self_registration",
-  "default_group_id"
+  "default_group_id",
+  "section_site",
+  "about_title",
+  "about_text",
+  "facebook_url",
+  "x_url",
+  "section_ms",
+  "milestones",
+  "section_gal",
+  "gallery"
  ],
  "fields": [
   {
@@ -53,11 +62,63 @@
    "fieldtype": "Data",
    "label": "Default Group ID",
    "default": "GRP-001"
+  },
+  {
+   "fieldname": "section_site",
+   "fieldtype": "Section Break",
+   "label": "Public website (citizen pages)"
+  },
+  {
+   "fieldname": "about_title",
+   "fieldtype": "Data",
+   "label": "Heading",
+   "default": "What Hasiru Ratha has built"
+  },
+  {
+   "fieldname": "about_text",
+   "fieldtype": "Small Text",
+   "label": "About text",
+   "description": "Shown on the citizen home page under the heading"
+  },
+  {
+   "fieldname": "facebook_url",
+   "fieldtype": "Data",
+   "label": "Facebook page",
+   "default": "https://www.facebook.com/rathahasiru/"
+  },
+  {
+   "fieldname": "x_url",
+   "fieldtype": "Data",
+   "label": "X (Twitter) page",
+   "default": "https://x.com/RathaHasiru"
+  },
+  {
+   "fieldname": "section_ms",
+   "fieldtype": "Section Break",
+   "label": "Milestones (our story over the years)"
+  },
+  {
+   "fieldname": "milestones",
+   "fieldtype": "Table",
+   "label": "Milestones",
+   "options": "HR Milestone"
+  },
+  {
+   "fieldname": "section_gal",
+   "fieldtype": "Section Break",
+   "label": "Photo gallery"
+  },
+  {
+   "fieldname": "gallery",
+   "fieldtype": "Table",
+   "label": "Gallery",
+   "options": "HR Gallery Image",
+   "description": "Photos are made public so citizens can see them"
   }
  ],
  "index_web_pages_for_search": 0,
  "links": [],
- "modified": "2026-10-27 10:00:00.000000",
+ "modified": "2026-11-17 10:00:00.000000",
  "modified_by": "Administrator",
  "module": "Hasiruratha",
  "name": "Hasiruratha Settings",
