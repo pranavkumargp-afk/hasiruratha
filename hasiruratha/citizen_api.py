@@ -351,6 +351,14 @@ def my_status():
 
 
 # ───────────────────────────── volunteer (email code, then admin approval) ─────────────────────────────
+@frappe.whitelist()
+def my_profile():
+	"""Name, mobile and email of the signed-in citizen, used to pre-fill the volunteer form."""
+	user = _login_required()
+	u = frappe.db.get_value("User", user, ["full_name", "mobile_no", "email"], as_dict=True) or {}
+	return {"full_name": u.get("full_name") or "", "mobile": u.get("mobile_no") or "", "email": u.get("email") or user}
+
+
 @frappe.whitelist(methods=["POST"])
 @rate_limit(limit=6, seconds=3600)
 def send_email_code(email=None):
@@ -386,17 +394,21 @@ def check_email_code(user, email, code):
 	api._cache().delete_value(key)
 
 
-def apply_core(user, email, area, reason, tree_id=None):
-	"""Create the (inactive) volunteer and a Pending HR Application. Admin approves later."""
-	phone = frappe.db.get_value("User", user, "mobile_no") or ""
+def apply_core(user, email, area, reason, tree_id=None, profile=None):
+	"""Create the (inactive) volunteer and a Pending HR Application. Admin approves later.
+	`profile` (optional dict) carries full_name, mobile, address, road, pincode, zone from the volunteer form."""
+	profile = profile or {}
+	phone = (profile.get("mobile") or "").strip() or frappe.db.get_value("User", user, "mobile_no") or ""
 	vol = frappe.db.get_value("HR Volunteer", {"user": user}, ["name", "active"], as_dict=True)
 	if not vol:
 		existing = api._find_volunteer(phone)
 		if existing and cint(existing.active):
 			return {"success": True, "already": True}
 		vid = api._gen_id("VOL")
-		frappe.get_doc({"doctype": "HR Volunteer", "volunteer_id": vid, "volunteer_name": get_fullname(user),
+		frappe.get_doc({"doctype": "HR Volunteer", "volunteer_id": vid, "volunteer_name": (profile.get("full_name") or "").strip() or get_fullname(user),
 		                "phone": phone, "email": email, "area": (area or "")[:140], "group_id": api.GROUP,
+		                "address": profile.get("address"), "road": (profile.get("road") or "")[:140],
+		                "pincode": profile.get("pincode"), "primary_zone_id": profile.get("zone") or None,
 		                "joined_date": getdate(today()), "active": 0, "user": user}).insert(ignore_permissions=True)
 		vol = frappe._dict(name=vid, active=0)
 	if cint(vol.active):

@@ -11,6 +11,9 @@
   "phone",
   "email",
   "area",
+  "address",
+  "road",
+  "pincode",
   "column_break_1",
   "group_id",
   "joined_date",
@@ -95,6 +98,21 @@
    "fieldname": "trees_owned",
    "fieldtype": "Small Text",
    "label": "Trees Owned"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Small Text",
+   "label": "Address"
+  },
+  {
+   "fieldname": "road",
+   "fieldtype": "Data",
+   "label": "Road"
+  },
+  {
+   "fieldname": "pincode",
+   "fieldtype": "Data",
+   "label": "Pin code"
   }
  ],
  "links": [],

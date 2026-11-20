@@ -3,6 +3,7 @@
 """Glue between the three citizen Web Forms and the real data (HR Site / HR Tree / HR Tree Report /
 HR Application). A citizen's submission is saved first (it is the admin's inbox), then processed."""
 import json
+import re
 
 import frappe
 from frappe import _
@@ -78,14 +79,25 @@ def sync_report_status(doc, method=None):
 
 
 # ───────────── volunteer ─────────────
+_VOLUNTEER_REQUIRED = (("full_name", "Name"), ("mobile", "Mobile number"), ("email", "Email"), ("address", "Address"),
+                       ("road", "Road"), ("area", "Area"), ("zone", "Zone"), ("pincode", "Pin code"))
+
+
 def before_volunteer(doc):
+	missing = [label for f, label in _VOLUNTEER_REQUIRED if not (doc.get(f) or "").strip()]
+	if missing:
+		frappe.throw(_("Please fill in: {0}").format(", ".join(missing)))
+	if not re.fullmatch(r"\d{6}", doc.pincode.strip()):
+		frappe.throw(_("Pin code must be 6 digits"))
 	ca.check_email_code(doc.owner, doc.email, doc.verification_code)
 	doc.email_verified = 1
 	doc.verification_code = ""
 
 
 def after_volunteer(doc):
-	r = ca.apply_core(doc.owner, (doc.email or "").lower(), doc.area, doc.reason or doc.tree_preference)
+	r = ca.apply_core(doc.owner, (doc.email or "").lower(), doc.area, doc.reason or doc.tree_preference,
+	                  profile={"full_name": doc.full_name, "mobile": doc.mobile, "address": doc.address,
+	                           "road": doc.road, "pincode": doc.pincode, "zone": doc.zone})
 	doc.db_set({"volunteer": r.get("volunteer"), "application": r.get("application"),
 	            "status": "Approved" if r.get("already") else "Pending"}, update_modified=False)
 

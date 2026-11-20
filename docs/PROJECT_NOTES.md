@@ -56,6 +56,13 @@ Open `/app/hr-console`. Tiles: Plant a sapling (opens `/hasiruratha`), Report a 
 Citizens use Frappe Web Forms and website pages. Each submission is first saved as a record the admin can filter and map (HR Citizen Planting, HR Citizen Report, HR Volunteer Request), then processed into the real site / tree / report / volunteer application by `citizen_forms.py`. Status flows back to the citizen automatically. The earlier custom page (`templates/citizen.html`, route `/citizen`) is still in the repo and can be deleted. See `docs/FRAPPE_SETUP.md`.
 
 ## CHANGELOG
+### 20 Nov 2026: volunteer form fix + admin workspace in code
+* `web_form/become_a_volunteer/become_a_volunteer.py` was missing, so Frappe could not import the form module and the page never opened. Added.
+* `become_a_volunteer.js` was a copy of the map script. Replaced with a note; the real logic is the Web Form `client_script` (prefill via `citizen_api.my_profile`, "Send code" button with 60 s cooldown, pin code check).
+* `HR Application.tree` was mandatory, so every volunteer application without a chosen tree failed on save. Now optional; still required for *Admin Assignment* (`hr_application.py`).
+* Volunteer form now captures name, mobile, email, address, road, area, pin code, zone (dropdown). Saved on `HR Volunteer` (new fields address, road, pincode; zone goes to primary_zone_id).
+* Two number cards sat in `hasiruratha/hasiruratha/hasiruratha/number_card` (wrong folder) and never synced. Moved. Added 4 cards.
+* Workspace `Hasiru Ratha Admin` is kept on the site, not in code.
 * `citizen_api.py`, `templates/citizen.html`, `renderer.py` route `/citizen`; new fields `submitted_via`, `address_full`, `zone_note`, `admin_reviewed` (HR Site / Tree / Tree Report), `email_verified` (HR Application)
 * `page/hr_console/*`: the Console page; python endpoints reuse `api.add_visit`, `create_tree_report`, `assign_tree`, `assign_tree_report`
 * `hr_site.py`: duplicate detection, approve and merge

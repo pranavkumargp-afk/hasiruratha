@@ -10,7 +10,7 @@
 |---|---|---|
 | plant-a-tree | HR Citizen Planting | photo, tree_type, location, area, road, latitude, longitude, address, existing_site, different_spot, willing_to_volunteer |
 | report-a-tree | HR Citizen Report | photo, issue_type, location, area, road, latitude, longitude, address, notes |
-| become-a-volunteer | HR Volunteer Request | email, verification_code, area, tree_preference, reason |
+| become-a-volunteer | HR Volunteer Request | full_name, mobile, email, verification_code, address, road, area, pincode, zone, tree_preference, reason (all mandatory except the last two) |
 
 ## 2. Citizen side (all Frappe website pages and Web Forms)
 * `/citizen-login` mobile + email (no OTP) -> `/citizen-home` dashboard (numbers, charts, zones, volunteer names only)
@@ -19,18 +19,8 @@
 * Share `/citizen-login` as the link or QR code. To make the site root open it: Website Settings > Home Page = `citizen-login`.
 
 ## 3. Admin side (Desk)
-Workspace "Hasiru Ratha Admin" > Edit > add Shortcuts:
-| Label | Type | Link |
-|---|---|---|
-| Console | Page | hr-console |
-| Citizen Plantings | DocType | HR Citizen Planting (List) |
-| Citizen Reports | DocType | HR Citizen Report (List) |
-| Report Map | URL | /app/hr-citizen-report/view/map |
-| Planting Map | URL | /app/hr-citizen-planting/view/map |
-| Volunteer Requests | DocType | HR Volunteer Request (List) |
-| Review Duplicates | DocType | HR Site, filter Status = Needs Review |
-Add Number Cards: Sites Needing Review, Citizen Plantings To Review, Citizen Reports To Review, Volunteer Applications Pending.
-In each list use the filter bar: Zone, Area (type e.g. "Electronic City"), Status, Issue type. Change **Zone** on a submission to correct it; the site and report follow.
+The workspace **Hasiru Ratha Admin** is built by hand on the site (not shipped in the app, so a migrate never overwrites it).
+Number Cards you can add to it: Sites Needing Review, Volunteer Applications Pending, Citizen Plantings To Review, Citizen Reports To Review, Open Tree Reports, Trees Planted, Active Volunteers, Reports Resolved, Trees With Guard.
 Admin to-do: every submission creates a ToDo for HR Admins (ToDo list or the Console).
 
 ## 4. Roles

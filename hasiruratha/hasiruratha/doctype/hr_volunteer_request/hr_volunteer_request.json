@@ -5,9 +5,15 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "full_name",
+  "mobile",
   "email",
   "verification_code",
+  "address",
+  "road",
   "area",
+  "pincode",
+  "zone",
   "tree_preference",
   "reason",
   "sec_rev",
@@ -80,6 +86,38 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full name"
+  },
+  {
+   "fieldname": "mobile",
+   "fieldtype": "Data",
+   "label": "Mobile number",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Small Text",
+   "label": "Address (door no, cross, main)"
+  },
+  {
+   "fieldname": "road",
+   "fieldtype": "Data",
+   "label": "Road"
+  },
+  {
+   "fieldname": "pincode",
+   "fieldtype": "Data",
+   "label": "Pin code"
+  },
+  {
+   "fieldname": "zone",
+   "fieldtype": "Link",
+   "label": "Zone",
+   "options": "HR Zone"
   }
  ],
  "links": [],
@@ -119,7 +157,7 @@
   }
  ],
  "row_format": "Dynamic",
- "search_fields": "email,area",
+ "search_fields": "email,mobile,area",
  "sort_field": "creation",
  "sort_order": "DESC",
  "states": [],
